@@ -132,4 +132,4 @@ scripts/                      数据生成与离线评测入口
 - 不把合成数据上的 100% 当作真实网络准确率；
 - SQLite 是本机离线验证路径；PostgreSQL/Redis/监控全拓扑已实现，但本机没有 Docker，尚无本机启动证据。
 
-完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md) 和 [工程日志](docs/ENGINEERING_LOG.md)。
+完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。

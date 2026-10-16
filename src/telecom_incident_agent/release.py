@@ -13,6 +13,7 @@ def check_release(root: Path) -> dict:
         "README.md", "pyproject.toml", "Dockerfile", "compose.yaml",
         "docs/ARCHITECTURE.md", "docs/DATA_CARD.md",
         "docs/TOOLS_AND_PERMISSIONS.md", "docs/FAILURE_STATE_MACHINE.md",
+        "docs/ENGINEERING_LOG.md", "docs/PLAN_COMPLETENESS.md",
         "data/evaluation/telecom_eval_v1.jsonl",
         "data/evaluation/telecom_eval_v1_manifest.json",
         "data/evaluation/telecom_eval_report_v1.json",
