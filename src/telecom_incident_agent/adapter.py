@@ -11,6 +11,7 @@ from uuid import UUID
 from agent_runtime_platform.checkpoint import SQLiteCheckpointStore
 from agent_runtime_platform.backends import LeaseGrant, StaleLeaseWriteError
 from agent_runtime_platform.contracts import RunResult
+from agent_runtime_platform.postgres import PostgresRuntimeBackend
 from agent_runtime_platform.runtime import (
     AgentRuntime,
     RuntimeLeaseBusy,
@@ -139,16 +140,19 @@ class TelecomIncidentRuntimeAdapter:
         max_steps: int = 8,
         tool_timeout_seconds: float = 0.2,
         owner_id: str | None = None,
+        database_url: str | None = None,
     ) -> None:
         self.checkpoint_path = Path(checkpoint_path)
         self.max_tool_calls = max_tool_calls
         self.max_steps = max_steps
         self.tool_timeout_seconds = tool_timeout_seconds
         self.owner_id = owner_id
+        self.database_url = database_url
 
     def _runtime(self, incident: IncidentRequest) -> AgentRuntime:
         tools = SyntheticTelecomTools(incident, timeout_seconds=self.tool_timeout_seconds)
-        runtime_class = _WindowsSyntheticRuntime if sys.platform == "win32" else AgentRuntime
+        use_windows_compat = sys.platform == "win32" and not self.database_url
+        runtime_class = _WindowsSyntheticRuntime if use_windows_compat else AgentRuntime
         kwargs = {
             "planner": TelecomPlanner(),
             "tools": tools.registry(),
@@ -156,10 +160,13 @@ class TelecomIncidentRuntimeAdapter:
             "max_steps": self.max_steps,
             "owner_id": self.owner_id,
         }
-        store = SQLiteCheckpointStore(self.checkpoint_path)
-        if sys.platform == "win32":
-            kwargs["backend"] = _DirectSQLiteBackend(store)
+        if self.database_url:
+            kwargs["backend"] = PostgresRuntimeBackend(self.database_url)
         else:
+            store = SQLiteCheckpointStore(self.checkpoint_path)
+        if use_windows_compat:
+            kwargs["backend"] = _DirectSQLiteBackend(store)
+        elif not self.database_url:
             kwargs["checkpoints"] = store
         return runtime_class(
             **kwargs,

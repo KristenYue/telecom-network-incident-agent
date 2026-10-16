@@ -4,4 +4,4 @@ from .adapter import TelecomIncidentRuntimeAdapter
 from .models import IncidentRequest
 
 __all__ = ["IncidentRequest", "TelecomIncidentRuntimeAdapter"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"

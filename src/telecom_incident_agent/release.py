@@ -19,6 +19,9 @@ def check_release(root: Path) -> dict:
         "data/evaluation/telecom_failure_report_v1.json",
         "data/evaluation/telecom_rag_report_v1.json",
         "examples/trace_optical_high_risk.json",
+        "deploy/postgres/init.sql",
+        "deploy/prometheus/prometheus.yml",
+        "deploy/grafana/dashboards/telecom-agent.json",
     ]
     missing = [name for name in required if not (root / name).is_file()]
     checks: list[dict] = [{"name": "required_files", "passed": not missing, "detail": {"missing": missing}}]
@@ -46,6 +49,16 @@ def check_release(root: Path) -> dict:
     forbidden_handlers = ["restart_device(", "restart_interface(", "change_route_policy(", "shutdown_interface("]
     present = [value for value in forbidden_handlers if value in text]
     checks.append({"name": "no_real_change_handlers", "passed": not present, "detail": {"present": present}})
+    compose = (root / "compose.yaml").read_text(encoding="utf-8")
+    compose_services = [
+        "incident-api", "runtime-worker", "postgres", "redis", "prometheus", "grafana"
+    ]
+    missing_services = [name for name in compose_services if f"  {name}:" not in compose]
+    checks.append({
+        "name": "compose_topology_contract",
+        "passed": not missing_services and "TELECOM_DATABASE_URL" in compose and "TELECOM_REDIS_URL" in compose,
+        "detail": {"services": compose_services, "missing": missing_services},
+    })
     passed = all(check["passed"] for check in checks)
     return {
         "schema_version": "telecom-release-readiness/v1",
@@ -54,7 +67,7 @@ def check_release(root: Path) -> dict:
         "checks": checks,
         "limitations": [
             "Docker build and Compose startup are not verified on this host.",
-            "PostgreSQL/Redis worker topology and browser Trace UI remain C4 work.",
+            "PostgreSQL/Redis Worker, metrics, and Trace UI are contract-tested but not started on this host.",
             "All quality evidence is synthetic and offline.",
         ],
     }

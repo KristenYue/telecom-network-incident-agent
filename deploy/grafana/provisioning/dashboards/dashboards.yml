@@ -1,0 +1,10 @@
+apiVersion: 1
+
+providers:
+  - name: Telecom Incident Agent
+    folder: Telecom Incident Agent
+    type: file
+    disableDeletion: true
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards

@@ -7,3 +7,4 @@
 5. 展示 `replace_optic` 触发 Runtime `waiting_review`。
 6. 人工批准后强调 `execution_performed=false`：系统只创建审批记录与工单草稿。
 7. 打开冻结评测报告，说明 60 条是合成契约任务，100% 不是生产准确率。
+8. 在 Docker 环境运行 `docker compose up --build`，提交 `examples/incident_optical.json`，再从 `/trace-ui` 查看步骤，从 Grafana 查看 API/Worker 指标。

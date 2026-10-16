@@ -49,11 +49,26 @@
       },
       "name": "no_real_change_handlers",
       "passed": true
+    },
+    {
+      "detail": {
+        "missing": [],
+        "services": [
+          "incident-api",
+          "runtime-worker",
+          "postgres",
+          "redis",
+          "prometheus",
+          "grafana"
+        ]
+      },
+      "name": "compose_topology_contract",
+      "passed": true
     }
   ],
   "limitations": [
     "Docker build and Compose startup are not verified on this host.",
-    "PostgreSQL/Redis worker topology and browser Trace UI remain C4 work.",
+    "PostgreSQL/Redis Worker, metrics, and Trace UI are contract-tested but not started on this host.",
     "All quality evidence is synthetic and offline."
   ],
   "passed": true,

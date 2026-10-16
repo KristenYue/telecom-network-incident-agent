@@ -3,15 +3,28 @@
 from __future__ import annotations
 
 import os
+import time
+from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request, Response
+from fastapi.responses import HTMLResponse
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
 from pydantic import BaseModel, ConfigDict, Field
 
 from .models import IncidentRequest
 from .runbooks import RUNBOOKS
 from .security import sanitize_untrusted_text
 from .service import IncidentService
+from .trace_ui import TRACE_UI_HTML
+
+
+HTTP_REQUESTS = Counter(
+    "telecom_http_requests_total", "Incident API requests", ["method", "path", "status"]
+)
+HTTP_LATENCY = Histogram(
+    "telecom_http_request_duration_seconds", "Incident API request latency", ["method", "path"]
+)
 
 
 class ReviewRequest(BaseModel):
@@ -23,17 +36,62 @@ class ReviewRequest(BaseModel):
 
 def create_app(data_dir: str | Path | None = None) -> FastAPI:
     storage = Path(data_dir or os.getenv("TELECOM_AGENT_DATA_DIR", ".runtime"))
-    service = IncidentService(storage)
+    service = IncidentService(
+        storage,
+        database_url=os.getenv("TELECOM_DATABASE_URL"),
+        queue_url=os.getenv("TELECOM_REDIS_URL"),
+    )
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        yield
+        if service.queue is not None:
+            await service.queue.close()
+
     app = FastAPI(
         title="Telecom Network Incident Diagnosis Agent",
-        version="0.1.0",
+        version="0.2.0",
         description="Synthetic-only, evidence-first incident diagnosis API. It never changes a real device.",
+        lifespan=lifespan,
     )
     app.state.service = service
+
+    @app.middleware("http")
+    async def observe_http(request: Request, call_next):
+        started = time.perf_counter()
+        status = 500
+        route_path = request.url.path
+        try:
+            response = await call_next(request)
+            status = response.status_code
+            route = request.scope.get("route")
+            route_path = getattr(route, "path", route_path)
+            return response
+        finally:
+            HTTP_REQUESTS.labels(request.method, route_path, str(status)).inc()
+            HTTP_LATENCY.labels(request.method, route_path).observe(time.perf_counter() - started)
 
     @app.get("/health")
     async def health() -> dict:
         return {"status": "ok", "data_boundary": "synthetic"}
+
+    @app.get("/ready")
+    async def ready() -> dict:
+        try:
+            checks = await service.ready()
+        except Exception as exc:
+            raise HTTPException(status_code=503, detail=f"dependency check failed: {type(exc).__name__}") from exc
+        if not all(checks.values()):
+            raise HTTPException(status_code=503, detail=checks)
+        return {"status": "ready", "checks": checks}
+
+    @app.get("/metrics", include_in_schema=False)
+    async def metrics() -> Response:
+        return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+    @app.get("/trace-ui", response_class=HTMLResponse, include_in_schema=False)
+    async def trace_ui() -> str:
+        return TRACE_UI_HTML
 
     @app.post("/v1/incidents", status_code=201)
     async def create_incident(request: IncidentRequest) -> dict:

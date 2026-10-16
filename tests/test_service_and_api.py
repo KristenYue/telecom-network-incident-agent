@@ -1,3 +1,8 @@
+import sys
+
+import pytest
+from fastapi.testclient import TestClient
+
 from telecom_incident_agent.api import create_app
 from telecom_incident_agent.compat import run_non_yielding
 from telecom_incident_agent.service import IncidentService
@@ -23,5 +28,20 @@ def test_api_exposes_planned_routes(tmp_path):
         ("/v1/incidents/{incident_id}/reviews", "POST"),
         ("/v1/incidents/{incident_id}/resume", "POST"),
         ("/v1/runbooks/search", "GET"),
+        ("/ready", "GET"),
+        ("/trace-ui", "GET"),
     }
     assert expected <= routes
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="managed Windows asyncio host cannot close TestClient lifespan")
+def test_operational_endpoints_expose_readiness_metrics_and_trace_ui(tmp_path):
+    with TestClient(create_app(tmp_path)) as client:
+        assert client.get("/health").status_code == 200
+        assert client.get("/ready").json()["status"] == "ready"
+        metrics = client.get("/metrics")
+        assert metrics.status_code == 200
+        assert "telecom_http_requests_total" in metrics.text
+        trace_ui = client.get("/trace-ui")
+        assert trace_ui.status_code == 200
+        assert "通信网络故障诊断 Trace" in trace_ui.text

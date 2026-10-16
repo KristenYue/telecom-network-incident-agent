@@ -7,16 +7,22 @@
 ```mermaid
 flowchart TB
     API[Incident API] --> APP[IncidentService]
-    APP --> ADAPTER[Telecom Runtime Adapter]
+    APP --> REDIS[(Redis Job Queue)]
+    REDIS --> WORKER[Runtime Worker]
+    WORKER --> ADAPTER[Telecom Runtime Adapter]
     ADAPTER --> RUNTIME[共享 Agent Runtime]
-    RUNTIME --> CHECKPOINT[(Runtime Checkpoint)]
+    RUNTIME --> CHECKPOINT[(PostgreSQL Checkpoint / Lease)]
     RUNTIME --> PLANNER[Telecom Planner]
     RUNTIME --> REGISTRY[Tool Registry]
     REGISTRY --> READ[7 个只读/计算工具]
     REGISTRY --> TICKET[工单草稿]
     REGISTRY --> APPROVAL[审批申请]
     PLANNER --> DIAG[证据排序与处置编排]
-    API --> INDEX[(Incident Audit Index)]
+    API --> INDEX[(PostgreSQL Incident Audit Index)]
+    API --> TRACE[Browser Trace UI]
+    API --> PROM[Prometheus]
+    WORKER --> PROM
+    PROM --> GRAFANA[Grafana]
 ```
 
 共享 Runtime 负责 Planner Protocol、工具批次、预算、checkpoint、pause/resume、lease、fencing、幂等结果账本和统一 Trace。通信代码负责领域契约、权限映射、合成 fixture、根因排序和工单输出。
@@ -25,9 +31,9 @@ flowchart TB
 
 - C0：完成。12 类故障和边界已冻结。
 - C1：完成。9 个工具、完整诊断链路、工单草稿和无密钥 Demo 已实现。
-- C2：主体完成。本地 checkpoint、审批恢复和 Trace 已接入；真实 PostgreSQL 双 Worker 证据复用 Runtime 仓库，但本项目尚未完成独立 Compose 集成验收。
+- C2：完成。SQLite 离线路径及 PostgreSQL checkpoint、审批恢复、lease/fencing 和统一 Trace 均已接入共享 Runtime。
 - C3：第一版完成。60 条任务、注入/审批安全场景、成对门禁已固化；RAG 指标当前基于 12 份小型合成手册。
-- C4：未完成。完整 PostgreSQL/Redis Worker、Prometheus/Grafana、Trace 页面与 Docker Compose 仍待实现和实机验收。
+- C4：代码完成。PostgreSQL/Redis Worker、Prometheus/Grafana、Trace 页面和六服务 Compose 已实现；本机无 Docker，实机启动证据由 CI smoke job 负责。
 
 ## Windows 开发宿主边界
 

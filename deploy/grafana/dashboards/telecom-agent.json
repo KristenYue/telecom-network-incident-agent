@@ -1,0 +1,44 @@
+{
+  "annotations": {"list": []},
+  "editable": false,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Worker Up",
+      "gridPos": {"h": 8, "w": 6, "x": 0, "y": 0},
+      "targets": [{"expr": "telecom_worker_up", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "API request rate",
+      "gridPos": {"h": 8, "w": 9, "x": 6, "y": 0},
+      "targets": [{"expr": "sum by (path, status) (rate(telecom_http_requests_total[5m]))", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Worker jobs",
+      "gridPos": {"h": 8, "w": 9, "x": 15, "y": 0},
+      "targets": [{"expr": "sum by (kind, outcome) (increase(telecom_worker_jobs_total[15m]))", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "API p95 latency",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "targets": [{"expr": "histogram_quantile(0.95, sum by (le, path) (rate(telecom_http_request_duration_seconds_bucket[5m])))", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Worker p95 job latency",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "targets": [{"expr": "histogram_quantile(0.95, sum by (le, kind) (rate(telecom_worker_job_duration_seconds_bucket[5m])))", "refId": "A"}]
+    }
+  ],
+  "schemaVersion": 41,
+  "tags": ["telecom", "synthetic"],
+  "templating": {"list": []},
+  "time": {"from": "now-30m", "to": "now"},
+  "timezone": "browser",
+  "title": "Telecom Incident Agent",
+  "uid": "telecom-incident-agent",
+  "version": 1
+}

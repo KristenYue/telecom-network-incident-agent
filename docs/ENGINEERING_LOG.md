@@ -20,3 +20,12 @@
 - 只允许不让出控制权的离线协程驱动器。
 
 Linux/CI 仍使用共享 Runtime 原生异步批次和 heartbeat。Windows 兼容结果不用于声称生产并发或恢复能力。
+
+## 2026-10-16：C4 服务化交付
+
+1. 增加 PostgreSQL incident repository，并把 Runtime checkpoint、lease、fencing 切换到共享 Runtime 的 `PostgresRuntimeBackend`。
+2. 增加 Redis 队列；API 只负责受理和审计，独立 Worker 执行诊断或审批恢复。
+3. 增加 `/ready`、`/metrics` 和无框架 `/trace-ui`，Trace 页面只渲染经过转义的 API 数据。
+4. 增加 Prometheus 抓取配置和 Grafana dashboard provisioning。
+5. 将 Compose 扩展为 API、Worker、PostgreSQL、Redis、Prometheus、Grafana 六服务，并添加健康检查。
+6. 新增部署契约测试和 Linux CI Compose smoke test。本机没有 Docker，不把静态检查声明为本机启动成功。
