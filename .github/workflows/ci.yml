@@ -1,0 +1,22 @@
+name: telecom-agent-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest -q
+      - run: python scripts/generate_dataset.py
+      - run: git diff --exit-code -- data/evaluation/telecom_eval_v1.jsonl data/evaluation/telecom_eval_v1_manifest.json
+      - run: python scripts/evaluate.py
+      - run: python scripts/evaluate_failures.py
+      - run: python scripts/evaluate_rag.py
+      - run: python scripts/check_release_readiness.py

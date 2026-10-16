@@ -1,0 +1,9 @@
+.git
+.venv
+.runtime
+.pytest_cache
+.pytest-tmp*
+__pycache__
+*.pyc
+tests
+data/evaluation/telecom_eval_report_v1.json

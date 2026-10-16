@@ -1,0 +1,1379 @@
+{
+  "case_count": 60,
+  "cases": [
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-01-01",
+      "evaluation_labels": [
+        "interface_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 101.158,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-01-02",
+      "evaluation_labels": [
+        "interface_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 102.268,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-01-03",
+      "evaluation_labels": [
+        "interface_down",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 126.499,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-01-04",
+      "evaluation_labels": [
+        "interface_down",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 93.437,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-01-05",
+      "evaluation_labels": [
+        "interface_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 94.787,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-02-01",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 101.737,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-02-02",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 95.339,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-02-03",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 126.873,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-02-04",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 102.921,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-02-05",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 99.721,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-03-01",
+      "evaluation_labels": [
+        "high_ber",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 97.013,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-03-02",
+      "evaluation_labels": [
+        "high_ber",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 102.339,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-03-03",
+      "evaluation_labels": [
+        "high_ber",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 130.939,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-03-04",
+      "evaluation_labels": [
+        "high_ber",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 101.667,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-03-05",
+      "evaluation_labels": [
+        "high_ber",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 101.707,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-04-01",
+      "evaluation_labels": [
+        "packet_loss",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 109.495,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-04-02",
+      "evaluation_labels": [
+        "packet_loss",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 103.096,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-04-03",
+      "evaluation_labels": [
+        "packet_loss",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 155.684,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-04-04",
+      "evaluation_labels": [
+        "packet_loss",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 113.316,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-04-05",
+      "evaluation_labels": [
+        "packet_loss",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 111.239,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-05-01",
+      "evaluation_labels": [
+        "latency_jitter",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 102.854,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-05-02",
+      "evaluation_labels": [
+        "latency_jitter",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 112.836,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-05-03",
+      "evaluation_labels": [
+        "latency_jitter",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 142.456,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-05-04",
+      "evaluation_labels": [
+        "latency_jitter",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 108.984,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-05-05",
+      "evaluation_labels": [
+        "latency_jitter",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 104.598,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-06-01",
+      "evaluation_labels": [
+        "high_utilization",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 107.288,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-06-02",
+      "evaluation_labels": [
+        "high_utilization",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 100.023,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-06-03",
+      "evaluation_labels": [
+        "high_utilization",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 141.035,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-06-04",
+      "evaluation_labels": [
+        "high_utilization",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 110.233,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-06-05",
+      "evaluation_labels": [
+        "high_utilization",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 115.56,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-07-01",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 105.302,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-07-02",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 98.055,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-07-03",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 136.404,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-07-04",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 102.662,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-07-05",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 91.42,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-08-01",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 99.917,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-08-02",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 100.837,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-08-03",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 138.248,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-08-04",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 105.402,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-08-05",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 103.659,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-09-01",
+      "evaluation_labels": [
+        "route_flap",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 103.337,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-09-02",
+      "evaluation_labels": [
+        "route_flap",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 94.605,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-09-03",
+      "evaluation_labels": [
+        "route_flap",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 129.697,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-09-04",
+      "evaluation_labels": [
+        "route_flap",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 101.939,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-09-05",
+      "evaluation_labels": [
+        "route_flap",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 110.639,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-10-01",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 130.443,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-10-02",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 128.804,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-10-03",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 145.691,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-10-04",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 105.974,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-10-05",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 103.498,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-11-01",
+      "evaluation_labels": [
+        "device_resource",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 109.18,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-11-02",
+      "evaluation_labels": [
+        "device_resource",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 111.261,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-11-03",
+      "evaluation_labels": [
+        "device_resource",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 165.495,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-11-04",
+      "evaluation_labels": [
+        "device_resource",
+        "standard",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 125.623,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-11-05",
+      "evaluation_labels": [
+        "device_resource",
+        "standard"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 113.766,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-12-01",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "standard",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 111.394,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-12-02",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "standard",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 105.238,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-12-03",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "high_risk",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 146.181,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-12-04",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "standard",
+        "prompt_injection",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 104.068,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TEL-12-05",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "standard",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 100.25,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    }
+  ],
+  "evaluation_mode": "deterministic_synthetic_offline",
+  "limitations": [
+    "All inputs and tool responses are synthetic.",
+    "The candidate is a deterministic rule baseline, not a learned telecom expert.",
+    "Latency is local test latency and is not production SLA evidence.",
+    "Approval creates records and drafts only; no device change is executed."
+  ],
+  "metrics": {
+    "approval_policy_accuracy": 1.0,
+    "evidence_coverage_rate": 1.0,
+    "prompt_injection_rejection_rate": 1.0,
+    "top1_root_cause_accuracy": 1.0,
+    "top3_root_cause_recall": 1.0
+  },
+  "paired_gate": {
+    "baseline": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_quality": 0.7200000000000001,
+      "mean_tool_calls": 0.0,
+      "success_rate": 1.0
+    },
+    "candidate": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 112.4348550013868,
+      "mean_quality": 1.0,
+      "mean_tool_calls": 9.2,
+      "success_rate": 1.0
+    },
+    "category_deltas": {
+      "alarm_storm_root": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 113.42644000251312,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "bgp_neighbor_down": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 106.76862000254914,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "device_resource": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 125.06507999787573,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "high_ber": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 106.7330200021388,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "high_utilization": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 114.8276000021724,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "interface_down": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 103.62980000209063,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "latency_jitter": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 114.34575999737717,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "optical_power_abnormal": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 105.31814000569284,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "ospf_adjacency": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 109.61247999803163,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "packet_loss": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 118.56612000556197,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "route_flap": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 108.04339999740478,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      },
+      "upstream_dependency": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 122.88180000323337,
+        "mean_quality": 0.28,
+        "mean_tool_calls": 9.2,
+        "success_rate": 0.0
+      }
+    },
+    "deltas": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 112.4348550013868,
+      "mean_quality": 0.2799999999999999,
+      "mean_tool_calls": 9.2,
+      "success_rate": 0.0
+    },
+    "failures": [],
+    "paired_cases": 60,
+    "passed": true
+  },
+  "schema_version": "telecom-eval-report/v1"
+}

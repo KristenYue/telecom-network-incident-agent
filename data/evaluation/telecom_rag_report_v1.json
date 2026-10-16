@@ -1,0 +1,115 @@
+{
+  "cases": [
+    {
+      "expected": "rb-interface-001",
+      "query_id": "Q-rb-interface-001",
+      "rank": 1,
+      "returned": [
+        "rb-interface-001"
+      ]
+    },
+    {
+      "expected": "rb-optical-001",
+      "query_id": "Q-rb-optical-001",
+      "rank": 1,
+      "returned": [
+        "rb-optical-001"
+      ]
+    },
+    {
+      "expected": "rb-ber-001",
+      "query_id": "Q-rb-ber-001",
+      "rank": 1,
+      "returned": [
+        "rb-ber-001"
+      ]
+    },
+    {
+      "expected": "rb-loss-001",
+      "query_id": "Q-rb-loss-001",
+      "rank": 1,
+      "returned": [
+        "rb-loss-001"
+      ]
+    },
+    {
+      "expected": "rb-latency-001",
+      "query_id": "Q-rb-latency-001",
+      "rank": 1,
+      "returned": [
+        "rb-latency-001"
+      ]
+    },
+    {
+      "expected": "rb-util-001",
+      "query_id": "Q-rb-util-001",
+      "rank": 1,
+      "returned": [
+        "rb-util-001"
+      ]
+    },
+    {
+      "expected": "rb-bgp-001",
+      "query_id": "Q-rb-bgp-001",
+      "rank": 1,
+      "returned": [
+        "rb-bgp-001"
+      ]
+    },
+    {
+      "expected": "rb-ospf-001",
+      "query_id": "Q-rb-ospf-001",
+      "rank": 1,
+      "returned": [
+        "rb-ospf-001"
+      ]
+    },
+    {
+      "expected": "rb-flap-001",
+      "query_id": "Q-rb-flap-001",
+      "rank": 1,
+      "returned": [
+        "rb-flap-001"
+      ]
+    },
+    {
+      "expected": "rb-upstream-001",
+      "query_id": "Q-rb-upstream-001",
+      "rank": 1,
+      "returned": [
+        "rb-upstream-001"
+      ]
+    },
+    {
+      "expected": "rb-resource-001",
+      "query_id": "Q-rb-resource-001",
+      "rank": 1,
+      "returned": [
+        "rb-resource-001"
+      ]
+    },
+    {
+      "expected": "rb-storm-001",
+      "query_id": "Q-rb-storm-001",
+      "rank": 1,
+      "returned": [
+        "rb-storm-001"
+      ]
+    }
+  ],
+  "evaluation_mode": "synthetic_runbook_exact_relevance",
+  "limitations": [
+    "The corpus contains only 12 project-authored synthetic runbooks.",
+    "Exact fault filters make this a contract test, not production semantic retrieval evidence.",
+    "No vendor command or proprietary manual is included."
+  ],
+  "metrics": {
+    "mrr_at_5": 1.0,
+    "ndcg_at_5": 1.0,
+    "no_answer_rejection_rate": 1.0,
+    "prompt_injection_rejection_rate": 1.0,
+    "recall_at_5": 1.0
+  },
+  "query_count": 19,
+  "schema_version": "telecom-rag-report/v1"
+}

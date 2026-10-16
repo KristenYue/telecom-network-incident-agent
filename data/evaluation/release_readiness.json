@@ -1,0 +1,62 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "missing": []
+      },
+      "name": "required_files",
+      "passed": true
+    },
+    {
+      "detail": {
+        "cases": 60,
+        "fault_categories": 12,
+        "hash_matches": true
+      },
+      "name": "dataset_integrity",
+      "passed": true
+    },
+    {
+      "detail": {
+        "failures": [],
+        "paired_cases": 60
+      },
+      "name": "paired_runtime_gate",
+      "passed": true
+    },
+    {
+      "detail": {
+        "passed": 14,
+        "total": 14
+      },
+      "name": "failure_injection_gate",
+      "passed": true
+    },
+    {
+      "detail": {
+        "mrr_at_5": 1.0,
+        "ndcg_at_5": 1.0,
+        "no_answer_rejection_rate": 1.0,
+        "prompt_injection_rejection_rate": 1.0,
+        "recall_at_5": 1.0
+      },
+      "name": "synthetic_rag_gate",
+      "passed": true
+    },
+    {
+      "detail": {
+        "present": []
+      },
+      "name": "no_real_change_handlers",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Docker build and Compose startup are not verified on this host.",
+    "PostgreSQL/Redis worker topology and browser Trace UI remain C4 work.",
+    "All quality evidence is synthetic and offline."
+  ],
+  "passed": true,
+  "schema_version": "telecom-release-readiness/v1",
+  "status": "ready_with_limitations"
+}

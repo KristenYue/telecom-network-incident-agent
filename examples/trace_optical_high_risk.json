@@ -1,0 +1,1139 @@
+{
+  "completed": {
+    "created_at": "2026-10-16T09:23:40.386376Z",
+    "errors": [],
+    "pending_action": null,
+    "request": "{\"alarms\": [{\"alarm_id\": \"A-001\", \"alarm_type\": \"rx_power_low\", \"details\": {}, \"device_id\": \"edge-r1\", \"interface\": \"GigabitEthernet0/0/1\", \"observed_at\": \"2026-10-16T09:23:40.376377Z\", \"severity\": \"major\"}], \"allowed_runbooks\": [\"rb-optical-001\"], \"case_id\": \"demo-optical-001\", \"dataset_version\": \"telecom-synthetic-v1\", \"failure_injections\": {}, \"logs\": [], \"metrics\": [{\"metric\": \"rx_power_dbm\", \"observed_at\": \"2026-10-16T09:23:40.376377Z\", \"target\": \"edge-r1:GigabitEthernet0/0/1\", \"unit\": \"dBm\", \"value\": -27.4}], \"requested_actions\": [\"replace_optic\"], \"synthetic\": true, \"topology_summary\": \"synthetic edge-r1 -- GigabitEthernet0/0/1 -- agg-r1\"}",
+    "result": {
+      "case_id": "demo-optical-001",
+      "data_boundary": "synthetic",
+      "diagnosis": {
+        "case_id": "demo-optical-001",
+        "data_boundary": "synthetic",
+        "evidence_ids": [
+          "alarm:A-001",
+          "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+          "tool:get_interface_status:rx_power"
+        ],
+        "missing_information": [],
+        "outcome": "completed",
+        "remediation": [
+          {
+            "instruction": "清洁并复核光纤连接",
+            "order": 1,
+            "requires_approval": false,
+            "risk_level": "low",
+            "source_runbook_id": "rb-optical-001"
+          },
+          {
+            "instruction": "核对模块与链路预算",
+            "order": 2,
+            "requires_approval": false,
+            "risk_level": "low",
+            "source_runbook_id": "rb-optical-001"
+          },
+          {
+            "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+            "order": 3,
+            "requires_approval": true,
+            "risk_level": "high",
+            "source_runbook_id": "rb-optical-001"
+          }
+        ],
+        "requires_human_review": true,
+        "risk_level": "high",
+        "root_causes": [
+          {
+            "assessment": "confirmed",
+            "confidence": 0.945,
+            "contradicting_evidence": [],
+            "fault_type": "optical_power_abnormal",
+            "label": "光功率异常",
+            "supporting_evidence": [
+              {
+                "evidence_id": "alarm:A-001",
+                "source_id": "A-001",
+                "source_type": "alarm",
+                "summary": "edge-r1 reported rx_power_low (major)",
+                "supports": true
+              },
+              {
+                "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                "source_type": "metric",
+                "summary": "rx_power_dbm=-27.4dBm",
+                "supports": true
+              },
+              {
+                "evidence_id": "tool:get_interface_status:rx_power",
+                "source_id": "get_interface_status:rx_power",
+                "source_type": "tool",
+                "summary": "rx_power_dbm=-27.4",
+                "supports": true
+              }
+            ]
+          }
+        ],
+        "security_flags": []
+      },
+      "ticket_draft": {
+        "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:3:0",
+        "status": "draft",
+        "synthetic": true,
+        "ticket": {
+          "case_id": "demo-optical-001",
+          "diagnosis": {
+            "case_id": "demo-optical-001",
+            "data_boundary": "synthetic",
+            "evidence_ids": [
+              "alarm:A-001",
+              "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+              "tool:get_interface_status:rx_power"
+            ],
+            "missing_information": [],
+            "outcome": "completed",
+            "remediation": [
+              {
+                "instruction": "清洁并复核光纤连接",
+                "order": 1,
+                "requires_approval": false,
+                "risk_level": "low",
+                "source_runbook_id": "rb-optical-001"
+              },
+              {
+                "instruction": "核对模块与链路预算",
+                "order": 2,
+                "requires_approval": false,
+                "risk_level": "low",
+                "source_runbook_id": "rb-optical-001"
+              },
+              {
+                "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                "order": 3,
+                "requires_approval": true,
+                "risk_level": "high",
+                "source_runbook_id": "rb-optical-001"
+              }
+            ],
+            "requires_human_review": true,
+            "risk_level": "high",
+            "root_causes": [
+              {
+                "assessment": "confirmed",
+                "confidence": 0.945,
+                "contradicting_evidence": [],
+                "fault_type": "optical_power_abnormal",
+                "label": "光功率异常",
+                "supporting_evidence": [
+                  {
+                    "evidence_id": "alarm:A-001",
+                    "source_id": "A-001",
+                    "source_type": "alarm",
+                    "summary": "edge-r1 reported rx_power_low (major)",
+                    "supports": true
+                  },
+                  {
+                    "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "source_type": "metric",
+                    "summary": "rx_power_dbm=-27.4dBm",
+                    "supports": true
+                  },
+                  {
+                    "evidence_id": "tool:get_interface_status:rx_power",
+                    "source_id": "get_interface_status:rx_power",
+                    "source_type": "tool",
+                    "summary": "rx_power_dbm=-27.4",
+                    "supports": true
+                  }
+                ]
+              }
+            ],
+            "security_flags": []
+          },
+          "title": "[Synthetic] 光功率异常"
+        },
+        "ticket_id": "TKT-0263648C34"
+      }
+    },
+    "run_id": "5d33487e-c6b2-470a-9432-0c41311b2f78",
+    "status": "completed",
+    "steps": [
+      {
+        "action_kind": "tool_batch",
+        "step_no": 0,
+        "tool_calls": [
+          {
+            "arguments": {
+              "device_id": "edge-r1"
+            },
+            "call_id": "e6928054-058a-4c16-bc2d-943b3811a9b3",
+            "duration_ms": 0.10449999535921961,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:0",
+            "output": {
+              "cpu_percent": 32.0,
+              "device_id": "edge-r1",
+              "device_time": "2026-10-16T09:23:40.400380+00:00",
+              "last_restart": "2026-10-01T00:00:00+00:00",
+              "memory_percent": 45.0,
+              "online": true,
+              "software_version": "synthetic-os-1.0",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_device_status"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "interface": "GigabitEthernet0/0/1"
+            },
+            "call_id": "7d1ee88a-2009-4f38-a25b-b81ff9cf6c3a",
+            "duration_ms": 0.12160000915173441,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:1",
+            "output": {
+              "admin_status": "up",
+              "ber": 0.0,
+              "device_id": "edge-r1",
+              "interface": "GigabitEthernet0/0/1",
+              "last_change": "2026-10-16T09:23:40.376377+00:00",
+              "oper_status": "up",
+              "packet_loss_percent": 0.0,
+              "rx_power_dbm": -27.4,
+              "synthetic": true,
+              "utilization_percent": 20.0
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_interface_status"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "protocol": "bgp"
+            },
+            "call_id": "03bd1cf9-81a3-4404-b5c3-3cd7c376e39b",
+            "duration_ms": 0.07810001261532307,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:2",
+            "output": {
+              "device_id": "edge-r1",
+              "neighbors": [
+                {
+                  "last_change_seconds": 86400,
+                  "peer": "192.0.2.1",
+                  "state": "established"
+                }
+              ],
+              "protocol": "bgp",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_routing_neighbors"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "protocol": "ospf"
+            },
+            "call_id": "fb22331a-96d8-4984-9bcc-b1040298f019",
+            "duration_ms": 0.051700000767596066,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:3",
+            "output": {
+              "device_id": "edge-r1",
+              "neighbors": [
+                {
+                  "last_change_seconds": 86400,
+                  "peer": "192.0.2.1",
+                  "state": "full"
+                }
+              ],
+              "protocol": "ospf",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_routing_neighbors"
+          },
+          {
+            "arguments": {
+              "destination": "synthetic-upstream.example",
+              "source": "edge-r1"
+            },
+            "call_id": "55b4938b-a6e4-4c87-af27-29c7c48782f6",
+            "duration_ms": 0.05429999146144837,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:4",
+            "output": {
+              "destination": "synthetic-upstream.example",
+              "hops": [
+                {
+                  "hop": 1,
+                  "latency_ms": 5.0,
+                  "node": "edge-r1"
+                },
+                {
+                  "hop": 2,
+                  "latency_ms": 12.0,
+                  "node": "synthetic-upstream.example"
+                }
+              ],
+              "jitter_ms": 2.0,
+              "latency_ms": 12.0,
+              "packet_loss_percent": 0.0,
+              "reachable": true,
+              "source": "edge-r1",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "run_path_probe"
+          },
+          {
+            "arguments": {
+              "metric": "rx_power_dbm",
+              "target": "edge-r1:GigabitEthernet0/0/1",
+              "time_range": "15m"
+            },
+            "call_id": "5c96bd30-0e84-482f-9344-dbec4e65d6fc",
+            "duration_ms": 0.09580000187270343,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:5",
+            "output": {
+              "metric": "rx_power_dbm",
+              "points": [
+                {
+                  "metric": "rx_power_dbm",
+                  "observed_at": "2026-10-16T09:23:40.376377Z",
+                  "target": "edge-r1:GigabitEthernet0/0/1",
+                  "unit": "dBm",
+                  "value": -27.4
+                }
+              ],
+              "synthetic": true,
+              "target": "edge-r1:GigabitEthernet0/0/1",
+              "time_range": "15m"
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "query_metrics"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "time_window": "15m"
+            },
+            "call_id": "d91172ea-ad81-4405-805c-e0a9cff792b3",
+            "duration_ms": 0.11069999891333282,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:6",
+            "output": {
+              "alarms": [
+                {
+                  "alarm_id": "A-001",
+                  "alarm_type": "rx_power_low",
+                  "details": {},
+                  "device_id": "edge-r1",
+                  "interface": "GigabitEthernet0/0/1",
+                  "observed_at": "2026-10-16T09:23:40.376377Z",
+                  "severity": "major"
+                }
+              ],
+              "count": 1,
+              "device_id": "edge-r1",
+              "synthetic": true,
+              "time_window": "15m"
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "list_related_alarms"
+          }
+        ]
+      },
+      {
+        "action_kind": "tool",
+        "step_no": 1,
+        "tool_calls": [
+          {
+            "arguments": {
+              "filters": {
+                "fault_type": "optical_power_abnormal"
+              },
+              "query": "optical_power_abnormal rx_power_low rx_power_dbm"
+            },
+            "call_id": "34ade9b8-e88c-4881-a195-ca5fb4b2d65b",
+            "duration_ms": 0.09329999738838524,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:1:0",
+            "output": {
+              "no_answer": false,
+              "query": "optical_power_abnormal rx_power_low rx_power_dbm",
+              "results": [
+                {
+                  "device_family": "generic-optical",
+                  "fault_type": "optical_power_abnormal",
+                  "keywords": [
+                    "rx_power",
+                    "光功率",
+                    "optic"
+                  ],
+                  "runbook_id": "rb-optical-001",
+                  "steps": [
+                    "读取收发光功率",
+                    "核对模块阈值和链路预算",
+                    "清洁连接器；更换模块必须审批"
+                  ],
+                  "title": "光功率异常排查",
+                  "version": "2026.1"
+                }
+              ],
+              "security_flags": [],
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "search_runbook"
+          }
+        ]
+      },
+      {
+        "action_kind": "tool",
+        "step_no": 2,
+        "tool_calls": [
+          {
+            "arguments": {
+              "change": {
+                "case_id": "demo-optical-001",
+                "diagnosis": {
+                  "case_id": "demo-optical-001",
+                  "data_boundary": "synthetic",
+                  "evidence_ids": [
+                    "alarm:A-001",
+                    "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "tool:get_interface_status:rx_power"
+                  ],
+                  "missing_information": [],
+                  "outcome": "completed",
+                  "remediation": [
+                    {
+                      "instruction": "清洁并复核光纤连接",
+                      "order": 1,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "核对模块与链路预算",
+                      "order": 2,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                      "order": 3,
+                      "requires_approval": true,
+                      "risk_level": "high",
+                      "source_runbook_id": "rb-optical-001"
+                    }
+                  ],
+                  "requires_human_review": true,
+                  "risk_level": "high",
+                  "root_causes": [
+                    {
+                      "assessment": "confirmed",
+                      "confidence": 0.945,
+                      "contradicting_evidence": [],
+                      "fault_type": "optical_power_abnormal",
+                      "label": "光功率异常",
+                      "supporting_evidence": [
+                        {
+                          "evidence_id": "alarm:A-001",
+                          "source_id": "A-001",
+                          "source_type": "alarm",
+                          "summary": "edge-r1 reported rx_power_low (major)",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_type": "metric",
+                          "summary": "rx_power_dbm=-27.4dBm",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "tool:get_interface_status:rx_power",
+                          "source_id": "get_interface_status:rx_power",
+                          "source_type": "tool",
+                          "summary": "rx_power_dbm=-27.4",
+                          "supports": true
+                        }
+                      ]
+                    }
+                  ],
+                  "security_flags": []
+                },
+                "requested_actions": [
+                  "replace_optic"
+                ]
+              }
+            },
+            "call_id": "f06bc47c-f5c2-417e-adf0-48bb8dca9033",
+            "duration_ms": 0.055199998314492404,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:2:0",
+            "output": {
+              "approval_id": "APR-C79D411ABE",
+              "change": {
+                "case_id": "demo-optical-001",
+                "diagnosis": {
+                  "case_id": "demo-optical-001",
+                  "data_boundary": "synthetic",
+                  "evidence_ids": [
+                    "alarm:A-001",
+                    "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "tool:get_interface_status:rx_power"
+                  ],
+                  "missing_information": [],
+                  "outcome": "completed",
+                  "remediation": [
+                    {
+                      "instruction": "清洁并复核光纤连接",
+                      "order": 1,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "核对模块与链路预算",
+                      "order": 2,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                      "order": 3,
+                      "requires_approval": true,
+                      "risk_level": "high",
+                      "source_runbook_id": "rb-optical-001"
+                    }
+                  ],
+                  "requires_human_review": true,
+                  "risk_level": "high",
+                  "root_causes": [
+                    {
+                      "assessment": "confirmed",
+                      "confidence": 0.945,
+                      "contradicting_evidence": [],
+                      "fault_type": "optical_power_abnormal",
+                      "label": "光功率异常",
+                      "supporting_evidence": [
+                        {
+                          "evidence_id": "alarm:A-001",
+                          "source_id": "A-001",
+                          "source_type": "alarm",
+                          "summary": "edge-r1 reported rx_power_low (major)",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_type": "metric",
+                          "summary": "rx_power_dbm=-27.4dBm",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "tool:get_interface_status:rx_power",
+                          "source_id": "get_interface_status:rx_power",
+                          "source_type": "tool",
+                          "summary": "rx_power_dbm=-27.4",
+                          "supports": true
+                        }
+                      ]
+                    }
+                  ],
+                  "security_flags": []
+                },
+                "requested_actions": [
+                  "replace_optic"
+                ]
+              },
+              "execution_performed": false,
+              "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:2:0",
+              "status": "approved_for_draft_only",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "request_change_approval"
+          }
+        ]
+      },
+      {
+        "action_kind": "tool",
+        "step_no": 3,
+        "tool_calls": [
+          {
+            "arguments": {
+              "ticket": {
+                "case_id": "demo-optical-001",
+                "diagnosis": {
+                  "case_id": "demo-optical-001",
+                  "data_boundary": "synthetic",
+                  "evidence_ids": [
+                    "alarm:A-001",
+                    "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "tool:get_interface_status:rx_power"
+                  ],
+                  "missing_information": [],
+                  "outcome": "completed",
+                  "remediation": [
+                    {
+                      "instruction": "清洁并复核光纤连接",
+                      "order": 1,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "核对模块与链路预算",
+                      "order": 2,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                      "order": 3,
+                      "requires_approval": true,
+                      "risk_level": "high",
+                      "source_runbook_id": "rb-optical-001"
+                    }
+                  ],
+                  "requires_human_review": true,
+                  "risk_level": "high",
+                  "root_causes": [
+                    {
+                      "assessment": "confirmed",
+                      "confidence": 0.945,
+                      "contradicting_evidence": [],
+                      "fault_type": "optical_power_abnormal",
+                      "label": "光功率异常",
+                      "supporting_evidence": [
+                        {
+                          "evidence_id": "alarm:A-001",
+                          "source_id": "A-001",
+                          "source_type": "alarm",
+                          "summary": "edge-r1 reported rx_power_low (major)",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_type": "metric",
+                          "summary": "rx_power_dbm=-27.4dBm",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "tool:get_interface_status:rx_power",
+                          "source_id": "get_interface_status:rx_power",
+                          "source_type": "tool",
+                          "summary": "rx_power_dbm=-27.4",
+                          "supports": true
+                        }
+                      ]
+                    }
+                  ],
+                  "security_flags": []
+                },
+                "title": "[Synthetic] 光功率异常"
+              }
+            },
+            "call_id": "88bb60d9-450d-4ab5-9066-281c9af87f1f",
+            "duration_ms": 0.05099999543745071,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:3:0",
+            "output": {
+              "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:3:0",
+              "status": "draft",
+              "synthetic": true,
+              "ticket": {
+                "case_id": "demo-optical-001",
+                "diagnosis": {
+                  "case_id": "demo-optical-001",
+                  "data_boundary": "synthetic",
+                  "evidence_ids": [
+                    "alarm:A-001",
+                    "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                    "tool:get_interface_status:rx_power"
+                  ],
+                  "missing_information": [],
+                  "outcome": "completed",
+                  "remediation": [
+                    {
+                      "instruction": "清洁并复核光纤连接",
+                      "order": 1,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "核对模块与链路预算",
+                      "order": 2,
+                      "requires_approval": false,
+                      "risk_level": "low",
+                      "source_runbook_id": "rb-optical-001"
+                    },
+                    {
+                      "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                      "order": 3,
+                      "requires_approval": true,
+                      "risk_level": "high",
+                      "source_runbook_id": "rb-optical-001"
+                    }
+                  ],
+                  "requires_human_review": true,
+                  "risk_level": "high",
+                  "root_causes": [
+                    {
+                      "assessment": "confirmed",
+                      "confidence": 0.945,
+                      "contradicting_evidence": [],
+                      "fault_type": "optical_power_abnormal",
+                      "label": "光功率异常",
+                      "supporting_evidence": [
+                        {
+                          "evidence_id": "alarm:A-001",
+                          "source_id": "A-001",
+                          "source_type": "alarm",
+                          "summary": "edge-r1 reported rx_power_low (major)",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                          "source_type": "metric",
+                          "summary": "rx_power_dbm=-27.4dBm",
+                          "supports": true
+                        },
+                        {
+                          "evidence_id": "tool:get_interface_status:rx_power",
+                          "source_id": "get_interface_status:rx_power",
+                          "source_type": "tool",
+                          "summary": "rx_power_dbm=-27.4",
+                          "supports": true
+                        }
+                      ]
+                    }
+                  ],
+                  "security_flags": []
+                },
+                "title": "[Synthetic] 光功率异常"
+              },
+              "ticket_id": "TKT-0263648C34"
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "create_ticket_draft"
+          }
+        ]
+      },
+      {
+        "action_kind": "finish",
+        "step_no": 4,
+        "tool_calls": []
+      }
+    ],
+    "task_id": "trace-example",
+    "tool_call_count": 10,
+    "updated_at": "2026-10-16T09:23:40.498988Z"
+  },
+  "data_boundary": "synthetic",
+  "input": {
+    "alarms": [
+      {
+        "alarm_id": "A-001",
+        "alarm_type": "rx_power_low",
+        "details": {},
+        "device_id": "edge-r1",
+        "interface": "GigabitEthernet0/0/1",
+        "observed_at": "2026-10-16T09:23:40.376377Z",
+        "severity": "major"
+      }
+    ],
+    "allowed_runbooks": [
+      "rb-optical-001"
+    ],
+    "case_id": "demo-optical-001",
+    "dataset_version": "telecom-synthetic-v1",
+    "failure_injections": {},
+    "logs": [],
+    "metrics": [
+      {
+        "metric": "rx_power_dbm",
+        "observed_at": "2026-10-16T09:23:40.376377Z",
+        "target": "edge-r1:GigabitEthernet0/0/1",
+        "unit": "dBm",
+        "value": -27.4
+      }
+    ],
+    "requested_actions": [
+      "replace_optic"
+    ],
+    "synthetic": true,
+    "topology_summary": "synthetic edge-r1 -- GigabitEthernet0/0/1 -- agg-r1"
+  },
+  "paused": {
+    "created_at": "2026-10-16T09:23:40.386376Z",
+    "errors": [],
+    "pending_action": {
+      "kind": "tool",
+      "message": null,
+      "result": null,
+      "tool": {
+        "arguments": {
+          "change": {
+            "case_id": "demo-optical-001",
+            "diagnosis": {
+              "case_id": "demo-optical-001",
+              "data_boundary": "synthetic",
+              "evidence_ids": [
+                "alarm:A-001",
+                "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                "tool:get_interface_status:rx_power"
+              ],
+              "missing_information": [],
+              "outcome": "completed",
+              "remediation": [
+                {
+                  "instruction": "清洁并复核光纤连接",
+                  "order": 1,
+                  "requires_approval": false,
+                  "risk_level": "low",
+                  "source_runbook_id": "rb-optical-001"
+                },
+                {
+                  "instruction": "核对模块与链路预算",
+                  "order": 2,
+                  "requires_approval": false,
+                  "risk_level": "low",
+                  "source_runbook_id": "rb-optical-001"
+                },
+                {
+                  "instruction": "仅创建变更建议：replace_optic；不得由 Agent 自动执行",
+                  "order": 3,
+                  "requires_approval": true,
+                  "risk_level": "high",
+                  "source_runbook_id": "rb-optical-001"
+                }
+              ],
+              "requires_human_review": true,
+              "risk_level": "high",
+              "root_causes": [
+                {
+                  "assessment": "confirmed",
+                  "confidence": 0.945,
+                  "contradicting_evidence": [],
+                  "fault_type": "optical_power_abnormal",
+                  "label": "光功率异常",
+                  "supporting_evidence": [
+                    {
+                      "evidence_id": "alarm:A-001",
+                      "source_id": "A-001",
+                      "source_type": "alarm",
+                      "summary": "edge-r1 reported rx_power_low (major)",
+                      "supports": true
+                    },
+                    {
+                      "evidence_id": "metric:edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                      "source_id": "edge-r1:GigabitEthernet0/0/1:rx_power_dbm:0",
+                      "source_type": "metric",
+                      "summary": "rx_power_dbm=-27.4dBm",
+                      "supports": true
+                    },
+                    {
+                      "evidence_id": "tool:get_interface_status:rx_power",
+                      "source_id": "get_interface_status:rx_power",
+                      "source_type": "tool",
+                      "summary": "rx_power_dbm=-27.4",
+                      "supports": true
+                    }
+                  ]
+                }
+              ],
+              "security_flags": []
+            },
+            "requested_actions": [
+              "replace_optic"
+            ]
+          }
+        },
+        "tool_name": "request_change_approval"
+      },
+      "tools": []
+    },
+    "request": "{\"alarms\": [{\"alarm_id\": \"A-001\", \"alarm_type\": \"rx_power_low\", \"details\": {}, \"device_id\": \"edge-r1\", \"interface\": \"GigabitEthernet0/0/1\", \"observed_at\": \"2026-10-16T09:23:40.376377Z\", \"severity\": \"major\"}], \"allowed_runbooks\": [\"rb-optical-001\"], \"case_id\": \"demo-optical-001\", \"dataset_version\": \"telecom-synthetic-v1\", \"failure_injections\": {}, \"logs\": [], \"metrics\": [{\"metric\": \"rx_power_dbm\", \"observed_at\": \"2026-10-16T09:23:40.376377Z\", \"target\": \"edge-r1:GigabitEthernet0/0/1\", \"unit\": \"dBm\", \"value\": -27.4}], \"requested_actions\": [\"replace_optic\"], \"synthetic\": true, \"topology_summary\": \"synthetic edge-r1 -- GigabitEthernet0/0/1 -- agg-r1\"}",
+    "result": null,
+    "run_id": "5d33487e-c6b2-470a-9432-0c41311b2f78",
+    "status": "waiting_review",
+    "steps": [
+      {
+        "action_kind": "tool_batch",
+        "step_no": 0,
+        "tool_calls": [
+          {
+            "arguments": {
+              "device_id": "edge-r1"
+            },
+            "call_id": "e6928054-058a-4c16-bc2d-943b3811a9b3",
+            "duration_ms": 0.10449999535921961,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:0",
+            "output": {
+              "cpu_percent": 32.0,
+              "device_id": "edge-r1",
+              "device_time": "2026-10-16T09:23:40.400380+00:00",
+              "last_restart": "2026-10-01T00:00:00+00:00",
+              "memory_percent": 45.0,
+              "online": true,
+              "software_version": "synthetic-os-1.0",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_device_status"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "interface": "GigabitEthernet0/0/1"
+            },
+            "call_id": "7d1ee88a-2009-4f38-a25b-b81ff9cf6c3a",
+            "duration_ms": 0.12160000915173441,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:1",
+            "output": {
+              "admin_status": "up",
+              "ber": 0.0,
+              "device_id": "edge-r1",
+              "interface": "GigabitEthernet0/0/1",
+              "last_change": "2026-10-16T09:23:40.376377+00:00",
+              "oper_status": "up",
+              "packet_loss_percent": 0.0,
+              "rx_power_dbm": -27.4,
+              "synthetic": true,
+              "utilization_percent": 20.0
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_interface_status"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "protocol": "bgp"
+            },
+            "call_id": "03bd1cf9-81a3-4404-b5c3-3cd7c376e39b",
+            "duration_ms": 0.07810001261532307,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:2",
+            "output": {
+              "device_id": "edge-r1",
+              "neighbors": [
+                {
+                  "last_change_seconds": 86400,
+                  "peer": "192.0.2.1",
+                  "state": "established"
+                }
+              ],
+              "protocol": "bgp",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_routing_neighbors"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "protocol": "ospf"
+            },
+            "call_id": "fb22331a-96d8-4984-9bcc-b1040298f019",
+            "duration_ms": 0.051700000767596066,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:3",
+            "output": {
+              "device_id": "edge-r1",
+              "neighbors": [
+                {
+                  "last_change_seconds": 86400,
+                  "peer": "192.0.2.1",
+                  "state": "full"
+                }
+              ],
+              "protocol": "ospf",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "get_routing_neighbors"
+          },
+          {
+            "arguments": {
+              "destination": "synthetic-upstream.example",
+              "source": "edge-r1"
+            },
+            "call_id": "55b4938b-a6e4-4c87-af27-29c7c48782f6",
+            "duration_ms": 0.05429999146144837,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:4",
+            "output": {
+              "destination": "synthetic-upstream.example",
+              "hops": [
+                {
+                  "hop": 1,
+                  "latency_ms": 5.0,
+                  "node": "edge-r1"
+                },
+                {
+                  "hop": 2,
+                  "latency_ms": 12.0,
+                  "node": "synthetic-upstream.example"
+                }
+              ],
+              "jitter_ms": 2.0,
+              "latency_ms": 12.0,
+              "packet_loss_percent": 0.0,
+              "reachable": true,
+              "source": "edge-r1",
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "run_path_probe"
+          },
+          {
+            "arguments": {
+              "metric": "rx_power_dbm",
+              "target": "edge-r1:GigabitEthernet0/0/1",
+              "time_range": "15m"
+            },
+            "call_id": "5c96bd30-0e84-482f-9344-dbec4e65d6fc",
+            "duration_ms": 0.09580000187270343,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:5",
+            "output": {
+              "metric": "rx_power_dbm",
+              "points": [
+                {
+                  "metric": "rx_power_dbm",
+                  "observed_at": "2026-10-16T09:23:40.376377Z",
+                  "target": "edge-r1:GigabitEthernet0/0/1",
+                  "unit": "dBm",
+                  "value": -27.4
+                }
+              ],
+              "synthetic": true,
+              "target": "edge-r1:GigabitEthernet0/0/1",
+              "time_range": "15m"
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "query_metrics"
+          },
+          {
+            "arguments": {
+              "device_id": "edge-r1",
+              "time_window": "15m"
+            },
+            "call_id": "d91172ea-ad81-4405-805c-e0a9cff792b3",
+            "duration_ms": 0.11069999891333282,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:0:6",
+            "output": {
+              "alarms": [
+                {
+                  "alarm_id": "A-001",
+                  "alarm_type": "rx_power_low",
+                  "details": {},
+                  "device_id": "edge-r1",
+                  "interface": "GigabitEthernet0/0/1",
+                  "observed_at": "2026-10-16T09:23:40.376377Z",
+                  "severity": "major"
+                }
+              ],
+              "count": 1,
+              "device_id": "edge-r1",
+              "synthetic": true,
+              "time_window": "15m"
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "list_related_alarms"
+          }
+        ]
+      },
+      {
+        "action_kind": "tool",
+        "step_no": 1,
+        "tool_calls": [
+          {
+            "arguments": {
+              "filters": {
+                "fault_type": "optical_power_abnormal"
+              },
+              "query": "optical_power_abnormal rx_power_low rx_power_dbm"
+            },
+            "call_id": "34ade9b8-e88c-4881-a195-ca5fb4b2d65b",
+            "duration_ms": 0.09329999738838524,
+            "error_type": null,
+            "idempotency_key": "5d33487e-c6b2-470a-9432-0c41311b2f78:1:0",
+            "output": {
+              "no_answer": false,
+              "query": "optical_power_abnormal rx_power_low rx_power_dbm",
+              "results": [
+                {
+                  "device_family": "generic-optical",
+                  "fault_type": "optical_power_abnormal",
+                  "keywords": [
+                    "rx_power",
+                    "光功率",
+                    "optic"
+                  ],
+                  "runbook_id": "rb-optical-001",
+                  "steps": [
+                    "读取收发光功率",
+                    "核对模块阈值和链路预算",
+                    "清洁连接器；更换模块必须审批"
+                  ],
+                  "title": "光功率异常排查",
+                  "version": "2026.1"
+                }
+              ],
+              "security_flags": [],
+              "synthetic": true
+            },
+            "replayed_from_cache": false,
+            "status": "succeeded",
+            "tool_name": "search_runbook"
+          }
+        ]
+      },
+      {
+        "action_kind": "tool",
+        "step_no": 2,
+        "tool_calls": []
+      }
+    ],
+    "task_id": "trace-example",
+    "tool_call_count": 9,
+    "updated_at": "2026-10-16T09:23:40.453904Z"
+  },
+  "schema_version": "telecom-trace-example/v1"
+}

@@ -1,0 +1,111 @@
+{
+  "case_count": 14,
+  "cases": [
+    {
+      "actual": "failed_closed",
+      "error_type": "ToolTimeoutError",
+      "expected": "failed_closed",
+      "name": "tool_timeout",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ToolConnectionError",
+      "expected": "failed_closed",
+      "name": "tool_connection",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ToolRateLimitError",
+      "expected": "failed_closed",
+      "name": "tool_rate_limit",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ToolServerError",
+      "expected": "failed_closed",
+      "name": "tool_server_error",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ValueError",
+      "expected": "failed_closed",
+      "name": "tool_invalid_json",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ValueError",
+      "expected": "failed_closed",
+      "name": "tool_missing_field",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "error_type": "ValueError",
+      "expected": "failed_closed",
+      "name": "tool_semantic_error",
+      "passed": true
+    },
+    {
+      "actual": "manual_required",
+      "expected": "manual_required",
+      "name": "contradictory_tools",
+      "passed": true
+    },
+    {
+      "actual": [
+        null,
+        null
+      ],
+      "expected": "no_fabricated_citation",
+      "name": "runbook_no_result",
+      "passed": true
+    },
+    {
+      "actual": [
+        "prompt_injection_detected"
+      ],
+      "expected": "prompt_injection_detected",
+      "name": "prompt_injection",
+      "passed": true
+    },
+    {
+      "actual": "tool_budget_exceeded",
+      "expected": "tool_budget_exceeded",
+      "name": "tool_budget",
+      "passed": true
+    },
+    {
+      "actual": "waiting_review",
+      "expected": "waiting_review",
+      "name": "approval_pending",
+      "passed": true
+    },
+    {
+      "actual": "failed_closed",
+      "expected": "failed_closed",
+      "name": "approval_rejected",
+      "passed": true
+    },
+    {
+      "actual": [
+        "TKT-17C4B6415A",
+        "TKT-17C4B6415A"
+      ],
+      "expected": "same_ticket_id",
+      "name": "duplicate_ticket",
+      "passed": true
+    }
+  ],
+  "evaluation_mode": "deterministic_synthetic_offline",
+  "limitations": [
+    "Failure modes are injected fixtures, not production provider incidents."
+  ],
+  "passed": true,
+  "passed_count": 14,
+  "schema_version": "telecom-failure-report/v1"
+}

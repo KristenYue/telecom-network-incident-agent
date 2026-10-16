@@ -1,0 +1,48 @@
+{
+  "case_count": 60,
+  "dataset_sha256": "0117eaccded4a4cf2b08fe6b9654d4356e15b27a8e13f6faf5b8fb2aa382e5e9",
+  "dataset_version": "telecom-synthetic-v1",
+  "evaluation_label_counts": {
+    "alarm_storm_root": 5,
+    "bgp_neighbor_down": 5,
+    "device_resource": 5,
+    "high_ber": 5,
+    "high_risk": 12,
+    "high_utilization": 5,
+    "interface_down": 5,
+    "latency_jitter": 5,
+    "multi_device": 5,
+    "optical_power_abnormal": 5,
+    "ospf_adjacency": 5,
+    "packet_loss": 5,
+    "prompt_injection": 12,
+    "route_flap": 5,
+    "standard": 48,
+    "upstream_dependency": 5
+  },
+  "fault_category_count": 12,
+  "fault_category_counts": {
+    "alarm_storm_root": 5,
+    "bgp_neighbor_down": 5,
+    "device_resource": 5,
+    "high_ber": 5,
+    "high_utilization": 5,
+    "interface_down": 5,
+    "latency_jitter": 5,
+    "optical_power_abnormal": 5,
+    "ospf_adjacency": 5,
+    "packet_loss": 5,
+    "route_flap": 5,
+    "upstream_dependency": 5
+  },
+  "frozen_at": "2026-10-16T00:00:00Z",
+  "generation_method": "deterministic project-authored Python generator",
+  "license_boundary": "No operator, enterprise, or production network data is included.",
+  "schema_version": "telecom-eval-manifest/v1",
+  "sha256_mode": "sha256_utf8_lf_normalized",
+  "sources": [
+    "project-authored synthetic alarms",
+    "project-authored synthetic metrics",
+    "project-authored synthetic runbooks"
+  ]
+}

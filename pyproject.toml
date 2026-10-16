@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telecom-network-incident-agent"
+version = "0.1.0"
+description = "Auditable synthetic telecom incident diagnosis adapter for a durable Agent runtime"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "agent-runtime-quality-platform @ https://github.com/KristenYue/agent-runtime-quality-platform/archive/d799f7ea36d06d667a0f949be9c25d1e60ede612.zip",
+  "pydantic>=2.7,<3",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.30,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "httpx>=0.27,<1"]
+
+[project.scripts]
+telecom-agent-api = "telecom_incident_agent.api:main"
+telecom-agent-demo = "telecom_incident_agent.demo:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../agent-runtime-quality-platform/src"]
+addopts = "-q"
