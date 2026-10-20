@@ -1,6 +1,6 @@
 # Telecom Synthetic Evaluation V2 Protocol
 
-**Status: preregistered design; no v2 result exists yet.**
+**Status: input sealed and offline result recorded (2026-10-20).**
 
 ## Objective
 
@@ -59,12 +59,18 @@ single blended rate:
 For each cohort, the report must include denominator, terminal status, tool-call
 trace and whether rejection occurred in input detection or the permission layer.
 
-## Required deliverables before any resume update
+## Delivered evidence and remaining work
 
-1. `telecom_eval_v2_development.jsonl` and `telecom_eval_v2_frozen.jsonl`.
-2. Separate development/frozen manifests with versions and SHA-256 hashes.
-3. Final machine-readable report, error taxonomy and trace samples.
-4. Security cohort report with the four denominators above.
-5. CI tests that reject split overlap, post-freeze dataset drift and untracked
-   metric changes.
-6. A resume evidence review that replaces all provisional numbers with results.
+1. `telecom_eval_v2_development.jsonl` and `telecom_eval_v2_frozen.jsonl`: delivered.
+2. Candidate/frozen manifests with LF-normalized SHA-256 hashes: delivered.
+3. `telecom_eval_v2_frozen_report.json`: delivered; it is limited to the sealed
+   project-authored synthetic input.
+4. `telecom_eval_v2_security_cohort_report.json`: delivered for the 48/40
+   allowlist and injection cohorts; it is not an RBAC evaluation.
+5. CI split-isolation and candidate/seal tests: delivered. Post-freeze drift
+   protection remains a future CI hardening item.
+6. Resume evidence review: delivered in `RESUME_EVIDENCE_ALIGNMENT.md`.
+
+The remaining work is external validity: independently authored public data,
+additional human review, and production-like integration evidence. Those are
+not implied by the delivered synthetic reports.
