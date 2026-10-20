@@ -334,3 +334,9 @@ cohort 与鲁棒性挑战集只能在深层目录发现。首页现增加 V2 独
 
 本阶段完整本机回归为 31 通过、1 个既有 Windows HTTP TestClient 生命周期限制跳过；
 `compileall` 与差异空白检查通过。既有 Starlette TestClient 弃用警告未造成失败。
+
+## 15. 阶段复盘：Linux Compose 验收证据（2026-10-20）
+
+复核 GitHub Actions 成功运行的 job 级记录后确认：`test-and-gate` 与 `compose-smoke` 均为 success。Compose job 实际完成配置解析、六服务构建/启动、提交一次队列诊断、等待 Worker 完成、读取 Trace/Trace UI/metrics/Prometheus ready，并在结束时清理环境。原计划文档中“尚无 CI 成功运行记录”的表述已过期，已修正并附上运行链接。
+
+这项证据的范围是 Linux CI smoke，不是本机 Docker 验收，也不是生产部署、性能、灾备或运营商系统接入。后续优先级相应调整为 PostgreSQL 双 Worker 接管、Redis 可靠消费、RAG 外部效度和生产化安全演练，而非重复实现已有拓扑。
