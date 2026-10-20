@@ -185,3 +185,9 @@ ASCII 版本/指标标识（`telecom-synthetic-v1`、`83%/94%`、`v2`），仍�
 首次实现把两个独立 Markdown 数字误断言为连续的 `83%/94%` 字符串；实际文档分别
 记录 `83%` 和 `94%`，因此测试改为两个独立断言。该修正只消除测试解析假设，不改变
 任何简历或评测数字。
+
+随后按 README 建立项目独立 `.venv` 并执行 `pip install -e ".[dev]"`；固定的
+`agent-runtime-quality-platform` 提交、FastAPI、Pydantic、pytest 与项目本身均安装
+成功。完整本机基线为 `24 passed, 1 skipped`，并且 `compileall` 与差异空白检查通过。
+唯一跳过项仍是既有 Windows HTTP TestClient 生命周期限制；它不等同于 Linux CI 或
+Compose HTTP 验收通过，也不影响本轮仅文档/协议的 v2 前置工作。
