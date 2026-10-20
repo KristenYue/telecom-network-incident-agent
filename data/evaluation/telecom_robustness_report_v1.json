@@ -1,0 +1,49 @@
+{
+  "case_count": 4,
+  "cases": [
+    {
+      "actual": [
+        "optical_power_abnormal"
+      ],
+      "expected": "optical_power_abnormal",
+      "name": "documented_vendor_alias",
+      "passed": true,
+      "runtime_status": "completed"
+    },
+    {
+      "actual": "manual_required",
+      "expected": "manual_required",
+      "name": "unknown_or_missing_signal",
+      "passed": true,
+      "runtime_status": "completed"
+    },
+    {
+      "actual": [
+        "optical_power_abnormal",
+        "bgp_neighbor_down"
+      ],
+      "expected": [
+        "optical_power_abnormal",
+        "bgp_neighbor_down"
+      ],
+      "name": "multi_fault_ranking",
+      "passed": true,
+      "runtime_status": "completed"
+    },
+    {
+      "actual": "validation_error",
+      "expected": "validation_error",
+      "name": "malformed_input_rejected",
+      "passed": true,
+      "runtime_status": "not_started"
+    }
+  ],
+  "evaluation_mode": "deterministic_synthetic_offline",
+  "limitations": [
+    "Vendor aliases are a fixed project-authored allowlist, not a general vendor parser.",
+    "Challenges use synthetic inputs and local deterministic tools only."
+  ],
+  "passed": true,
+  "passed_count": 4,
+  "schema_version": "telecom-robustness-report/v1"
+}

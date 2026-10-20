@@ -287,3 +287,17 @@ Runtime 的 `ToolRegistry.resolve()` 将它转换为 `ValueError("tool is not re
 
 完整本机回归为 28 通过、1 个既有 Windows HTTP TestClient 生命周期限制跳过；`compileall`
 和差异空白检查通过。仍观察到既有 Starlette TestClient 弃用警告，未影响本轮结果。
+
+## 12. 鲁棒性挑战集与显式别名边界（2026-10-20）
+
+为避免 V2 只在同质的合成输入上取得满分，增加了四项单独的挑战评测：固定的
+`vendorx_rx_low` 告警别名、没有可验证信号时转人工、光功率异常与 BGP 中断同时出现、
+以及畸形告警在进入 Runtime 前由 Pydantic 拒绝。首次实际运行 4/4 通过，并写出
+`telecom_robustness_report_v1.json`。
+
+告警归一化只支持显式列出的三个项目自编别名（VendorX 光功率、VendorY BGP、VendorZ
+CPU）；未知厂商告警保持未知，不宣称通用厂商格式兼容。挑战集同样只使用本地确定性工具
+和合成输入；它为“何时人工升级/何时入口拒绝”提供证据，但不等价生产鲁棒性。
+
+本阶段完整本机回归为 30 通过、1 个既有 Windows HTTP TestClient 生命周期限制跳过；
+`compileall` 与差异空白检查通过。Starlette TestClient 弃用警告仍存在，但没有新增失败。

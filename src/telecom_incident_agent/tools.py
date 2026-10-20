@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from agent_runtime_platform.tools import ToolExecutionContext, ToolRegistry, ToolSpec
 
+from .diagnosis import canonical_alarm_type
 from .models import DEVICE_PATTERN, INTERFACE_PATTERN, IncidentRequest
 from .runbooks import RUNBOOKS
 from .security import sanitize_untrusted_text
@@ -130,7 +131,7 @@ class SyntheticTelecomTools:
         parsed = InterfaceInput(device_id=device_id, interface=interface)
         alarms = [a for a in self.incident.alarms if a.device_id == parsed.device_id and a.interface == parsed.interface]
         target = f"{parsed.device_id}:{parsed.interface}"
-        link_down = any(a.alarm_type in {"link_down", "interface_down"} for a in alarms)
+        link_down = any(canonical_alarm_type(a.alarm_type) in {"link_down", "interface_down"} for a in alarms)
         return await self._execute("get_interface_status", lambda: {
             "device_id": parsed.device_id,
             "interface": parsed.interface,
@@ -147,7 +148,7 @@ class SyntheticTelecomTools:
     async def get_routing_neighbors(self, device_id: str, protocol: str) -> dict[str, Any]:
         parsed = RoutingInput(device_id=device_id, protocol=protocol)
         bad_types = {"bgp": {"bgp_down", "bgp_neighbor_down"}, "ospf": {"ospf_down", "ospf_adjacency"}}[parsed.protocol]
-        unhealthy = any(a.device_id == parsed.device_id and a.alarm_type in bad_types for a in self.incident.alarms)
+        unhealthy = any(a.device_id == parsed.device_id and canonical_alarm_type(a.alarm_type) in bad_types for a in self.incident.alarms)
         state = "idle" if parsed.protocol == "bgp" and unhealthy else "down" if unhealthy else "established" if parsed.protocol == "bgp" else "full"
         return await self._execute("get_routing_neighbors", lambda: {
             "device_id": parsed.device_id, "protocol": parsed.protocol,
@@ -160,7 +161,7 @@ class SyntheticTelecomTools:
         loss = _metric(self.incident, "packet_loss_percent") or 0.0
         latency = _metric(self.incident, "latency_ms") or 12.0
         jitter = _metric(self.incident, "jitter_ms") or 2.0
-        dependency_failed = any(a.alarm_type in {"dns_timeout", "upstream_failure"} for a in self.incident.alarms)
+        dependency_failed = any(canonical_alarm_type(a.alarm_type) in {"dns_timeout", "upstream_failure"} for a in self.incident.alarms)
         return await self._execute("run_path_probe", lambda: {
             "source": parsed.source, "destination": parsed.destination,
             "reachable": not dependency_failed and loss < 100,

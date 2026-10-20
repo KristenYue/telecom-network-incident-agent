@@ -43,11 +43,26 @@ ALARM_TO_FAULT = {
     "upstream_node_down": "alarm_storm_root",
 }
 
+# Public, project-authored fixtures only.  This is deliberately a small and
+# explicit mapping rather than a claim that arbitrary vendor formats work.
+ALARM_ALIASES = {
+    "vendorx_rx_low": "rx_power_low",
+    "vendory_bgp_session_down": "bgp_down",
+    "vendorz_cpu_threshold": "cpu_high",
+}
+
+
+def canonical_alarm_type(alarm_type: str) -> str:
+    """Normalize the documented fixture aliases before deterministic routing."""
+    normalized = alarm_type.strip().lower()
+    return ALARM_ALIASES.get(normalized, normalized)
+
 
 def _fault_hint(incident: IncidentRequest) -> str | None:
     for alarm in incident.alarms:
-        if alarm.alarm_type in ALARM_TO_FAULT:
-            return ALARM_TO_FAULT[alarm.alarm_type]
+        canonical = canonical_alarm_type(alarm.alarm_type)
+        if canonical in ALARM_TO_FAULT:
+            return ALARM_TO_FAULT[canonical]
     for metric in incident.metrics:
         if metric.metric == "rx_power_dbm" and metric.value < -22:
             return "optical_power_abnormal"
@@ -84,7 +99,7 @@ def build_diagnosis(
     _, security_flags = sanitize_logs(incident.logs)
 
     for alarm in incident.alarms:
-        fault = ALARM_TO_FAULT.get(alarm.alarm_type)
+        fault = ALARM_TO_FAULT.get(canonical_alarm_type(alarm.alarm_type))
         if fault:
             scores[fault] += 2.0 if alarm.severity in {"major", "critical"} else 1.2
             evidence[fault].append(_evidence("alarm", alarm.alarm_id, f"{alarm.device_id} reported {alarm.alarm_type} ({alarm.severity})"))
@@ -185,7 +200,7 @@ def build_diagnosis(
     security_flags = sorted(set(security_flags + list(search.get("security_flags", []))))
     missing: list[str] = []
     contradictory = (
-        any(alarm.alarm_type in {"link_down", "interface_down"} for alarm in incident.alarms)
+        any(canonical_alarm_type(alarm.alarm_type) in {"link_down", "interface_down"} for alarm in incident.alarms)
         and interface.get("oper_status") == "up"
     )
     if not ranked:
