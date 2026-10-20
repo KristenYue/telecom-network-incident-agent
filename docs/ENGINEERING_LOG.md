@@ -191,3 +191,18 @@ ASCII 版本/指标标识（`telecom-synthetic-v1`、`83%/94%`、`v2`），仍�
 成功。完整本机基线为 `24 passed, 1 skipped`，并且 `compileall` 与差异空白检查通过。
 唯一跳过项仍是既有 Windows HTTP TestClient 生命周期限制；它不等同于 Linux CI 或
 Compose HTTP 验收通过，也不影响本轮仅文档/协议的 v2 前置工作。
+
+## 9. GitHub 发布阻塞：远程仓库未配置（2026-10-20）
+
+**现象：** 用户在项目目录执行 `git push origin main` 时收到
+`'origin' does not appear to be a git repository`。此前把提交哈希和提交说明直接输入
+PowerShell，也产生了 `CommandNotFoundException`。
+
+**排查：** 本地 `git remote -v` 没有任何输出，说明该 checkout 尚未绑定远程；本地
+分支为 `main`，最新提交为 `204a429`，作者配置仍为
+`KristenYue <yueyt1112@163.com>`。只读查询 GitHub 账号下名称包含
+`telecom`、`incident` 或 `network` 的仓库，没有发现可安全复用的现有仓库。
+
+**处理：** 不猜测 GitHub URL，也不自动创建或绑定外部仓库。需要由作者在 GitHub
+创建一个空仓库，或明确提供已有仓库 URL；随后在本地执行 `git remote add origin <URL>`
+并推送 `main`。提交哈希和提交说明仅用于 Git 记录，不是 PowerShell 命令。
