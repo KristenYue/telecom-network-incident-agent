@@ -10,6 +10,7 @@
 
 - 12 类 IP 网络与传输链路故障策略；
 - 60 条冻结合成任务，12 类各 5 条；
+- V2：240 条开发输入、100 条 SHA-256 封存合成输入与独立安全 cohort；
 - 9 个带 Pydantic 参数校验、权限和故障注入的工具；
 - 证据优先的确定性 Planner 与 Top-3 根因候选；
 - 统一 Runtime checkpoint、lease、fencing、Trace 和幂等键；
@@ -39,6 +40,26 @@
 | Runtime 成对门禁 | 通过（60 对） |
 
 这些数字只说明代码对**自己冻结的合成契约**满足预期，不代表真实网络泛化、生产 SLA 或运营商部署效果。简单 alarm lookup baseline 和 Runtime candidate 使用同一套五维质量口径；candidate 的优势来自证据、注入拒绝和审批策略，而不是把不同口径的分数硬比较。
+
+### V2：封存输入与安全 cohort
+
+V2 将开发输入与评测输入分离：240 条 development 输入不参与最终报告，100 条
+`telecom-synthetic-v2` 输入经 LF 规范化 SHA-256 封存后再运行评测。当前封存输入哈希为
+`41df471d0a064582f37a614c3e5d39b1f9d345454be4c3252ff1c7edf0979b42`。
+
+| 证据 | 当前离线合成结果 | 解释边界 |
+|---|---:|---|
+| 100 条封存输入 Top-1 / Top-3 | 100% / 100% | 确定性规则与项目自编标签的一致性 |
+| 证据覆盖 / 审批策略 | 100% / 100% | 仅本地合成工具和草稿流程 |
+| 嵌入式注入样本 | 12/12 清洗并标记 | 包含在冻结诊断输入内 |
+| 独立未注册工具 cohort | 48/48 拒绝，执行数 0 | 工具白名单；**不是**身份认证或 RBAC |
+| 独立注入 cohort | 40/40 清洗 | 输入检测；非生产安全验证 |
+| 鲁棒性挑战集 | 4/4 通过 | 固定别名、人工升级、双故障、畸形输入 |
+
+完整的输入 manifest、机器可读报告、已知限制和面试说辞见
+[面试证据卡](docs/INTERVIEW_EVIDENCE_CARD.md) 与
+[简历证据对齐](docs/RESUME_EVIDENCE_ALIGNMENT.md)。不要把这些合成离线结果表述为运营商
+生产效果、SLA 或泛化准确率。
 
 ## 工作流
 
@@ -111,6 +132,14 @@ docker compose up --build
 .\.venv\Scripts\python.exe scripts\evaluate.py
 ```
 
+重新运行 V2 封存报告与安全/鲁棒性验证：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\evaluate_v2_frozen.py
+.\.venv\Scripts\python.exe scripts\evaluate_v2_security_cohorts.py
+.\.venv\Scripts\python.exe scripts\evaluate_robustness.py
+```
+
 ## 关键目录
 
 ```text
@@ -132,4 +161,4 @@ scripts/                      数据生成与离线评测入口
 - 不把合成数据上的 100% 当作真实网络准确率；
 - SQLite 是本机离线验证路径；PostgreSQL/Redis/监控全拓扑已实现，但本机没有 Docker，尚无本机启动证据。
 
-完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
+完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md)、[面试证据卡](docs/INTERVIEW_EVIDENCE_CARD.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
