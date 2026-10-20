@@ -236,3 +236,54 @@ PowerShell，也产生了 `CommandNotFoundException`。
 - `compileall` 与 `git diff --check`：通过；
 - 观察到 FastAPI/Starlette 对当前 TestClient 依赖组合的弃用警告。它没有导致失败，
   但在后续依赖升级时需要复核 HTTP 测试兼容性。
+
+## 11. V2 候选封存与实际评测前置（2026-10-20）
+
+V2 封存流程校验候选 manifest 中的 SHA-256、development/pre-freeze 的 split 隔离，
+然后将 100 条候选复制为单独的 `telecom_eval_v2_frozen.jsonl`。冻结 manifest 同时保存
+源候选和冻结文件的规范化 SHA-256；本次两者均为
+`e0acb4eed10dd0186f75f7a2285e3ded919ab76ddd1d4bc3540a50001df217c7`。manifest 状态为
+`frozen_input_no_metrics`，明确只证明输入不可变，不证明准确率、安全率或生产表现。
+
+### 遇到的问题：封存测试把说明文字误当作指标
+
+**现象：** 首次封存测试检查 `evidence_boundary` 文本中不能出现 `accuracy`；但正确的
+边界说明正是“does not record accuracy”。因此该测试失败，虽然封存脚本已经成功生成并且
+哈希一致。
+
+**处理：** 将断言改为检查 manifest 顶层不含 `metrics`、Top-1 或 Top-3 指标字段，而不
+对解释性文字做反向关键词匹配。这样测试验证的是实际结构约束，不会惩罚清晰的边界说明。
+
+### 遇到的问题：pre-freeze 注入样本分母为零
+
+**现象：** 第一次对 100 条本地封存输入运行评测时，诊断准确率指标为 1.0，但注入拒绝率
+显示为 0.0。排查发现候选生成器只在第 11 个 ordinal 添加恶意日志，而每个 pre-freeze
+故障类只有 7 或 9 条，因此冻结输入实际没有任何注入样本。旧评测器使用 `max(1, count)`
+规避除零，掩盖了这个分母缺失。
+
+**处理：** 作废该次未提交的本地封存/报告，重新生成候选；每个 pre-freeze 故障类的第 5
+条固定包含注入日志，共 12 条。split 校验现在要求 pre-freeze 至少有一条注入样本；评测
+报告增加 `metric_denominators.prompt_injection_case_count`，若没有样本则输出 `null`，不再
+把“没有测试”表达成 0% 的安全结果。
+
+### 遇到的问题：运行时把未注册工具转换为 ValueError
+
+**现象：** 独立安全 cohort 首次执行时，评测器按内部字典实现预期捕获 `KeyError`，但共享
+Runtime 的 `ToolRegistry.resolve()` 将它转换为 `ValueError("tool is not registered: …")`。
+
+**处理：** 改为捕获对外契约的 `ValueError`，而不是依赖 Runtime 的内部字典异常。拒绝
+语义保持不变：未注册的 `restart_device` 不能被解析，更不会产生任何工具执行记录。
+
+### 本阶段实际报告
+
+重新生成、封存并运行 100 条输入后，`telecom_eval_v2_frozen_report.json` 记录的实际离线
+指标为：Top-1 1.0、Top-3 1.0、证据覆盖 1.0、审批策略 1.0；12 条嵌入式注入样本的拒绝率
+为 1.0，报告同时记录该指标分母为 12。结果绑定到冻结输入 SHA-256
+`41df471d0a064582f37a614c3e5d39b1f9d345454be4c3252ff1c7edf0979b42`。
+
+独立的 88 条安全 cohort 报告记录：48/48 个未注册危险工具请求被拒绝，40/40 个注入文本
+被清洗，工具执行数为 0。这里的授权模型是**工具白名单**，不是用户认证或 RBAC；结论仅适用
+项目自编的离线合成输入，不能表示运营商生产安全控制或泛化能力。
+
+完整本机回归为 28 通过、1 个既有 Windows HTTP TestClient 生命周期限制跳过；`compileall`
+和差异空白检查通过。仍观察到既有 Starlette TestClient 弃用警告，未影响本轮结果。

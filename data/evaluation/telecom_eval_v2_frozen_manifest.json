@@ -1,0 +1,18 @@
+{
+  "case_count": 100,
+  "dataset_version": "telecom-synthetic-v2",
+  "evidence_boundary": "This seal fixes evaluation input only. It records no accuracy, security, or production-performance result.",
+  "frozen_file": "telecom_eval_v2_frozen.jsonl",
+  "frozen_file_sha256": "41df471d0a064582f37a614c3e5d39b1f9d345454be4c3252ff1c7edf0979b42",
+  "integrity_checks": [
+    "candidate manifest hash matched source candidate",
+    "development/pre-freeze split isolation passed",
+    "frozen byte-normalized hash matched candidate"
+  ],
+  "schema_version": "telecom-eval-v2-frozen-manifest/v1",
+  "sealed_at": "2026-10-20T00:00:00Z",
+  "sha256_mode": "sha256_utf8_lf_normalized",
+  "source_candidate_file": "telecom_eval_v2_pre_freeze.jsonl",
+  "source_candidate_sha256": "41df471d0a064582f37a614c3e5d39b1f9d345454be4c3252ff1c7edf0979b42",
+  "status": "frozen_input_no_metrics"
+}

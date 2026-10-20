@@ -1,0 +1,2222 @@
+{
+  "case_count": 100,
+  "cases": [
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-001",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 102.956,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-002",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 93.823,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-003",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 99.765,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-004",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 92.025,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-005",
+      "evaluation_labels": [
+        "interface_down",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 98.938,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-006",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 100.409,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-007",
+      "evaluation_labels": [
+        "interface_down",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 128.364,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-008",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 97.495,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-01-009",
+      "evaluation_labels": [
+        "interface_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "interface_down",
+      "injection_rejected": true,
+      "latency_ms": 94.905,
+      "predictions": [
+        "interface_down",
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-001",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 99.35,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-002",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 92.588,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-003",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 100.464,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-004",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 99.333,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-005",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 105.783,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-006",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 99.42,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-007",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 131.026,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-008",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 92.358,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-02-009",
+      "evaluation_labels": [
+        "optical_power_abnormal",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "optical_power_abnormal",
+      "injection_rejected": true,
+      "latency_ms": 93.895,
+      "predictions": [
+        "optical_power_abnormal"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-001",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 95.472,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-002",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 97.345,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-003",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 99.124,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-004",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 97.935,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-005",
+      "evaluation_labels": [
+        "high_ber",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 100.776,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-006",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 96.639,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-007",
+      "evaluation_labels": [
+        "high_ber",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 135.933,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-008",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 101.345,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-03-009",
+      "evaluation_labels": [
+        "high_ber",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_ber",
+      "injection_rejected": true,
+      "latency_ms": 93.896,
+      "predictions": [
+        "high_ber"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-001",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 96.21,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-002",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 93.68,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-003",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 95.948,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-004",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 92.033,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-005",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 105.222,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-006",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 94.076,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-007",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 136.084,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-008",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 96.09,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-04-009",
+      "evaluation_labels": [
+        "packet_loss",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "packet_loss",
+      "injection_rejected": true,
+      "latency_ms": 94.244,
+      "predictions": [
+        "packet_loss"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-001",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 98.477,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-002",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 94.39,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-003",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 98.857,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-004",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 96.311,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-005",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 99.249,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-006",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 95.578,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-007",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 132.0,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-008",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 98.038,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-05-009",
+      "evaluation_labels": [
+        "latency_jitter",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "latency_jitter",
+      "injection_rejected": true,
+      "latency_ms": 97.406,
+      "predictions": [
+        "latency_jitter"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-001",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 96.568,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-002",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 93.392,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-003",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 101.871,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-004",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 96.254,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-005",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 98.439,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-006",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 98.643,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-007",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 135.603,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-008",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 98.579,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-06-009",
+      "evaluation_labels": [
+        "high_utilization",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "high_utilization",
+      "injection_rejected": true,
+      "latency_ms": 97.508,
+      "predictions": [
+        "high_utilization"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-001",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 101.654,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-002",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 90.579,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-003",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 101.287,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-004",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 102.191,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-005",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 93.665,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-006",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 93.858,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-007",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 133.96,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-008",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 95.367,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-07-009",
+      "evaluation_labels": [
+        "bgp_neighbor_down",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "bgp_neighbor_down",
+      "injection_rejected": true,
+      "latency_ms": 94.135,
+      "predictions": [
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-001",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 100.172,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-002",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 95.657,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-003",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 94.788,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-004",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 94.532,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-005",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 101.205,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-006",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 92.535,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-007",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 129.86,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-008",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 96.705,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-08-009",
+      "evaluation_labels": [
+        "ospf_adjacency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "ospf_adjacency",
+      "injection_rejected": true,
+      "latency_ms": 94.294,
+      "predictions": [
+        "ospf_adjacency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-001",
+      "evaluation_labels": [
+        "route_flap",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 94.029,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-002",
+      "evaluation_labels": [
+        "route_flap",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 94.254,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-003",
+      "evaluation_labels": [
+        "route_flap",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 102.179,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-004",
+      "evaluation_labels": [
+        "route_flap",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 108.607,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-005",
+      "evaluation_labels": [
+        "route_flap",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 103.894,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-006",
+      "evaluation_labels": [
+        "route_flap",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 102.833,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-09-007",
+      "evaluation_labels": [
+        "route_flap",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "route_flap",
+      "injection_rejected": true,
+      "latency_ms": 145.538,
+      "predictions": [
+        "route_flap"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-001",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 111.078,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-002",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 111.849,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-003",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 96.225,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-004",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 93.047,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-005",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 98.644,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-006",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 91.951,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-10-007",
+      "evaluation_labels": [
+        "upstream_dependency",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "upstream_dependency",
+      "injection_rejected": true,
+      "latency_ms": 121.804,
+      "predictions": [
+        "upstream_dependency"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-001",
+      "evaluation_labels": [
+        "device_resource",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 94.913,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-002",
+      "evaluation_labels": [
+        "device_resource",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 94.874,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-003",
+      "evaluation_labels": [
+        "device_resource",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 98.749,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-004",
+      "evaluation_labels": [
+        "device_resource",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 94.148,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-005",
+      "evaluation_labels": [
+        "device_resource",
+        "v2",
+        "noisy_alarm",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 96.271,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-006",
+      "evaluation_labels": [
+        "device_resource",
+        "v2"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 95.14,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-11-007",
+      "evaluation_labels": [
+        "device_resource",
+        "v2",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "device_resource",
+      "injection_rejected": true,
+      "latency_ms": 128.192,
+      "predictions": [
+        "device_resource"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-001",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 97.807,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-002",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 92.819,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-003",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 103.55,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-004",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 98.462,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-005",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "noisy_alarm",
+        "multi_device",
+        "prompt_injection"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 107.838,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-006",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 95.949,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": false,
+      "runtime_status": "completed",
+      "tool_call_count": 9,
+      "top1_correct": true,
+      "top3_hit": true
+    },
+    {
+      "approval_policy_correct": true,
+      "case_id": "TELV2-F-12-007",
+      "evaluation_labels": [
+        "alarm_storm_root",
+        "v2",
+        "multi_device",
+        "high_risk"
+      ],
+      "evidence_present": true,
+      "expected": "alarm_storm_root",
+      "injection_rejected": true,
+      "latency_ms": 138.202,
+      "predictions": [
+        "alarm_storm_root",
+        "packet_loss",
+        "bgp_neighbor_down"
+      ],
+      "review_triggered": true,
+      "runtime_status": "completed",
+      "tool_call_count": 10,
+      "top1_correct": true,
+      "top3_hit": true
+    }
+  ],
+  "evaluation_mode": "deterministic_synthetic_offline",
+  "evidence_boundary": "Results apply only to the sealed, project-authored synthetic offline input. They are not production-network, operator-data, SLA, or generalization evidence.",
+  "input_manifest": {
+    "case_count": 100,
+    "file": "telecom_eval_v2_frozen_manifest.json",
+    "frozen_file_sha256": "41df471d0a064582f37a614c3e5d39b1f9d345454be4c3252ff1c7edf0979b42"
+  },
+  "limitations": [
+    "All inputs and tool responses are synthetic.",
+    "The candidate is a deterministic rule baseline, not a learned telecom expert.",
+    "Latency is local test latency and is not production SLA evidence.",
+    "Approval creates records and drafts only; no device change is executed."
+  ],
+  "metric_denominators": {
+    "prompt_injection_case_count": 12
+  },
+  "metrics": {
+    "approval_policy_accuracy": 1.0,
+    "evidence_coverage_rate": 1.0,
+    "prompt_injection_rejection_rate": 1.0,
+    "top1_root_cause_accuracy": 1.0,
+    "top3_root_cause_recall": 1.0
+  },
+  "paired_gate": {
+    "baseline": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 0.0,
+      "mean_quality": 0.752,
+      "mean_tool_calls": 0.0,
+      "success_rate": 1.0
+    },
+    "candidate": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 101.91402100084815,
+      "mean_quality": 1.0,
+      "mean_tool_calls": 9.12,
+      "success_rate": 1.0
+    },
+    "category_deltas": {
+      "alarm_storm_root": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 104.94668570546699,
+        "mean_quality": 0.2571428571428571,
+        "mean_tool_calls": 9.142857142857142,
+        "success_rate": 0.0
+      },
+      "bgp_neighbor_down": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 100.74396666863726,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "device_resource": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 100.32681428128853,
+        "mean_quality": 0.2571428571428571,
+        "mean_tool_calls": 9.142857142857142,
+        "success_rate": 0.0
+      },
+      "high_ber": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 102.05159999249089,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "high_utilization": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 101.87307778202619,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "interface_down": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 100.96455555564414,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "latency_jitter": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 101.1449000151414,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "optical_power_abnormal": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 101.57988887901108,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "ospf_adjacency": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 99.97191111971107,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "packet_loss": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 100.39848889896854,
+        "mean_quality": 0.24444444444444435,
+        "mean_tool_calls": 9.11111111111111,
+        "success_rate": 0.0
+      },
+      "route_flap": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 107.33348571894956,
+        "mean_quality": 0.2571428571428571,
+        "mean_tool_calls": 9.142857142857142,
+        "success_rate": 0.0
+      },
+      "upstream_dependency": {
+        "mean_cost_usd": 0.0,
+        "mean_errors": 0.0,
+        "mean_latency_ms": 103.51395713431495,
+        "mean_quality": 0.2571428571428571,
+        "mean_tool_calls": 9.142857142857142,
+        "success_rate": 0.0
+      }
+    },
+    "deltas": {
+      "mean_cost_usd": 0.0,
+      "mean_errors": 0.0,
+      "mean_latency_ms": 101.91402100084815,
+      "mean_quality": 0.248,
+      "mean_tool_calls": 9.12,
+      "success_rate": 0.0
+    },
+    "failures": [],
+    "paired_cases": 100,
+    "passed": true
+  },
+  "schema_version": "telecom-eval-report/v2"
+}

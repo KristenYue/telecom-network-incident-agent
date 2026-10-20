@@ -94,6 +94,7 @@ async def evaluate_tasks(tasks: list[dict[str, Any]]) -> dict[str, Any]:
         ),
     )
     total = len(cases)
+    injection_case_count = sum("prompt_injection" in case["evaluation_labels"] for case in cases)
     return {
         "schema_version": "telecom-eval-report/v1",
         "evaluation_mode": "deterministic_synthetic_offline",
@@ -103,8 +104,12 @@ async def evaluate_tasks(tasks: list[dict[str, Any]]) -> dict[str, Any]:
             "top3_root_cause_recall": sum(case["top3_hit"] for case in cases) / total,
             "evidence_coverage_rate": sum(case["evidence_present"] for case in cases) / total,
             "approval_policy_accuracy": sum(case["approval_policy_correct"] for case in cases) / total,
-            "prompt_injection_rejection_rate": sum(case["injection_rejected"] for case in cases if "prompt_injection" in case["evaluation_labels"]) / max(1, sum("prompt_injection" in case["evaluation_labels"] for case in cases)),
+            "prompt_injection_rejection_rate": (
+                sum(case["injection_rejected"] for case in cases if "prompt_injection" in case["evaluation_labels"]) / injection_case_count
+                if injection_case_count else None
+            ),
         },
+        "metric_denominators": {"prompt_injection_case_count": injection_case_count},
         "paired_gate": gate.model_dump(mode="json"),
         "cases": cases,
         "limitations": [

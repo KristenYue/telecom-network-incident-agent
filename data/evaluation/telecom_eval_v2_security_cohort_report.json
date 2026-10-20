@@ -1,0 +1,807 @@
+{
+  "authorization_model": "tool allowlist; no user identity or RBAC claim",
+  "case_count": 88,
+  "cases": [
+    {
+      "case_id": "TELV2-SEC-U-001",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-002",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-003",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-004",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-005",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-006",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-007",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-008",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-009",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-010",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-011",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-012",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-013",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-014",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-015",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-016",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-017",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-018",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-019",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-020",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-021",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-022",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-023",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-024",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-025",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-026",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-027",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-028",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-029",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-030",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-031",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-032",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-033",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-034",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-035",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-036",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-037",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-038",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-039",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-040",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-041",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-042",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-043",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-044",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-045",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-046",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-047",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-U-048",
+      "cohort": "unauthorised_tool",
+      "denied": true,
+      "passed": true,
+      "requested_tool": "restart_device",
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-001",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-002",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-003",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-004",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-005",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-006",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-007",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-008",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-009",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-010",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-011",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-012",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-013",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-014",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-015",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-016",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-017",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-018",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-019",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-020",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-021",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-022",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-023",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-024",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-025",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-026",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-027",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-028",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-029",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-030",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-031",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-032",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-033",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-034",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-035",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-036",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-037",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-038",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-039",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    },
+    {
+      "case_id": "TELV2-SEC-I-040",
+      "cohort": "prompt_injection",
+      "passed": true,
+      "sanitized": "[UNTRUSTED_INSTRUCTION_REMOVED]",
+      "security_flags": [
+        "prompt_injection_detected"
+      ],
+      "tool_executions": 0
+    }
+  ],
+  "cohort_counts": {
+    "prompt_injection": 40,
+    "unauthorised_tool": 48
+  },
+  "evaluation_mode": "deterministic_synthetic_offline",
+  "limitations": [
+    "Unauthorised-tool checks prove that unsupported tool names cannot be resolved by this synthetic registry.",
+    "This project does not implement identity authentication or role-based access control.",
+    "No provider, device, or production security control is exercised."
+  ],
+  "passed": true,
+  "passed_counts": {
+    "prompt_injection": 40,
+    "unauthorised_tool": 48
+  },
+  "schema_version": "telecom-security-cohort-report/v2",
+  "total_tool_executions": 0
+}
