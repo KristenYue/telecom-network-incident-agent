@@ -206,3 +206,33 @@ PowerShell，也产生了 `CommandNotFoundException`。
 **处理：** 不猜测 GitHub URL，也不自动创建或绑定外部仓库。需要由作者在 GitHub
 创建一个空仓库，或明确提供已有仓库 URL；随后在本地执行 `git remote add origin <URL>`
 并推送 `main`。提交哈希和提交说明仅用于 Git 记录，不是 PowerShell 命令。
+
+## 10. V2 数据候选包与 split 隔离（2026-10-20）
+
+实现了独立的 `dataset_v2.py`，没有改动 v1 的 60 条冻结任务或它的 manifest。V2
+生成器当前可重放地产生：240 条 development 输入、100 条 pre-freeze candidate 输入，
+以及独立的 48 条越权工具请求和 40 条提示注入请求。每条诊断样本带有
+`family_id`、`template_id`、设备 ID 和时间戳；隔离校验拒绝这四类标识跨 development
+与 pre-freeze 两个 split 重叠。所有输入仍为项目自编合成数据，不包含运营商数据。
+
+候选包的 manifest 记录三个 JSONL 的 LF 规范化 SHA-256，但状态固定为
+`pre_freeze_candidate_not_evaluation_evidence`。这意味着它尚不能支持“100 条冻结结果”
+或任意准确率说法；下一阶段必须审阅 split、封存不可变 manifest，再运行评测并以报告
+的实际数字更新简历。
+
+### 遇到的问题：pytest 默认临时目录不可创建
+
+**现象：** 首次运行 V2 测试时，前两项通过，但 pytest 在受控 Windows 沙箱的默认
+`AppData` 临时目录创建 `pytest-*` 编号文件夹失败。
+
+**处理：** 不把该环境错误当作测试通过或产品错误；改用仓库受控的
+`--basetemp=.pytest-tmp` 后，三项 V2 契约测试通过。后续完整回归也使用同一受控临时
+目录，测试临时文件不纳入版本控制。
+
+### 本阶段验证
+
+- V2 数据集契约：3 通过；
+- 完整测试：27 通过、1 个既有 Windows HTTP TestClient 生命周期限制跳过；
+- `compileall` 与 `git diff --check`：通过；
+- 观察到 FastAPI/Starlette 对当前 TestClient 依赖组合的弃用警告。它没有导致失败，
+  但在后续依赖升级时需要复核 HTTP 测试兼容性。
