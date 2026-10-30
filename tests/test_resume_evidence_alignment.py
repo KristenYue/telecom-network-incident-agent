@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_resume_alignment_preserves_v1_boundary_and_v2_results_keep_synthetic_scope() -> None:
-    alignment = (ROOT / "docs" / "RESUME_EVIDENCE_ALIGNMENT.md").read_text(
+    alignment = (ROOT / "docs" / "CLAIMS_AND_EVIDENCE.md").read_text(
         encoding="utf-8"
     )
     protocol = (ROOT / "docs" / "TELECOM_EVALUATION_V2_PROTOCOL.md").read_text(

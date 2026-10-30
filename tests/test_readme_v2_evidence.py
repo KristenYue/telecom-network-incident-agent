@@ -11,4 +11,4 @@ def test_readme_links_v2_evidence_to_its_synthetic_boundary():
     assert "100 条" in readme
     assert "不是**身份认证或 RBAC" in readme
     assert "不要把这些合成离线结果表述为运营商" in readme
-    assert "INTERVIEW_EVIDENCE_CARD.md" in readme
+    assert "EVIDENCE_CARD.md" in readme

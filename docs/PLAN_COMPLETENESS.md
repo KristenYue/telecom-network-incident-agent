@@ -13,7 +13,7 @@
 | 工具超时可恢复 | 部分完成 | 超时注入和失败关闭有报告；Runtime checkpoint 已接入 | 未完成“超时后自动从 checkpoint 重试”的项目级端到端场景 |
 | Worker 接管与旧 Worker 拒写 | 部分完成 | 复用 Runtime 的 lease/fencing 实现，PostgreSQL schema/backend 已接入 | 需要本项目级双 Worker、lease 到期、旧 token 写入被拒的集成报告 |
 | Docker Compose 一键启动 | Linux CI 已验收 | CI 成功构建/启动六服务，提交并完成一个队列诊断，读取 Trace、指标与 Prometheus ready | 本机仍无 Docker；还需生产化部署环境验证 |
-| 简历数字可追溯 | 完成（合成边界内） | V1/V2 evaluation、failure、RAG、readiness、安全 cohort、鲁棒性与封存 manifest | 所有数字必须附带“项目自建、离线、合成”范围，不能写成生产指标 |
+| 评测数字可追溯 | 完成（合成边界内） | V1/V2 evaluation、failure、RAG、readiness、安全 cohort、鲁棒性与封存 manifest | 所有数字必须附带“项目自建、离线、合成”范围，不能写成生产指标 |
 
 ## 推荐的收尾顺序
 

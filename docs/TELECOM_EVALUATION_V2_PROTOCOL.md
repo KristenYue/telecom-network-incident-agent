@@ -69,7 +69,7 @@ trace and whether rejection occurred in input detection or the permission layer.
    allowlist and injection cohorts; it is not an RBAC evaluation.
 5. CI split-isolation and candidate/seal tests: delivered. Post-freeze drift
    protection remains a future CI hardening item.
-6. Resume evidence review: delivered in `RESUME_EVIDENCE_ALIGNMENT.md`.
+6. Claims-and-evidence review: delivered in `CLAIMS_AND_EVIDENCE.md`.
 
 The remaining work is external validity: independently authored public data,
 additional human review, and production-like integration evidence. Those are

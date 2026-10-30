@@ -56,9 +56,9 @@ V2 将开发输入与评测输入分离：240 条 development 输入不参与最
 | 独立注入 cohort | 40/40 清洗 | 输入检测；非生产安全验证 |
 | 鲁棒性挑战集 | 4/4 通过 | 固定别名、人工升级、双故障、畸形输入 |
 
-完整的输入 manifest、机器可读报告、已知限制和面试说辞见
-[面试证据卡](docs/INTERVIEW_EVIDENCE_CARD.md) 与
-[简历证据对齐](docs/RESUME_EVIDENCE_ALIGNMENT.md)。不要把这些合成离线结果表述为运营商
+完整的输入 manifest、机器可读报告和已知限制见
+[证据索引](docs/EVIDENCE_CARD.md) 与
+[主张与证据边界](docs/CLAIMS_AND_EVIDENCE.md)。不要把这些合成离线结果表述为运营商
 生产效果、SLA 或泛化准确率。
 
 ## 工作流
@@ -161,4 +161,4 @@ scripts/                      数据生成与离线评测入口
 - 不把合成数据上的 100% 当作真实网络准确率；
 - SQLite 是本机离线验证路径；PostgreSQL/Redis/监控全拓扑已实现，但本机没有 Docker，尚无本机启动证据。
 
-完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md)、[面试证据卡](docs/INTERVIEW_EVIDENCE_CARD.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
+完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md)、[证据索引](docs/EVIDENCE_CARD.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
