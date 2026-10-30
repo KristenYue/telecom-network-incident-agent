@@ -8,22 +8,13 @@
 
 ## 已完成能力
 
-- 12 类 IP 网络与传输链路故障策略；
-- 60 条冻结合成任务，12 类各 5 条；
-- V2：240 条开发输入、100 条 SHA-256 封存合成输入与独立安全 cohort；
-- 9 个带 Pydantic 参数校验、权限和故障注入的工具；
-- 证据优先的确定性 Planner 与 Top-3 根因候选；
-- 统一 Runtime checkpoint、lease、fencing、Trace 和幂等键；
-- 高风险动作自动进入 `waiting_review`，拒绝时 `failed_closed`；
-- 批准后只创建审批记录和工单草稿，绝不执行设备变更；
-- Prompt Injection 检测、凭据脱敏、设备/接口白名单校验；
-- 版本化 JSONL、跨平台 SHA-256 manifest 和成对发布门禁；
-- 14 类确定性故障注入结果与最终状态断言；
-- 计划中的 6 个 HTTP API 路由与 SQLite 审计索引。
-- 可选 PostgreSQL 共享审计索引与 Runtime checkpoint/lease backend；
-- Redis 作业队列和独立 Runtime Worker；
-- `/trace-ui` 浏览器 Trace、Prometheus 指标与预置 Grafana dashboard；
-- API、Worker、PostgreSQL、Redis、Prometheus、Grafana 六服务 Compose。
+| 范围 | 实现 |
+|---|---|
+| 诊断与评测 | 12 类故障策略；60 条 V1 冻结任务；V2 包含 240 条开发输入、100 条封存输入与独立安全 cohort |
+| 工具与 Runtime | 9 个受控工具；证据优先 Planner；checkpoint、lease、fencing、Trace 与幂等键 |
+| 安全与审批 | Prompt Injection 检测、凭据脱敏、设备/接口白名单；高风险建议进入 `waiting_review`，批准后也只生成工单草稿 |
+| 数据与门禁 | 版本化 JSONL、SHA-256 manifest、14 类故障注入结果与成对发布门禁 |
+| 服务与观测 | HTTP API、Redis Worker、SQLite/PostgreSQL 审计索引、Trace UI、Prometheus、Grafana 与六服务 Compose |
 
 ## 可复现结果
 
