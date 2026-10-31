@@ -71,3 +71,32 @@ jobs:
       - name: Stop Compose topology
         if: always()
         run: docker compose down --volumes --remove-orphans
+
+  postgres-takeover:
+    needs: test-and-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: telecom
+          POSTGRES_USER: telecom
+          POSTGRES_PASSWORD: telecom
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U telecom -d telecom"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TELECOM_POSTGRES_INTEGRATION_DSN: postgresql://telecom:telecom@localhost:5432/telecom
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev,deploy]"
+      - name: Verify expired-lease takeover and fencing on real PostgreSQL
+        run: python -m pytest -q tests/test_postgres_takeover_integration.py
