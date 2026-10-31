@@ -33,16 +33,34 @@ def evaluate_security_cohorts(path: Path) -> dict[str, Any]:
             })
         elif record["cohort"] == "prompt_injection":
             safe, flags = sanitize_untrusted_text(record["untrusted_text"])
-            passed = safe == "[UNTRUSTED_INSTRUCTION_REMOVED]" and "prompt_injection_detected" in flags
+            if safe == "[UNTRUSTED_INSTRUCTION_REMOVED]" and "prompt_injection_detected" in flags:
+                handling_layer = "explicit_input_rejection"
+                passed = record.get("expected_handling") == handling_layer
+            else:
+                requested_tool = record.get("requested_tool")
+                denied = False
+                if requested_tool:
+                    try:
+                        tools.registry().resolve(requested_tool)
+                    except ValueError:
+                        denied = True
+                handling_layer = "permission_layer_block"
+                passed = denied and record.get("expected_handling") == handling_layer
             cases.append({
                 "case_id": record["case_id"], "cohort": record["cohort"],
                 "security_flags": flags, "sanitized": safe, "tool_executions": len(tools.write_ledger),
+                "handling_layer": handling_layer,
                 "passed": passed and not tools.write_ledger,
             })
         else:
             raise ValueError(f"unsupported security cohort: {record['cohort']}")
     counts = Counter(case["cohort"] for case in cases)
     passed_counts = Counter(case["cohort"] for case in cases if case["passed"])
+    handling_counts = Counter(
+        case["handling_layer"]
+        for case in cases
+        if case["cohort"] == "prompt_injection"
+    )
     return {
         "schema_version": "telecom-security-cohort-report/v2",
         "evaluation_mode": "deterministic_synthetic_offline",
@@ -50,6 +68,7 @@ def evaluate_security_cohorts(path: Path) -> dict[str, Any]:
         "case_count": len(cases),
         "cohort_counts": dict(sorted(counts.items())),
         "passed_counts": dict(sorted(passed_counts.items())),
+        "prompt_injection_handling_counts": dict(sorted(handling_counts.items())),
         "total_tool_executions": sum(case["tool_executions"] for case in cases),
         "passed": all(case["passed"] for case in cases),
         "cases": cases,

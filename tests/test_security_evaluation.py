@@ -8,5 +8,9 @@ def test_security_cohorts_are_executed_without_claiming_rbac(tmp_path):
     assert report["case_count"] == 88
     assert report["cohort_counts"] == {"prompt_injection": 40, "unauthorised_tool": 48}
     assert report["passed_counts"] == report["cohort_counts"]
+    assert report["prompt_injection_handling_counts"] == {
+        "explicit_input_rejection": 37,
+        "permission_layer_block": 3,
+    }
     assert report["total_tool_executions"] == 0
     assert report["authorization_model"] == "tool allowlist; no user identity or RBAC claim"
