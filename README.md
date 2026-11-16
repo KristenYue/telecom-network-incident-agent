@@ -1,12 +1,22 @@
 # 通信网络故障诊断 Agent
 
-> Telecom Network Incident Diagnosis Agent
+[![CI](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml)
 
-这是现有 **Agent Runtime & Evaluation Platform** 的第三个业务适配场景，不是另一套 Agent 平台。它把合成告警、指标与日志转换为可审计诊断任务，通过受控工具获取事实、检索合成运维手册、排列根因候选、生成工单草稿，并让高风险建议停在人工审批点。
+> 从告警、指标和日志中生成可审计根因候选，并把异步执行、人工审批、故障恢复和质量门禁放进同一条工程链路。
 
-当前版本为 `0.2.0`，已完成 C0–C3，并实现 C4 的六服务交付拓扑、监控面板和 Trace 页面。所有数据、工具响应和手册均为项目自建合成内容；没有连接运营商、网管平台或真实设备。本机没有 Docker，因此完整拓扑由契约测试覆盖，并交给 CI 做镜像构建与 Compose smoke test。
+系统以 FastAPI 接收故障任务，通过 Redis Streams 分发给异步 Worker，在 PostgreSQL 中保存任务、审批和 Runtime 状态；共享 **Agent Runtime & Evaluation Platform** 提供 checkpoint、lease、fencing、幂等账本与统一 Trace，通信层负责领域工具、根因排序和工单草稿。
 
-## 已完成能力
+## Evaluation scorecard
+
+| 冻结证据 | 结果 | 失败边界 |
+|---|---:|---|
+| 诊断封存集 | **100 条；Top-1 / Top-3 = 100% / 100%** | 只说明确定性策略与自编标签一致 |
+| 未注册工具请求 | **48 / 48 拒绝；执行数 0** | 工具白名单，不等同于完整身份认证 |
+| Prompt Injection | **40 / 40 拦截** | 37 条输入层拒绝 + 3 条权限层阻断 |
+| PostgreSQL 接管 | **真实 CI 服务验证** | 过期 lease 接管，陈旧 fencing token 写入失败 |
+| 高风险动作 | **全部停在人工审批** | 批准后也只创建工单草稿，不操作设备 |
+
+## Engineering surface
 
 | 范围 | 实现 |
 |---|---|
@@ -14,7 +24,7 @@
 | 工具与 Runtime | 9 个受控工具；证据优先 Planner；checkpoint、lease、fencing、Trace 与幂等键 |
 | 安全与审批 | Prompt Injection 检测、凭据脱敏、设备/接口白名单；高风险建议进入 `waiting_review`，批准后也只生成工单草稿 |
 | 数据与门禁 | 版本化 JSONL、SHA-256 manifest、14 类故障注入结果与成对发布门禁 |
-| 服务与观测 | HTTP API、Redis Worker、SQLite/PostgreSQL 审计索引、Trace UI、Prometheus、Grafana 与六服务 Compose |
+| 服务与观测 | HTTP API、Redis Streams 确认/重投/死信、SQLite/PostgreSQL、Trace UI、Prometheus、Grafana 与六服务 Compose |
 
 ## 可复现结果
 
@@ -69,6 +79,28 @@ flowchart LR
     K --> H
     H --> L[可审计 Trace]
 ```
+
+## 可靠异步任务链
+
+```text
+FastAPI -> Redis Stream -> consumer group -> Runtime Worker
+                          | success -> XACK + delete
+                          | failure -> pending entry
+                          | worker crash -> visibility timeout -> XAUTOCLAIM
+                          | delivery limit -> dead-letter stream
+```
+
+Worker 只有在 PostgreSQL 结果保存完成后才确认 Stream 消息。进程在取到任务后退出时，消息仍保留在 pending-entry list，其他 Worker 可在可见性超时后接管；连续失败超过阈值则进入死信 Stream，并保留原消息、投递次数和最后错误。Runtime 的 fencing token 同时阻止失租旧 Worker 回写 checkpoint。
+
+## Findings → fixes → regression evidence
+
+| 发现的问题 | 根因 | 解决方式 | 防回归证据 |
+|---|---|---|---|
+| 下游告警数量压过真正根因 | 早期排序把症状频次当作因果强度 | 按故障策略要求关键观测与反证，再计算候选分 | 混淆故障与双故障挑战集 |
+| 注入字符串可能绕过单点检测 | 仅靠输入关键词无法覆盖工具层攻击 | 输入检测与工具 allowlist 分层防护 | 37 条显式拒绝 + 3 条权限层阻断 |
+| 未注册工具异常泄漏为普通 `ValueError` | Runtime 边界没有统一安全语义 | 归一化为 `tool_not_allowed` 并失败关闭 | 48 条越权 cohort，实际执行数 0 |
+| Worker lease 过期后旧实例可能继续写 | 缺少单调执行代际 | PostgreSQL lease takeover + fencing token | 真实 PostgreSQL 双 Worker CI 测试 |
+| 高风险建议容易被误解为已执行 | 诊断结论与副作用动作边界不清 | 只生成审批记录和工单草稿 | Trace 断言无设备变更工具 |
 
 ## 快速开始
 
@@ -150,6 +182,10 @@ scripts/                      数据生成与离线评测入口
 - 不拥有真实网管权限；
 - 不执行接口重启、路由修改、设备重启等操作；
 - 不把合成数据上的 100% 当作真实网络准确率；
-- SQLite 是本机离线验证路径；PostgreSQL/Redis/监控全拓扑已实现，但本机没有 Docker，尚无本机启动证据。
+- SQLite 是本地离线验证路径；PostgreSQL/Redis/监控拓扑由托管 Linux CI 验证，不据此承诺生产容量或 SLA。
 
-完整设计与限制见 [架构](docs/ARCHITECTURE.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md)、[证据索引](docs/EVIDENCE_CARD.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
+完整设计见 [架构](docs/ARCHITECTURE.md)、[可靠任务设计](docs/RELIABLE_JOBS.md)、[数据卡](docs/DATA_CARD.md)、[工具与权限](docs/TOOLS_AND_PERMISSIONS.md)、[故障状态机](docs/FAILURE_STATE_MACHINE.md)、[工程日志](docs/ENGINEERING_LOG.md)、[Bad Cases](docs/BAD_CASES.md)、[证据索引](docs/EVIDENCE_CARD.md) 和 [计划完成度核对](docs/PLAN_COMPLETENESS.md)。
+
+## License
+
+[MIT](LICENSE)

@@ -348,3 +348,15 @@ cohort 与鲁棒性挑战集只能在深层目录发现。首页现增加 V2 独
 复核 GitHub Actions 成功运行的 job 级记录后确认：`test-and-gate` 与 `compose-smoke` 均为 success。Compose job 实际完成配置解析、六服务构建/启动、提交一次队列诊断、等待 Worker 完成、读取 Trace/Trace UI/metrics/Prometheus ready，并在结束时清理环境。原计划文档中“尚无 CI 成功运行记录”的表述已过期，已修正并附上运行链接。
 
 这项证据的范围是 Linux CI smoke，不是本机 Docker 验收，也不是生产部署、性能、灾备或运营商系统接入。后续优先级相应调整为 PostgreSQL 双 Worker 接管、Redis 可靠消费、RAG 外部效度和生产化安全演练，而非重复实现已有拓扑。
+
+## 17. Redis Streams 可靠异步任务闭环（2026-11-15）
+
+复查 C4 异步链路时确认旧实现使用 Redis List `BLPOP`：消息被 Worker 取出时即从队列删除，若进程在 Runtime 或 PostgreSQL 保存完成前退出，任务没有可恢复位置。这与“异步任务 + 故障恢复”的项目目标冲突。
+
+队列升级为 Redis Streams consumer group：API 使用 `XADD`，Worker 使用 `XREADGROUP`；只有 `process_job` 完整返回后才执行 `XACK + XDEL`。业务异常只记录最后错误并保留 pending，Worker 崩溃或失联后由其他 consumer 使用 `XAUTOCLAIM` 接管。投递次数超过配置上限时，原载荷、最后错误、次数和失败时间进入 dead-letter Stream，避免确定性坏任务无限循环。
+
+实现过程中额外发现 Redis Stream message ID 只在单个 Stream 内唯一。如果所有测试/租户共用一个全局 error hash，两个 Stream 都可能出现 `1-0` 并覆盖错误。因此错误 hash 改为随 `stream_key` 隔离。
+
+验证分三层：内存脚本客户端覆盖 ack/reclaim/DLQ 状态机；Worker 单测证明成功才确认、异常保持 pending；独立 CI job 启动真实 Redis 7，验证 consumer A 失败后 consumer B 接管、delivery count 增长、超限进入 DLQ 且 pending 清零。真实 CI 结论需等待本次提交推送后确认。
+
+Runtime 依赖固定到 `d98e7941bdbf3b4ad2e3e1a55054d7a7a55dac89`，使通信项目使用带 180/70/60 可执行验收基准的 `0.6.1.dev0`，同时保持平台代码与通信领域代码分仓所有权。

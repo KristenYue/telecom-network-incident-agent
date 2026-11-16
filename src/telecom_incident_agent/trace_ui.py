@@ -5,7 +5,7 @@ TRACE_UI_HTML = r"""<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>通信故障诊断 Trace</title>
+  <title>通信故障诊断评测控制台</title>
   <style>
     :root{color-scheme:dark;--bg:#08111f;--panel:#0f1d31;--line:#28415f;--text:#e8f0fb;--muted:#94a9c1;--accent:#49d3b5;--warn:#ffca6a}
     *{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,sans-serif;background:radial-gradient(circle at top,#132b45,var(--bg) 45%);color:var(--text)}
@@ -13,14 +13,22 @@ TRACE_UI_HTML = r"""<!doctype html>
     .search{display:flex;gap:10px;margin:28px 0}.search input{flex:1;background:#07101d;border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--text)}
     button{border:0;border-radius:10px;padding:0 20px;background:var(--accent);color:#062019;font-weight:700;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
     .card,.step{background:color-mix(in srgb,var(--panel) 92%,transparent);border:1px solid var(--line);border-radius:14px;padding:16px}.label{color:var(--muted);font-size:12px;text-transform:uppercase}.value{font-size:18px;font-weight:700;word-break:break-word}
+    .scorecard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.metric{padding:18px;border-top:2px solid var(--accent);background:#0b1728}.metric strong{display:block;margin:5px 0;font-size:24px}.metric span{color:var(--muted);font-size:12px}.scope{padding:12px 14px;border-left:3px solid var(--warn);background:#101b2a;color:var(--muted);font-size:13px}
     #steps{display:grid;gap:12px;margin-top:18px}.step h3{margin:0 0 8px}.tool{margin:8px 0;padding:10px;border-left:3px solid var(--accent);background:#091524}.error{border-left-color:#ff7285}.empty{text-align:center;padding:35px}.boundary{color:var(--warn)}
-    pre{white-space:pre-wrap;word-break:break-word;color:#bfd0e3}@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}.search{flex-direction:column}button{padding:13px}}
+    pre{white-space:pre-wrap;word-break:break-word;color:#bfd0e3}@media(max-width:760px){.grid,.scorecard{grid-template-columns:1fr 1fr}.search{flex-direction:column}button{padding:13px}}
   </style>
 </head>
 <body><main>
-  <div class="label">Synthetic evidence only · 不连接真实设备</div>
-  <h1>通信网络故障诊断 Trace</h1>
-  <p>查看 Runtime 步骤、工具事实、错误、审批点和领域结论。输入 API 返回的 incident_id。</p>
+  <div class="label">Evaluation evidence console</div>
+  <h1>通信故障诊断评测控制台</h1>
+  <p>从冻结指标进入单次执行证据，检查 Runtime 步骤、工具事实、错误分类、审批点和领域结论。</p>
+  <section class="scorecard" aria-label="冻结评测结果">
+    <div class="metric"><span>封存诊断输入</span><strong>100</strong><span>Top-1 / Top-3 均为 100%</span></div>
+    <div class="metric"><span>越权工具请求</span><strong>48 / 48</strong><span>全部拒绝，工具执行数 0</span></div>
+    <div class="metric"><span>注入攻击</span><strong>40 / 40</strong><span>37 输入层 + 3 权限层</span></div>
+    <div class="metric"><span>高风险动作</span><strong>0 执行</strong><span>只生成审批记录和工单草稿</span></div>
+  </section>
+  <div class="scope">评测范围：项目自建合成告警、工具响应和运维手册。该页面不连接真实设备，指标不代表运营商生产效果。</div>
   <div class="search"><input id="incident" placeholder="INC-XXXXXXXXXXXX" autocomplete="off"><button id="load">加载 Trace</button></div>
   <section class="grid" id="summary"></section><section id="steps"><div class="card empty">等待加载</div></section>
 </main><script>

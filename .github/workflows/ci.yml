@@ -3,22 +3,30 @@ name: telecom-agent-ci
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test-and-gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: python -m pip install -e ".[dev]"
+      - run: python -m pip check
       - run: python -m pytest -q
       - run: python scripts/generate_dataset.py
       - run: git diff --exit-code -- data/evaluation/telecom_eval_v1.jsonl data/evaluation/telecom_eval_v1_manifest.json
       - run: python scripts/evaluate.py
       - run: python scripts/evaluate_failures.py
       - run: python scripts/evaluate_rag.py
+      - run: python scripts/evaluate_v2_frozen.py
+      - run: python scripts/evaluate_v2_security_cohorts.py
+      - run: python scripts/evaluate_robustness.py
       - run: python scripts/check_release_readiness.py
 
   compose-smoke:
@@ -26,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate Compose model
         run: docker compose config --quiet
       - name: Build and start six-service topology
@@ -93,10 +101,35 @@ jobs:
     env:
       TELECOM_POSTGRES_INTEGRATION_DSN: postgresql://telecom:telecom@localhost:5432/telecom
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: python -m pip install -e ".[dev,deploy]"
       - name: Verify expired-lease takeover and fencing on real PostgreSQL
         run: python -m pytest -q tests/test_postgres_takeover_integration.py
+
+  redis-reliability:
+    needs: test-and-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      TELECOM_REDIS_INTEGRATION_URL: redis://localhost:6379/0
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev,deploy]"
+      - name: Verify pending reclaim, acknowledgement and dead-letter routing
+        run: python -m pytest -q tests/test_redis_reliability_integration.py

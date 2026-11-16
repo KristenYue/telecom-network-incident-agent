@@ -10,4 +10,6 @@ def test_plan_records_ci_compose_evidence_without_claiming_local_or_production_p
     assert "compose-smoke" in plan
     assert "本机仍无 Docker" in plan
     assert "不证明真实运营商接入、性能压测、灾备或生产 SLO" in plan
-    assert "双 Worker PostgreSQL" in plan
+    assert "PostgreSQL 双 Worker 接管" in plan
+    assert "Redis 可靠消费" in plan
+    assert "远端复验待推送" in plan

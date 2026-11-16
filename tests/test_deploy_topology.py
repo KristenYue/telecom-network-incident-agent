@@ -84,7 +84,20 @@ def test_compose_declares_and_wires_six_services():
         assert f"  {service}:" in compose
     assert "TELECOM_DATABASE_URL" in compose
     assert "TELECOM_REDIS_URL" in compose
+    assert "TELECOM_JOB_VISIBILITY_TIMEOUT_SECONDS" in compose
+    assert "TELECOM_JOB_MAX_DELIVERIES" in compose
     assert "/ready" in compose
+
+
+def test_ci_runs_frozen_evidence_and_real_redis_recovery_gate():
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    assert "evaluate_v2_frozen.py" in workflow
+    assert "evaluate_v2_security_cohorts.py" in workflow
+    assert "evaluate_robustness.py" in workflow
+    assert "redis-reliability:" in workflow
+    assert "image: redis:7-alpine" in workflow
+    assert "TELECOM_REDIS_INTEGRATION_URL" in workflow
+    assert "tests/test_redis_reliability_integration.py" in workflow
 
 
 def test_deploy_assets_and_trace_ui_are_parseable():

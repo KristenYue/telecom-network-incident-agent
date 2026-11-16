@@ -44,4 +44,4 @@ def test_operational_endpoints_expose_readiness_metrics_and_trace_ui(tmp_path):
         assert "telecom_http_requests_total" in metrics.text
         trace_ui = client.get("/trace-ui")
         assert trace_ui.status_code == 200
-        assert "通信网络故障诊断 Trace" in trace_ui.text
+        assert "通信故障诊断评测控制台" in trace_ui.text

@@ -7,7 +7,7 @@
 ```mermaid
 flowchart TB
     API[Incident API] --> APP[IncidentService]
-    APP --> REDIS[(Redis Job Queue)]
+    APP --> REDIS[(Redis Streams + Pending / DLQ)]
     REDIS --> WORKER[Runtime Worker]
     WORKER --> ADAPTER[Telecom Runtime Adapter]
     ADAPTER --> RUNTIME[共享 Agent Runtime]
@@ -33,7 +33,7 @@ flowchart TB
 - C1：完成。9 个工具、完整诊断链路、工单草稿和无密钥 Demo 已实现。
 - C2：完成。SQLite 离线路径及 PostgreSQL checkpoint、审批恢复、lease/fencing 和统一 Trace 均已接入共享 Runtime。
 - C3：第一版完成。60 条任务、注入/审批安全场景、成对门禁已固化；RAG 指标当前基于 12 份小型合成手册。
-- C4：代码完成。PostgreSQL/Redis Worker、Prometheus/Grafana、Trace 页面和六服务 Compose 已实现；本机无 Docker，实机启动证据由 CI smoke job 负责。
+- C4：代码完成。PostgreSQL、Redis Streams 可靠 Worker、Prometheus/Grafana、Trace 页面和六服务 Compose 已实现；Redis consumer group 提供显式确认、崩溃接管和死信隔离，真实服务路径由独立 CI job 验证。
 
 ## Windows 开发宿主边界
 
