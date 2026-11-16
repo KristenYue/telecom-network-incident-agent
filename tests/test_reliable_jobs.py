@@ -19,6 +19,7 @@ class ScriptedRedis:
         self.deleted = []
         self.closed = False
         self.next_id = 1
+        self.read_blocks = []
 
     async def xgroup_create(self, *args, **kwargs):
         return True
@@ -39,6 +40,7 @@ class ScriptedRedis:
         return ["0-0", messages, []]
 
     async def xreadgroup(self, group, consumer, streams, *, count, block):
+        self.read_blocks.append(block)
         if not self.new:
             return []
         item = self.new.pop(0)
@@ -82,6 +84,7 @@ def test_stream_job_is_acknowledged_only_after_success():
         message_id, {"incident_id": "INC-1", "kind": "diagnose"}, 1
     )
     assert redis.acked == []
+    assert redis.read_blocks == [None]
 
     run_non_yielding(queue.ack(claimed))
     assert redis.acked == [message_id]

@@ -18,6 +18,12 @@ POSTGRES_DSN = os.getenv("TELECOM_POSTGRES_INTEGRATION_DSN")
 async def _apply_runtime_schema(dsn: str) -> None:
     psycopg = pytest.importorskip("psycopg")
     schema = (ROOT / "deploy" / "postgres" / "init.sql").read_text(encoding="utf-8")
+    # This fixture contains simple DDL, but its header comment also contains a
+    # semicolon. Remove line comments before splitting statements so prose is
+    # never sent to PostgreSQL as SQL.
+    schema = "\n".join(
+        line for line in schema.splitlines() if not line.lstrip().startswith("--")
+    )
     async with await psycopg.AsyncConnection.connect(dsn) as connection:
         for statement in schema.split(";"):
             if statement.strip():

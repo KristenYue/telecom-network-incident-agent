@@ -360,3 +360,9 @@ cohort 与鲁棒性挑战集只能在深层目录发现。首页现增加 V2 独
 验证分三层：内存脚本客户端覆盖 ack/reclaim/DLQ 状态机；Worker 单测证明成功才确认、异常保持 pending；独立 CI job 启动真实 Redis 7，验证 consumer A 失败后 consumer B 接管、delivery count 增长、超限进入 DLQ 且 pending 清零。真实 CI 结论需等待本次提交推送后确认。
 
 Runtime 依赖固定到 `d98e7941bdbf3b4ad2e3e1a55054d7a7a55dac89`，使通信项目使用带 180/70/60 可执行验收基准的 `0.6.1.dev0`，同时保持平台代码与通信领域代码分仓所有权。
+
+## 18. 真实 Redis CI 发现 `BLOCK 0` 语义差异（2026-11-16）
+
+首次推送可靠队列后，脚本客户端测试和六服务 smoke 均通过，但独立真实 Redis job 在死信转移后的零超时读取处不退出。根因是 Redis 将 `XREADGROUP BLOCK 0` 定义为永久等待，而队列公开接口将零超时定义为非阻塞轮询。修复为零超时时省略 `BLOCK`，并增加参数级回归断言。这说明协议模拟适合验证状态机，但不能替代真实服务对命令细节的验证。
+
+同轮 CI 的 PostgreSQL job 还暴露了测试夹具的 SQL 拆分错误：初始化文件首行注释包含分号，直接 `split(";")` 后将注释后半句作为 SQL 执行。夹具现先移除整行注释再拆分 DDL；该问题属于验证基础设施缺陷，不是 lease/fencing 算法失败。

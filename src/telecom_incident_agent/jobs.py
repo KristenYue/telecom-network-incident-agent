@@ -102,12 +102,15 @@ class RedisIncidentJobQueue:
         reclaimed = await self._reclaim_one()
         if reclaimed is not None:
             return reclaimed
+        # Redis interprets ``BLOCK 0`` as "wait forever", while this API uses
+        # zero to mean a non-blocking poll. Omit BLOCK for that case.
+        block_ms = None if timeout_seconds <= 0 else int(timeout_seconds * 1000)
         response = await self.client.xreadgroup(
             self.group,
             self.consumer_id,
             {self.stream_key: ">"},
             count=1,
-            block=max(0, int(timeout_seconds * 1000)),
+            block=block_ms,
         )
         messages = self._stream_messages(response)
         if not messages:

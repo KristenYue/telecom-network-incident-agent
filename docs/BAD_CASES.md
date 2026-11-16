@@ -36,3 +36,17 @@
 
 - 现象：HTTP 生命周期测试完成断言后挂起。
 - 处理：Windows 保留路由/服务契约测试，真实 HTTP、Compose 和健康检查交由 Linux CI 执行；不把宿主限制记录为业务通过或失败。
+
+## BC-007：Redis 非阻塞轮询被解释为永久阻塞
+
+- 现象：真实 Redis CI 在死信转移完成后持续不退出，而脚本客户端单测通过。
+- 根因：队列把 `timeout_seconds=0` 转成 `XREADGROUP BLOCK 0`；Redis 对 `BLOCK 0` 的定义是无限等待，并非非阻塞。
+- 修复：零超时时省略 `BLOCK` 参数，正超时时才传入毫秒值。
+- 回归：脚本客户端记录并断言零超时对应 `block=None`，真实 Redis CI 覆盖 reclaim、超限死信和 pending 清零。
+
+## BC-008：SQL 注释中的分号被测试夹具当成语句边界
+
+- 现象：真实 PostgreSQL job 报 `syntax error at or near "the"`，服务本身已健康。
+- 根因：测试夹具直接按分号拆分初始化 SQL；首行注释也包含分号，后半句英文被作为 SQL 执行。
+- 修复：拆分 DDL 前先剔除整行 SQL 注释，避免把说明文本交给数据库。
+- 回归：真实 PostgreSQL CI 重新执行 lease 过期接管与陈旧 fencing token 写入拒绝。
