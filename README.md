@@ -1,25 +1,50 @@
-# 通信网络故障诊断与可靠任务平台
-
-## 工业设备诊断与任务编排
-
-作为原通信诊断平台的设备扩展，FastAPI 接单后由持久化 Worker 读取 C++ 仿真设备、检索版本化 Runbook 并保存轨迹。急停、联锁拒绝和断连已在本机验收。可选真实模型报告待配置服务后验收。[架构、命令与验收范围](docs/INDUSTRIAL_AGENT.md)
+# 工业设备诊断与任务编排平台
 
 [![持续集成](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml)
-![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB)
-![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
-![Redis Streams](https://img.shields.io/badge/消息队列-Redis%20Streams-DC382D)
-![PostgreSQL 16](https://img.shields.io/badge/持久化-PostgreSQL%2016-4169E1)
-[![安全验证](https://img.shields.io/badge/安全验证-88%2F88-2EA44F)](data/evaluation/telecom_eval_v2_security_cohort_report.json)
-[![故障注入](https://img.shields.io/badge/故障注入-14%2F14-2EA44F)](data/evaluation/telecom_failure_report_v1.json)
-[![开源许可](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-面向通信网络告警、指标和日志的可审计故障诊断 Agent，同时实现了一套具备任务接管、幂等恢复、死信隔离、人工审批和质量门禁的可靠异步任务平台。
+**Python · FastAPI · Agent Runtime · PostgreSQL · Redis Streams**
 
-项目重点回答三个工程问题：
+面向通信网络与工业设备的诊断和任务执行。设备研发人员可以提交任务，读取设备状态，查看系统引用了哪份运行手册、调用了哪些工具，以及最终为什么完成、拒绝或转人工。以 C++ 仿真设备为例，平台能够区分急停联锁与设备离线，并保留可追溯的诊断依据。
 
-> 如何从多源通信告警中生成有证据的根因候选；如何保证异步诊断任务在 Worker 崩溃后仍能被接管；如何阻止未授权工具、Prompt Injection 和未经审批的高风险操作。
+## 两条业务链路
+
+| 场景 | 输入与处理 | 输出 |
+| --- | --- | --- |
+| **设备诊断与控制联调** | FastAPI 接单后持久化任务，由 Worker 经 TCP 访问 C++ 仿真设备。诊断工具读取状态，匹配版本化 Runbook。模拟写任务需要服务端开启权限并由请求显式授权。 | 设备响应、诊断结论、Runbook 引用和逐步工具调用记录 |
+| **通信网络故障诊断** | 汇总告警、接口状态、路由邻居、指标和日志，调度只读诊断工具，检索运行手册。高风险动作进入人工审批。 | 带证据的根因候选与工单草稿 |
+
+```mermaid
+flowchart LR
+    A["FastAPI 接收任务"] --> B["持久化队列与 Worker"]
+    B --> C["Agent Runtime"]
+    C --> D["设备或网络诊断工具"]
+    C --> E["版本化 Runbook 检索"]
+    D --> F["诊断结果与调用轨迹"]
+    E --> F
+```
+
+## 核心工程设计
+
+- **诊断结果可复核。** 将状态采集、知识检索和结果生成拆成独立步骤。输出保留设备观测、Runbook ID 与版本，便于追溯结论依据。
+- **设备写入受控。** 仿真写任务具有明确授权边界，急停联锁由 C++ 设备端独立执行。连接中断时，任务记录结果未知并尝试只读查询，避免把可能已执行的写指令再次发送。
+- **任务提交与投递可恢复。** PostgreSQL 在一个事务内保存通信诊断任务和 Outbox 事件，Worker 随后将事件发布到 Redis Streams。消费端在结果持久化后确认消息。设备任务由 SQL 队列领取，通过执行权检查约束过期 Worker 的状态写入。
+
+## 三条可复现的设备轨迹
+
+| 场景 | 本机实测结果 |
+| --- | --- |
+| 正常执行 | 模拟设备完成上电、归位、校准与运行，返回 `RUN_COMPLETE`，运行计数为 1。 |
+| 急停联锁 | 急停后再次发送启动命令，设备返回 `SAFETY_INTERLOCK`。诊断引用 `sim-interlock-001`。 |
+| 设备离线 | 模拟器关闭后，状态查询失败。诊断引用 `sim-transport-001`，输出人工处置建议。 |
+
+以上设备轨迹来自 **FastAPI、SQLite 与 C++ 模拟设备的本机联调**，诊断使用确定性编排。真实模型调用与分布式部署的验收进度见工程说明。
+
+[架构与复现命令](docs/INDUSTRIAL_AGENT.md) · [原始运行轨迹](docs/device-api-smoke.jsonl) · [Outbox 与重投故障窗口](docs/DELIVERY_FAILURE_WINDOWS.md)
+
+**关联项目**　[C++ 设备运行时与控制仿真](https://github.com/KristenYue/edge-device-verification-lab)提供 TCP 设备接口与联锁逻辑。[共享 Agent Runtime](https://github.com/KristenYue/agent-runtime-quality-platform)提供工具执行、Checkpoint、租约和结果提交保护。
 
 ---
+
 
 ## 10 秒了解项目
 
