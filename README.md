@@ -5,23 +5,38 @@
 **Python · FastAPI · Agent Runtime · PostgreSQL · Redis Streams**
 
 面向通信网络与工业设备的诊断和任务执行。设备研发人员可以提交任务，读取设备状态，查看系统引用了哪份运行手册、调用了哪些工具，以及最终为什么完成、拒绝或转人工。以 C++ 仿真设备为例，平台能够区分急停联锁与设备离线，并保留可追溯的诊断依据。
+## 系统架构与应用场景
 
-## 两条业务链路
-
-| 场景 | 输入与处理 | 输出 |
-| --- | --- | --- |
-| **设备诊断与控制联调** | FastAPI 接单后持久化任务，由 Worker 经 TCP 访问 C++ 仿真设备。诊断工具读取状态，匹配版本化 Runbook。模拟写任务需要服务端开启权限并由请求显式授权。 | 设备响应、诊断结论、Runbook 引用和逐步工具调用记录 |
-| **通信网络故障诊断** | 汇总告警、接口状态、路由邻居、指标和日志，调度只读诊断工具，检索运行手册。高风险动作进入人工审批。 | 带证据的根因候选与工单草稿 |
+平台复用 Agent Runtime 管理工具调用与轨迹。不同接入方式负责各自的协议和执行语义：TCP 处理设备控制与联锁，通信诊断工具处理告警和网络状态，ROS 2 Action 处理带进度、可取消的巡检任务。
 
 ```mermaid
 flowchart LR
-    A["FastAPI 接收任务"] --> B["持久化队列与 Worker"]
-    B --> C["Agent Runtime"]
-    C --> D["设备或网络诊断工具"]
-    C --> E["版本化 Runbook 检索"]
-    D --> F["诊断结果与调用轨迹"]
-    E --> F
+    A["FastAPI · 持久化任务与 Worker"] --> B["共享 Agent Runtime"]
+    C["ROS 2 巡检演示脚本"] --> B
+    B --> D["TCP 适配器 · C++ 仿真设备"]
+    B --> E["通信诊断工具 · 版本化 Runbook"]
+    B --> F["ROS 2 Action · 仿真工作站"]
+    B --> G["结果与工具轨迹"]
 ```
+
+| 应用场景 | 核心研发模块 | 可核查行为 |
+| --- | --- | --- |
+| **设备诊断与控制联调** | FastAPI 接单，任务持久化后由 Worker 经 TCP 调用 C++ 仿真设备。只读诊断与需显式授权的模拟写操作使用不同权限。 | 本机复现 **3 类场景**。正常运行计数为 **1**，急停后启动返回 `SAFETY_INTERLOCK`，设备离线时走通信故障诊断分支。[原始轨迹](docs/device-api-smoke.jsonl) |
+| **通信网络故障诊断** | 汇总告警、接口状态、路由邻居与指标，使用只读工具和运行手册生成根因候选与工单草稿。 | 诊断保留证据与 Runbook 引用，高风险操作进入人工审批。[故障分类源码](src/telecom_incident_agent/taxonomy.py) |
+| **ROS 2 仿真巡检** | Topic 发布工作站状态，Service 查询当前状态，Action 接收巡检目标、反馈进度并处理取消。独立演示脚本把 Action 封装成 Runtime 工具。 | 演示配置包含 **8 个巡检点**，取消场景在进度达到 **第 3 个巡检点**后发出取消请求。运行验收见 [ROS 2 作业](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44053351270)。 |
+
+### ROS 2 如何接入 Agent Runtime
+
+[工作站仿真节点](ros2/industrial_robot_sim/scripts/workcell_sim)提供三个接口：
+
+- **Topic `/workcell/status`**　发布 `IDLE` 或 `INSPECTING`。
+- **Service `/workcell/get_status`**　供调用方按需读取当前状态。
+- **Action `/workcell/inspect`**　接收巡检点数量，按点反馈进度，返回完成或取消结果。节点限制目标范围，同一时间只接受一个活动巡检任务。
+
+[Runtime 接入脚本](scripts/demo_ros_runtime.py)将巡检注册为显式授权的写工具。它提交 Action 目标、收集反馈、按条件发出取消请求，并把工具结果交回 Runtime 保存。此演示有独立入口，工业 Agent 的 TCP 设备与通信诊断流程继续通过原有 API 运行。
+
+[ROS 2 源码](ros2/industrial_robot_sim) · [构建、状态查询与取消命令](docs/INDUSTRIAL_AGENT.md#ros-2-可选演示)
+
 
 ## 核心工程设计
 
