@@ -23,7 +23,7 @@ flowchart LR
 | --- | --- | --- |
 | **设备诊断与控制联调** | FastAPI 接单，任务持久化后由 Worker 经 TCP 调用 C++ 仿真设备。只读诊断与需显式授权的模拟写操作使用不同权限。 | 本机复现 **3 类场景**。正常运行计数为 **1**，急停后启动返回 `SAFETY_INTERLOCK`，设备离线时走通信故障诊断分支。[原始轨迹](docs/device-api-smoke.jsonl) |
 | **通信网络故障诊断** | 汇总告警、接口状态、路由邻居与指标，使用只读工具和运行手册生成根因候选与工单草稿。 | 诊断保留证据与 Runbook 引用，高风险操作进入人工审批。[故障分类源码](src/telecom_incident_agent/taxonomy.py) |
-| **ROS 2 仿真巡检** | Topic 发布工作站状态，Service 查询当前状态，Action 接收巡检目标、反馈进度并处理取消。独立演示脚本把 Action 封装成 Runtime 工具。 | 演示配置包含 **8 个巡检点**，取消场景在进度达到 **第 3 个巡检点**后发出取消请求。运行验收见 [ROS 2 作业](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44053351270)。 |
+| **ROS 2 仿真巡检** | Topic 发布工作站状态，Service 查询当前状态，Action 接收巡检目标、反馈进度并处理取消。独立演示脚本将 Action 封装为 Runtime 工具。 | GitHub Actions 已通过状态发布、状态查询、**8 个巡检点的正常完成**、进度反馈和中途取消验证。[成功作业](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44054439447/job/133940031988) · [运行产物](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44054439447/artifacts/14314323792) |
 
 ### ROS 2 如何接入 Agent Runtime
 
@@ -52,7 +52,7 @@ flowchart LR
 | 急停联锁 | 急停后再次发送启动命令，设备返回 `SAFETY_INTERLOCK`。诊断引用 `sim-interlock-001`。 |
 | 设备离线 | 模拟器关闭后，状态查询失败。诊断引用 `sim-transport-001`，输出人工处置建议。 |
 
-以上设备轨迹来自 **FastAPI、SQLite 与 C++ 模拟设备的本机联调**，诊断使用确定性编排。真实模型调用与分布式部署的验收进度见工程说明。
+以上三条 TCP 设备轨迹来自 **FastAPI、SQLite 与 C++ 模拟设备的本机联调**，诊断使用确定性编排。另在 GitHub Actions 中完成了 **Docker Compose 部署冒烟、PostgreSQL 接管与 Redis 消息可靠性验证**。真实模型报告仍待配置服务后验收。[分布式验收记录](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44054439447)
 
 [架构与复现命令](docs/INDUSTRIAL_AGENT.md) · [原始运行轨迹](docs/device-api-smoke.jsonl) · [Outbox 与重投故障窗口](docs/DELIVERY_FAILURE_WINDOWS.md)
 
