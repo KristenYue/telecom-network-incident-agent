@@ -13,7 +13,7 @@ from agent_runtime_platform.tools import ToolExecutionContext, ToolRegistry, Too
 
 from .diagnosis import canonical_alarm_type
 from .models import DEVICE_PATTERN, INTERFACE_PATTERN, IncidentRequest
-from .runbooks import RUNBOOKS
+from .runbooks import RUNBOOKS, retrieve_runbooks
 from .security import sanitize_untrusted_text
 
 
@@ -191,17 +191,7 @@ class SyntheticTelecomTools:
         safe_query, flags = sanitize_untrusted_text(parsed.query)
         fault_filter = parsed.filters.get("fault_type")
         allowed = set(self.incident.allowed_runbooks)
-        scored: list[tuple[int, dict[str, Any]]] = []
-        for runbook in RUNBOOKS:
-            if allowed and runbook["runbook_id"] not in allowed:
-                continue
-            if fault_filter and runbook["fault_type"] != fault_filter:
-                continue
-            haystack = " ".join([runbook["title"], runbook["fault_type"], *runbook["keywords"]]).lower()
-            score = sum(1 for token in safe_query.lower().replace("_", " ").split() if token in haystack)
-            if score or fault_filter == runbook["fault_type"]:
-                scored.append((score + 1, runbook))
-        results = [item for _, item in sorted(scored, key=lambda pair: (-pair[0], pair[1]["runbook_id"]))[:5]]
+        results = retrieve_runbooks(RUNBOOKS, safe_query, fault_filter, allowed)
         return await self._execute("search_runbook", lambda: {
             "query": safe_query, "results": results, "security_flags": flags,
             "no_answer": not results, "synthetic": True,

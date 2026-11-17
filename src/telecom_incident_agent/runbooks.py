@@ -5,6 +5,21 @@ from __future__ import annotations
 from typing import Any
 
 
+def retrieve_runbooks(corpus, query: str, fault_filter: str | None, allowed=()):
+    tokens = query.lower().replace("_", " ").split()
+    scored = []
+    for entry in corpus:
+        if allowed and entry["runbook_id"] not in allowed:
+            continue
+        if fault_filter and entry["fault_type"] != fault_filter:
+            continue
+        haystack = " ".join([entry["title"], entry["fault_type"], *entry["keywords"]]).lower()
+        score = sum(token in haystack for token in tokens)
+        if score or fault_filter == entry["fault_type"]:
+            scored.append((score, entry))
+    return [entry for _, entry in sorted(scored, key=lambda pair: (-pair[0], pair[1]["runbook_id"]))[:5]]
+
+
 RUNBOOKS: tuple[dict[str, Any], ...] = (
     {"runbook_id": "rb-interface-001", "fault_type": "interface_down", "device_family": "generic-router", "version": "2026.1", "title": "接口 Down 只读排查", "steps": ["核对管理状态与运行状态", "检查最近状态变化与对端告警", "核对物理连接；任何端口重启必须审批"], "keywords": ["link_down", "接口", "down"]},
     {"runbook_id": "rb-optical-001", "fault_type": "optical_power_abnormal", "device_family": "generic-optical", "version": "2026.1", "title": "光功率异常排查", "steps": ["读取收发光功率", "核对模块阈值和链路预算", "清洁连接器；更换模块必须审批"], "keywords": ["rx_power", "光功率", "optic"]},

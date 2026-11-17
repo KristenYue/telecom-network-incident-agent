@@ -200,7 +200,7 @@ PowerShell，也产生了 `CommandNotFoundException`。
 
 **排查：** 本地 `git remote -v` 没有任何输出，说明该 checkout 尚未绑定远程；本地
 分支为 `main`，最新提交为 `204a429`，作者配置仍为
-`KristenYue <yueyt1112@163.com>`。只读查询 GitHub 账号下名称包含
+个人 GitHub 账户。只读查询 GitHub 账号下名称包含
 `telecom`、`incident` 或 `network` 的仓库，没有发现可安全复用的现有仓库。
 
 **处理：** 不猜测 GitHub URL，也不自动创建或绑定外部仓库。需要由作者在 GitHub

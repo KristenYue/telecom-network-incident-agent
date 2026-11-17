@@ -9,6 +9,44 @@ permissions:
   contents: read
 
 jobs:
+  ros2-workcell:
+    runs-on: ubuntu-latest
+    container: ros:jazzy-ros-base
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build ROS interfaces and set up the runtime
+        run: |
+          apt-get update
+          apt-get install -y python3-venv python3-colcon-common-extensions
+          source /opt/ros/jazzy/setup.bash
+          colcon build --base-paths ros2
+          python3 -m venv --system-site-packages .venv
+          .venv/bin/python -m pip install -e .
+      - name: Verify topic, service and Runtime Action completion and cancellation
+        run: |
+          set -eo pipefail
+          source /opt/ros/jazzy/setup.bash
+          source install/setup.bash
+          export ROS_LOCALHOST_ONLY=1
+          mkdir -p artifacts
+          ros2 run industrial_robot_sim workcell_sim > artifacts/workcell.log 2>&1 &
+          simulator=$!
+          trap 'kill "$simulator" 2>/dev/null || true' EXIT
+          timeout 25s ros2 topic echo /workcell/status --once | tee artifacts/topic.txt
+          timeout 25s ros2 service call /workcell/get_status std_srvs/srv/Trigger '{}' | tee artifacts/service.txt
+          .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --checkpoint artifacts/ros.sqlite3 > artifacts/completed.json
+          .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --cancel-after 3 --checkpoint artifacts/ros.sqlite3 > artifacts/canceled.json
+          .venv/bin/python -c 'import json; from pathlib import Path; a,b=(json.loads(Path("artifacts", f+".json").read_text())["result"]["inspection"] for f in ("completed","canceled")); assert a["outcome"]=="completed" and a["inspected"]==8 and a["feedback"]; assert b["outcome"]=="canceled" and 0<b["inspected"]<8 and b["feedback"]'
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ros2-workcell-evidence
+          path: artifacts/
+
   test-and-gate:
     runs-on: ubuntu-latest
     steps:

@@ -1,5 +1,9 @@
 # 通信网络故障诊断与可靠任务平台
 
+## 工业设备诊断与任务编排
+
+作为原通信诊断平台的设备扩展，FastAPI 接单后由持久化 Worker 读取 C++ 仿真设备、检索版本化 Runbook 并保存轨迹。急停、联锁拒绝和断连已在本机验收。可选真实模型报告待配置服务后验收。[架构、命令与验收范围](docs/INDUSTRIAL_AGENT.md)
+
 [![持续集成](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml)
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB)
 ![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)

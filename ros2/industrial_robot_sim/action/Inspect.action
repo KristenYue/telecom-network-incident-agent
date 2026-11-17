@@ -1,0 +1,6 @@
+uint8 checkpoints
+---
+uint8 inspected
+string outcome
+---
+uint8 inspected

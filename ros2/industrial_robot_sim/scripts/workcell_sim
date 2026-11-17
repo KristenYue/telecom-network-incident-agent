@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""Kinematic-free simulator for a single cancellable inspection task."""
+
+import time
+from threading import Lock
+
+import rclpy
+from industrial_robot_sim.action import Inspect
+from rclpy.action import ActionServer, CancelResponse, GoalResponse
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.node import Node
+from std_msgs.msg import String
+from std_srvs.srv import Trigger
+
+
+class Workcell(Node):
+    def __init__(self):
+        super().__init__("inspection_simulator")
+        self.active = Lock()
+        self.status = self.create_publisher(String, "/workcell/status", 10)
+        self.timer = self.create_timer(0.5, self.publish_status)
+        self.status_service = self.create_service(Trigger, "/workcell/get_status", self.get_status)
+        self.action = ActionServer(
+            self, Inspect, "/workcell/inspect", self.inspect,
+            callback_group=ReentrantCallbackGroup(),
+            goal_callback=self.accept,
+            cancel_callback=lambda _: CancelResponse.ACCEPT,
+        )
+
+    def state(self):
+        return "INSPECTING" if self.active.locked() else "IDLE"
+
+    def publish_status(self):
+        self.status.publish(String(data=self.state()))
+
+    def get_status(self, request, response):
+        response.success = True
+        response.message = self.state()
+        return response
+
+    def accept(self, goal):
+        if not 1 <= goal.checkpoints <= 20 or not self.active.acquire(blocking=False):
+            return GoalResponse.REJECT
+        return GoalResponse.ACCEPT
+
+    def inspect(self, goal):
+        inspected = 0
+        try:
+            while inspected < goal.request.checkpoints:
+                time.sleep(0.2)
+                if goal.is_cancel_requested:
+                    goal.canceled()
+                    return Inspect.Result(inspected=inspected, outcome="canceled")
+                inspected += 1
+                goal.publish_feedback(Inspect.Feedback(inspected=inspected))
+            goal.succeed()
+            return Inspect.Result(inspected=inspected, outcome="completed")
+        finally:
+            self.active.release()
+
+
+def main():
+    rclpy.init()
+    node = Workcell()
+    executor = MultiThreadedExecutor(num_threads=2)
+    executor.add_node(node)
+    try:
+        executor.spin()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        executor.shutdown()
+        node.action.destroy()
+        node.destroy_node()
+        rclpy.try_shutdown()
+
+
+if __name__ == "__main__":
+    main()

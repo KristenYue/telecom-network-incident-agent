@@ -55,7 +55,15 @@ async def run_worker(service: IncidentService) -> None:
     WORKER_UP.set(1)
     try:
         while True:
-            claimed = await service.queue.dequeue(timeout_seconds=5)
+            try:
+                await service.publish_pending_jobs()
+                if service.device_tasks is not None:
+                    await asyncio.to_thread(service.device_tasks.work_once)
+                claimed = await service.queue.dequeue(timeout_seconds=1)
+            except Exception:
+                LOG.exception("could not publish or claim jobs")
+                await asyncio.sleep(1)
+                continue
             if claimed is None:
                 continue
             await process_claimed_job(service, claimed)

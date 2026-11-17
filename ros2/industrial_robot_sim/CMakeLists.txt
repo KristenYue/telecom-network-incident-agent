@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.16)
+project(industrial_robot_sim)
+
+find_package(ament_cmake REQUIRED)
+find_package(action_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+rosidl_generate_interfaces(${PROJECT_NAME} "action/Inspect.action" DEPENDENCIES action_msgs)
+install(PROGRAMS scripts/workcell_sim DESTINATION lib/${PROJECT_NAME})
+ament_export_dependencies(rosidl_default_runtime)
+ament_package()

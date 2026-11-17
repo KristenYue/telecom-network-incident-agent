@@ -9,10 +9,42 @@ import pytest
 
 from agent_runtime_platform.backends import StaleLeaseWriteError
 from agent_runtime_platform.postgres import PostgresRuntimeBackend
+from telecom_incident_agent.device_tasks import DeviceTasks
+from telecom_incident_agent.repository import PostgresIncidentRepository
 
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTGRES_DSN = os.getenv("TELECOM_POSTGRES_INTEGRATION_DSN")
+
+
+@pytest.mark.skipif(not POSTGRES_DSN, reason="requires a real PostgreSQL service")
+def test_postgres_task_outbox_and_device_queue_transactions(optical_incident):
+    psycopg = pytest.importorskip("psycopg")
+    schema = "device_test_" + uuid4().hex
+    with psycopg.connect(POSTGRES_DSN, autocommit=True) as admin:
+        admin.execute(psycopg.sql.SQL("CREATE SCHEMA {}").format(psycopg.sql.Identifier(schema)))
+        try:
+            dsn = psycopg.conninfo.make_conninfo(POSTGRES_DSN, options=f"-c search_path={schema}")
+            repository = PostgresIncidentRepository(dsn)
+            repository.create_pending("INC-OUTBOX", optical_incident, dispatch=True)
+            mirrored = PostgresIncidentRepository(dsn)
+            assert mirrored.get("INC-OUTBOX")["runtime_status"] == "queued"
+            [event] = mirrored.pending_dispatches()
+            assert event["incident_id"] == "INC-OUTBOX"
+            mirrored.finish_dispatch(event["event_id"])
+            assert repository.pending_dispatches() == []
+
+            queue = DeviceTasks(repository._connect, postgres=True, port=18765, writes=False)
+            task = queue.submit("status", False)
+            worker = DeviceTasks(mirrored._connect, postgres=True, port=18765, writes=False)
+            worker.lease_seconds = 0
+            claim = worker.claim()
+            assert claim["id"] == task["id"]
+            assert queue.claim() is None
+            assert not worker.finish(claim, "completed", {"stale": True})
+            assert queue.get(task["id"])["status"] == "outcome_unknown"
+        finally:
+            admin.execute(psycopg.sql.SQL("DROP SCHEMA {} CASCADE").format(psycopg.sql.Identifier(schema)))
 
 
 async def _apply_runtime_schema(dsn: str) -> None:

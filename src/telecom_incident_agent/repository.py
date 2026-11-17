@@ -183,7 +183,17 @@ class PostgresIncidentRepository:
                 """
             )
 
-    def create_pending(self, incident_id: str, request: IncidentRequest) -> None:
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS telecom_job_outbox (
+                    event_id BIGSERIAL PRIMARY KEY,
+                    incident_id VARCHAR(64) NOT NULL REFERENCES telecom_incidents(incident_id),
+                    kind VARCHAR(16) NOT NULL
+                )
+                """
+            )
+
+    def create_pending(self, incident_id: str, request: IncidentRequest, *, dispatch: bool = False) -> None:
         payload = json.dumps(request.model_dump(mode="json"), ensure_ascii=False)
         with self._connect() as connection:
             connection.execute(
@@ -193,6 +203,36 @@ class PostgresIncidentRepository:
                 """,
                 (incident_id, payload),
             )
+            if dispatch:
+                connection.execute(
+                    "INSERT INTO telecom_job_outbox(incident_id, kind) VALUES (%s, 'diagnose')",
+                    (incident_id,),
+                )
+
+    def queue_resume(self, incident_id: str) -> None:
+        with self._connect() as connection:
+            changed = connection.execute(
+                """
+                UPDATE telecom_incidents SET runtime_status='queued_resume', updated_at=CURRENT_TIMESTAMP
+                WHERE incident_id=%s AND runtime_status='waiting_review'
+                """,
+                (incident_id,),
+            )
+            if changed.rowcount:
+                connection.execute(
+                    "INSERT INTO telecom_job_outbox(incident_id, kind) VALUES (%s, 'resume')",
+                    (incident_id,),
+                )
+
+    def pending_dispatches(self) -> list[dict[str, Any]]:
+        with self._connect() as connection:
+            return connection.execute(
+                "SELECT event_id, incident_id, kind FROM telecom_job_outbox ORDER BY event_id LIMIT 32"
+            ).fetchall()
+
+    def finish_dispatch(self, event_id: int) -> None:
+        with self._connect() as connection:
+            connection.execute("DELETE FROM telecom_job_outbox WHERE event_id=%s", (event_id,))
 
     def save(self, incident_id: str, request: IncidentRequest, result: dict[str, Any]) -> None:
         request_json = json.dumps(request.model_dump(mode="json"), ensure_ascii=False)

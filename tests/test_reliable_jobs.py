@@ -5,6 +5,59 @@ import json
 from telecom_incident_agent.compat import run_non_yielding
 from telecom_incident_agent.jobs import ClaimedJob, RedisIncidentJobQueue
 from telecom_incident_agent.worker import process_claimed_job
+from telecom_incident_agent.service import IncidentService
+from telecom_incident_agent.repository import PostgresIncidentRepository
+
+import pytest
+
+
+def test_outbox_replays_same_event_after_publish_before_delete(tmp_path):
+    class FailingOutbox(PostgresIncidentRepository):
+        def __init__(self):
+            self.event = {"event_id": 42, "incident_id": "INC-1", "kind": "diagnose"}
+            self.crash = True
+
+        def pending_dispatches(self):
+            return [self.event] if self.event is not None else []
+
+        def finish_dispatch(self, event_id):
+            assert event_id == 42
+            if self.crash:
+                raise RuntimeError("simulated crash before outbox removal")
+            self.event = None
+
+    repository = FailingOutbox()
+    redis = ScriptedRedis()
+    queue = RedisIncidentJobQueue("redis://test", consumer_id="worker-b", client=redis)
+    service = IncidentService(tmp_path, repository=repository, queue=queue)
+    with pytest.raises(RuntimeError, match="simulated crash"):
+        run_non_yielding(service.publish_pending_jobs())
+    repository.crash = False
+    run_non_yielding(service.publish_pending_jobs())
+    run_non_yielding(service.publish_pending_jobs())
+    assert len(redis.entries) == 2
+    first, second = redis.entries.values()
+    assert first == second
+
+
+@pytest.mark.parametrize(
+    ("runtime_status", "result_status"),
+    [("completed", "completed"), ("queued_resume", "waiting_review")],
+)
+def test_redelivery_after_result_commit_acknowledges_without_writing(
+    tmp_path, runtime_status, result_status
+):
+    class CommittedRepository:
+        def get(self, incident_id):
+            assert incident_id == "INC-1"
+            return {"runtime_status": runtime_status, "result": {"status": result_status}}
+
+    redis = ScriptedRedis()
+    queue = RedisIncidentJobQueue("redis://test", consumer_id="worker-b", client=redis)
+    service = IncidentService(tmp_path, repository=CommittedRepository(), queue=queue)
+    claimed = ClaimedJob("1-0", {"incident_id": "INC-1", "kind": "diagnose"}, 2)
+    assert run_non_yielding(process_claimed_job(service, claimed))
+    assert redis.acked == ["1-0"]
 
 
 class ScriptedRedis:

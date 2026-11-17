@@ -1,0 +1,2 @@
+{"task_id": "b019f5fc-e350-4d01-b011-e59a715c7ac8", "request_id": "b9298ca8-94c1-5a3a-931c-92a2edf6b76c", "command": "status", "layer": "transport", "code": "OUTCOME_UNKNOWN", "error": "timeout waiting for status"}
+{"task_id": "b019f5fc-e350-4d01-b011-e59a715c7ac8", "layer": "reconciliation", "error": "timeout waiting for status"}

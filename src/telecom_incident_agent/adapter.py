@@ -19,6 +19,8 @@ from agent_runtime_platform.runtime import (
 )
 
 from .diagnosis import TelecomPlanner
+from .industrial_diagnosis import EquipmentPlanner, diagnostic_tools
+from .model_report import ModelReport
 from .models import IncidentRequest
 from .tools import SyntheticTelecomTools
 
@@ -151,11 +153,14 @@ class TelecomIncidentRuntimeAdapter:
 
     def _runtime(self, incident: IncidentRequest) -> AgentRuntime:
         tools = SyntheticTelecomTools(incident, timeout_seconds=self.tool_timeout_seconds)
+        return self._build_runtime(TelecomPlanner(), tools.registry())
+
+    def _build_runtime(self, planner, tools) -> AgentRuntime:
         use_windows_compat = sys.platform == "win32" and not self.database_url
         runtime_class = _WindowsSyntheticRuntime if use_windows_compat else AgentRuntime
         kwargs = {
-            "planner": TelecomPlanner(),
-            "tools": tools.registry(),
+            "planner": planner,
+            "tools": tools,
             "max_tool_calls": self.max_tool_calls,
             "max_steps": self.max_steps,
             "owner_id": self.owner_id,
@@ -171,6 +176,23 @@ class TelecomIncidentRuntimeAdapter:
         return runtime_class(
             **kwargs,
         )
+
+    async def diagnose_equipment(self, client, *, task_id, may_send) -> RunResult:
+        from edge_validation.client import DeviceClientError
+
+        def read():
+            try:
+                response = client.status()
+            except DeviceClientError as exc:
+                return {"reachable": False, "code": type(exc).__name__}
+            return {"reachable": response.ok, **response.model_dump(mode="json")}
+
+        return await self.diagnose_snapshot(read, task_id=task_id, may_send=may_send, boundary="simulation")
+
+    async def diagnose_snapshot(self, read, *, task_id, may_send, boundary) -> RunResult:
+        report = ModelReport.from_environment() if boundary == "simulation" else None
+        runtime = self._build_runtime(EquipmentPlanner(report is not None), diagnostic_tools(read, may_send, report))
+        return await runtime.run(task_id=task_id, request=boundary)
 
     async def diagnose(self, request: IncidentRequest | dict, *, task_id: str | None = None) -> RunResult:
         incident = IncidentRequest.model_validate(request)

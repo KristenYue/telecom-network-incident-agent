@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import os
+import asyncio
 import time
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 from pathlib import Path
+from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import HTMLResponse
@@ -34,6 +36,12 @@ class ReviewRequest(BaseModel):
     message: str | None = Field(default=None, max_length=2000)
 
 
+class DeviceTaskRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    scenario: Literal["status", "diagnose", "run", "interlock", "diagnose_shelf"] = "status"
+    allow_sim_write: bool = False
+
+
 def create_app(data_dir: str | Path | None = None) -> FastAPI:
     storage = Path(data_dir or os.getenv("TELECOM_AGENT_DATA_DIR", ".runtime"))
     service = IncidentService(
@@ -44,9 +52,19 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
-        yield
-        if service.queue is not None:
-            await service.queue.close()
+        local_worker = (
+            asyncio.create_task(service.device_tasks.run_local_worker())
+            if service.device_tasks is not None and service.queue is None else None
+        )
+        try:
+            yield
+        finally:
+            if local_worker is not None:
+                local_worker.cancel()
+                with suppress(asyncio.CancelledError):
+                    await local_worker
+            if service.queue is not None:
+                await service.queue.close()
 
     app = FastAPI(
         title="Telecom Network Incident Diagnosis Agent",
@@ -96,6 +114,26 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
     @app.post("/v1/incidents", status_code=201)
     async def create_incident(request: IncidentRequest) -> dict:
         return await service.create(request)
+
+    @app.post("/v1/device-tasks", status_code=202)
+    def submit_device_task(request: DeviceTaskRequest) -> dict:
+        if service.device_tasks is None:
+            raise HTTPException(status_code=503, detail="simulator integration is disabled")
+        try:
+            return service.device_tasks.submit(request.scenario, request.allow_sim_write)
+        except PermissionError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+        except LookupError as exc:
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+    @app.get("/v1/device-tasks/{task_id}")
+    def get_device_task(task_id: str) -> dict:
+        if service.device_tasks is None:
+            raise HTTPException(status_code=503, detail="simulator integration is disabled")
+        try:
+            return service.device_tasks.get(task_id)
+        except LookupError as exc:
+            raise HTTPException(status_code=404, detail="device task not found") from exc
 
     @app.get("/v1/incidents/{incident_id}")
     async def get_incident(incident_id: str) -> dict:
