@@ -12,21 +12,31 @@ from .device_execution import run
 class DeviceTasks:
     lease_seconds = 30
 
-    def __init__(self, connect, *, postgres: bool, port: int | None, writes: bool, diagnose=None, shelf_diagnosis=None) -> None:
+    def __init__(
+        self, connect, *, postgres: bool, port: int | None, writes: bool,
+        diagnose=None, agent_diagnosis=None, shelf_diagnosis=None,
+    ) -> None:
         self.connect = connect
         self.postgres = postgres
         self.port = port
         self.writes = writes
         self.diagnose = diagnose
+        self.agent_diagnosis = agent_diagnosis
         self.shelf_diagnosis = shelf_diagnosis
         with closing(connect()) as db, db:
             db.execute(
                 """CREATE TABLE IF NOT EXISTS telecom_device_tasks (
                     id TEXT PRIMARY KEY, scenario TEXT NOT NULL, status TEXT NOT NULL,
-                    created_at DOUBLE PRECISION NOT NULL, lease_until DOUBLE PRECISION,
+                    request TEXT, created_at DOUBLE PRECISION NOT NULL, lease_until DOUBLE PRECISION,
                     owner TEXT, result TEXT
                 )"""
             )
+            if postgres:
+                db.execute("ALTER TABLE telecom_device_tasks ADD COLUMN IF NOT EXISTS request TEXT")
+            else:
+                columns = {row[1] for row in db.execute("PRAGMA table_info(telecom_device_tasks)")}
+                if "request" not in columns:
+                    db.execute("ALTER TABLE telecom_device_tasks ADD COLUMN request TEXT")
             db.execute(
                 """CREATE INDEX IF NOT EXISTS telecom_device_tasks_status
                    ON telecom_device_tasks(status, created_at)"""
@@ -39,26 +49,31 @@ class DeviceTasks:
     def _execute(self, db, sql, params=()):
         return db.execute(sql.replace("?", "%s") if self.postgres else sql, params)
 
-    def submit(self, scenario, allow_write):
+    def submit(self, scenario, allow_write, request=None):
         if scenario == "diagnose_shelf" and self.shelf_diagnosis is None:
             raise LookupError("shelf telemetry integration is disabled")
         if scenario != "diagnose_shelf" and self.port is None:
             raise LookupError("C++ simulator integration is disabled")
+        if scenario == "agent":
+            if self.agent_diagnosis is None:
+                raise LookupError("model-driven industrial agent is disabled")
+            if not isinstance(request, str) or not request.strip():
+                raise ValueError("agent scenario requires a natural-language request")
         if scenario in {"run", "interlock"} and not (self.writes and allow_write):
             raise PermissionError("simulation writes must be enabled by server and request")
         task_id = str(uuid4())
         with closing(self.connect()) as db, db:
             self._execute(
                 db,
-                "INSERT INTO telecom_device_tasks(id, scenario, status, created_at) VALUES (?, ?, 'queued', ?)",
-                (task_id, scenario, time.time()),
+                "INSERT INTO telecom_device_tasks(id, scenario, status, request, created_at) VALUES (?, ?, 'queued', ?, ?)",
+                (task_id, scenario, request, time.time()),
             )
         return self.get(task_id)
 
     def get(self, task_id):
         with closing(self.connect()) as db, db:
             row = self._execute(
-                db, "SELECT id, scenario, status, result FROM telecom_device_tasks WHERE id=?", (task_id,)
+                db, "SELECT id, scenario, status, request, result FROM telecom_device_tasks WHERE id=?", (task_id,)
             ).fetchone()
         if row is None:
             raise LookupError(task_id)
@@ -82,7 +97,7 @@ class DeviceTasks:
                     WHERE id=(SELECT id FROM telecom_device_tasks WHERE status='queued'
                               AND NOT EXISTS (SELECT 1 FROM telecom_device_tasks WHERE status='running')
                               ORDER BY created_at, id LIMIT 1{lock}) AND status='queued'
-                    RETURNING id, scenario, owner, lease_until""",
+                    RETURNING id, scenario, request, owner, lease_until""",
                 (owner, now + self.lease_seconds),
             ).fetchone()
 
@@ -119,6 +134,15 @@ class DeviceTasks:
                 return
             client = DeviceClient(port=self.port, timeout=1)
 
+            if task["scenario"] == "agent":
+                if self.agent_diagnosis is None:
+                    self.finish(task, "failed", {"code": "MODEL_AGENT_UNAVAILABLE"})
+                    return
+                diagnosis = asyncio.run(self.agent_diagnosis(
+                    client, request=task["request"], task_id=task["id"], may_send=may_send,
+                ))
+                self.finish(task, diagnosis.status, diagnosis.model_dump(mode="json"))
+                return
             if task["scenario"] == "diagnose":
                 if self.diagnose is None:
                     self.finish(task, "failed", {"code": "DIAGNOSIS_UNAVAILABLE"})

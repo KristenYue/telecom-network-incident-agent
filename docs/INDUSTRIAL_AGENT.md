@@ -17,7 +17,7 @@ flowchart LR
     C --> D[Agent Runtime]
     D --> E[TCP 模拟器或货架遥测 Adapter]
     D --> F[版本化 Runbook 检索]
-    F --> G[可选模型报告]
+    D --> G[真实 LLM 逐步选择工具]
     D --> H[结果与调用轨迹]
     A --> I[诊断任务与事务 Outbox]
     I --> J[Redis Streams 与诊断 Worker]
@@ -27,21 +27,34 @@ flowchart LR
 
 面试准备：说明 Redis XADD 成功后 Outbox 删除失败的恢复过程、任务结果落库后才能 ACK 的原因、设备写命令在结果未知时为何不自动重放，以及模型输出为什么只作为报告。
 
-### 真实模型验收
+### 真实 LLM 规划与工具调用验收
 
-仿真设备分支可选调用 HTTPS 模型服务。模型只接收模拟设备快照与检索出的 Runbook，生成可审阅报告。工具轨迹保留调用结果，报告不会执行设备命令。服务不可用时保留确定性诊断并记录 `model_report.status=unavailable`。
+`scenario=agent` 接收自然语言请求，由 OpenAI-compatible HTTPS 模型逐轮规划。第一轮模型选择设备状态工具；Runtime 经 TCP 读取 C++ 模拟器。第二轮模型根据状态选择 Runbook 检索；第三轮模型提交结构化任务理解、诊断解释与处置建议。Runtime 本地校验工具顺序、故障参数与证据完整性，模型不能调用未注册工具，也不能在缺少状态或 Runbook 时提前生成结论。
 
-先按 [设备任务启动说明](DELIVERY_FAILURE_WINDOWS.md) 运行模拟器，再在本仓库已有虚拟环境执行以下命令。脚本会隐藏输入密钥。模型结果应显示三次工具调用，并保存报告引用的版本化知识条目。
+先按 [设备任务启动说明](DELIVERY_FAILURE_WINDOWS.md) 运行模拟器，再执行以下命令。密钥只存在于当前进程环境，不写入轨迹。`--prepare-interlock` 仅用于把仿真设备布置到联锁场景，不属于 Agent 自动处置动作。
 
 ```powershell
-$env:TELECOM_MODEL_BASE_URL = $env:FSO_MODEL_BASE_URL
-$env:TELECOM_MODEL_ID = $env:FSO_MODEL_ID
-.\.venv\Scripts\python.exe scripts/verify_model_report.py --port 18765
+$env:TELECOM_MODEL_BASE_URL = "https://<openai-compatible-endpoint>/v1"
+$env:TELECOM_MODEL_ID = "<model-id>"
+.\.venv\Scripts\python.exe scripts/demo_industrial_llm_agent.py --port 18765 --prepare-interlock
 ```
 
-当前模型分支的三步调用只通过了替身响应回归，服务端真实调用待密钥环境验收。SQLite 轨迹是本机联调证据。PostgreSQL/Redis 分布式部署通过仓库 Compose、独立 takeover 和 Redis reliability 工作流复现，发布版本的结论以对应提交运行状态为准。
+成功条件不是“接口返回了文字”，而是同时满足：模型完成三轮结构化决策；Runtime 实际执行且记录 `read_equipment_snapshot` 与 `search_equipment_runbook`；设备状态为 `E_STOP`；知识证据为 `sim-interlock-001`；最终结果标记 `agent_mode=model_driven`。成功后生成不含凭据的 `docs/industrial-agent-live.json`。模型服务不可用、返回非法动作、跳过证据或选择无依据的故障类型时均失败关闭。
 
-沿用 [设备任务启动说明](DELIVERY_FAILURE_WINDOWS.md)，运行 `scripts/smoke_device_api.py`。急停后诊断引用 `sim-interlock-001`，关闭模拟器后诊断引用 `sim-transport-001`。确定性 Agent Planner 调用白名单只读工具。通信和设备场景共用词项检索与故障过滤，维护各自的知识条目版本。设备动作需要独立提交和双重显式授权。原始结果见 [API 轨迹](device-api-smoke.jsonl)。
+2026-11-18 本机真实联调满足以上全部条件：模型为 `qwen3.7-plus-2026-05-26`，3 次模型决策后由 Runtime 完成 2 次工具调用，最终状态为 `completed`。公开证据见 [industrial-agent-live.json](industrial-agent-live.json)，其中不包含 API Key。
+
+API 入口：
+
+```json
+{
+  "scenario": "agent",
+  "request": "帮我分析设备 A 为什么无法启动，并提供故障原因和下一步处理建议。"
+}
+```
+
+确定性 `scenario=diagnose` 保留为离线回归与服务降级路径，但不作为旗舰 AI Demo 的执行口径。PostgreSQL/Redis 分布式部署通过仓库 Compose、独立 takeover 和 Redis reliability 工作流复现，发布版本的结论以对应提交运行状态为准。
+
+沿用 [设备任务启动说明](DELIVERY_FAILURE_WINDOWS.md)，运行 `scripts/smoke_device_api.py` 可复现确定性降级链路。急停后诊断引用 `sim-interlock-001`，关闭模拟器后诊断引用 `sim-transport-001`。通信和设备场景共用词项检索与故障过滤，维护各自的知识条目版本。设备动作需要独立提交和双重显式授权。原始结果见 [API 轨迹](device-api-smoke.jsonl)。
 
 货架接入通过 `TELECOM_SHELF_SOURCE_URL`、`TELECOM_SHELF_DEVICE_ID`、可选 `TELECOM_SHELF_SOURCE_TOKEN` 配置。启用任务 API 后提交 `{"scenario":"diagnose_shelf"}`，Worker 向既有 `GET /api/shelves/{deviceId}/telemetry?limit=1` 取最新一条。Token 只用于配置的上游，HTTP 只允许回环地址，禁止跟随重定向。旧遥测不会被解释为当前设备故障，返回遥测不可用并保留对应代码。两个设备诊断适配路径共用 Runtime、工具注册和结果持久化。
 

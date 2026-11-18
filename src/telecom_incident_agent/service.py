@@ -68,6 +68,7 @@ class IncidentService:
                 port=int(port) if port else None,
                 writes=os.getenv("TELECOM_SIMULATOR_ALLOW_WRITES") == "1",
                 diagnose=runtime.diagnose_equipment,
+                agent_diagnosis=runtime.diagnose_equipment_agent,
                 shelf_diagnosis=shelf_diagnosis,
             )
 

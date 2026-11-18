@@ -12,7 +12,7 @@ from typing import Literal
 from fastapi import FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import HTMLResponse
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .models import IncidentRequest
 from .runbooks import RUNBOOKS
@@ -38,8 +38,17 @@ class ReviewRequest(BaseModel):
 
 class DeviceTaskRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    scenario: Literal["status", "diagnose", "run", "interlock", "diagnose_shelf"] = "status"
+    scenario: Literal["status", "diagnose", "agent", "run", "interlock", "diagnose_shelf"] = "status"
+    request: str | None = Field(default=None, min_length=1, max_length=2000)
     allow_sim_write: bool = False
+
+    @model_validator(mode="after")
+    def validate_agent_request(self) -> "DeviceTaskRequest":
+        if self.scenario == "agent" and (self.request is None or not self.request.strip()):
+            raise ValueError("agent scenario requires request")
+        if self.scenario != "agent" and self.request is not None:
+            raise ValueError("request is supported only by the agent scenario")
+        return self
 
 
 def create_app(data_dir: str | Path | None = None) -> FastAPI:
@@ -67,9 +76,12 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
                 await service.queue.close()
 
     app = FastAPI(
-        title="Telecom Network Incident Diagnosis Agent",
-        version="0.2.0",
-        description="Synthetic-only, evidence-first incident diagnosis API. It never changes a real device.",
+        title="Industrial AI Agent",
+        version="0.4.0",
+        description=(
+            "Model-driven industrial equipment diagnosis plus evidence-first telecom incident analysis. "
+            "It never changes a real production device."
+        ),
         lifespan=lifespan,
     )
     app.state.service = service
@@ -120,7 +132,7 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
         if service.device_tasks is None:
             raise HTTPException(status_code=503, detail="simulator integration is disabled")
         try:
-            return service.device_tasks.submit(request.scenario, request.allow_sim_write)
+            return service.device_tasks.submit(request.scenario, request.allow_sim_write, request.request)
         except PermissionError as exc:
             raise HTTPException(status_code=403, detail=str(exc)) from exc
         except LookupError as exc:

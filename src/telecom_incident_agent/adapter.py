@@ -20,6 +20,7 @@ from agent_runtime_platform.runtime import (
 
 from .diagnosis import TelecomPlanner
 from .industrial_diagnosis import EquipmentPlanner, diagnostic_tools
+from .industrial_llm import IndustrialLLMPlanner, IndustrialModelClient
 from .model_report import ModelReport
 from .models import IncidentRequest
 from .tools import SyntheticTelecomTools
@@ -188,6 +189,21 @@ class TelecomIncidentRuntimeAdapter:
             return {"reachable": response.ok, **response.model_dump(mode="json")}
 
         return await self.diagnose_snapshot(read, task_id=task_id, may_send=may_send, boundary="simulation")
+
+    async def diagnose_equipment_agent(self, client, *, request, task_id, may_send) -> RunResult:
+        """Run the live model as planner while Runtime executes the selected tools."""
+        from edge_validation.client import DeviceClientError
+
+        def read():
+            try:
+                response = client.status()
+            except DeviceClientError as exc:
+                return {"reachable": False, "code": type(exc).__name__}
+            return {"reachable": response.ok, **response.model_dump(mode="json")}
+
+        planner = IndustrialLLMPlanner(IndustrialModelClient.from_environment())
+        runtime = self._build_runtime(planner, diagnostic_tools(read, may_send))
+        return await runtime.run(task_id=task_id, request=request)
 
     async def diagnose_snapshot(self, read, *, task_id, may_send, boundary) -> RunResult:
         report = ModelReport.from_environment() if boundary == "simulation" else None

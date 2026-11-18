@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "telecom-network-incident-agent"
-version = "0.3.0"
-description = "Auditable telecom incident diagnosis adapter for a durable Agent runtime"
+version = "0.4.0"
+description = "Model-driven industrial equipment diagnosis on a durable, auditable Agent runtime"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "agent-runtime-quality-platform @ https://github.com/KristenYue/agent-runtime-quality-platform/archive/d98e7941bdbf3b4ad2e3e1a55054d7a7a55dac89.zip",
+  "edge-device-verification @ https://github.com/KristenYue/edge-device-verification-lab/archive/7aa038ce75d53cc665d46ecad9709269c6997673.zip",
   "pydantic>=2.7,<3",
   "fastapi>=0.115,<1",
   "prometheus-client>=0.21,<1",

@@ -1,6 +1,5 @@
 from io import BytesIO
 import json
-import sys
 import time
 
 import pytest
@@ -10,6 +9,8 @@ from telecom_incident_agent.api import DeviceTaskRequest, create_app
 from telecom_incident_agent.compat import run_non_yielding
 from telecom_incident_agent import device_tasks
 from telecom_incident_agent.adapter import TelecomIncidentRuntimeAdapter
+from telecom_incident_agent.industrial_diagnosis import diagnostic_tools
+from telecom_incident_agent.industrial_llm import IndustrialLLMPlanner, IndustrialModelClient
 from telecom_incident_agent.shelf_adapter import NoRedirect, ShelfTelemetryAdapter
 
 
@@ -54,8 +55,7 @@ def test_shelf_telemetry_uses_timestamp_and_runtime_runbook(tmp_path, monkeypatc
     from urllib.request import OpenerDirector
 
     monkeypatch.setattr(OpenerDirector, "open", open_fixture)
-    if sys.platform == "win32":
-        monkeypatch.setattr(device_tasks.asyncio, "run", run_non_yielding)
+    monkeypatch.setattr(device_tasks.asyncio, "run", run_non_yielding)
     queue = create_app(tmp_path).state.service.device_tasks
     task = queue.submit("diagnose_shelf", False)
     queue.work_once()
@@ -89,3 +89,62 @@ def test_model_report_is_generated_only_after_retrieval(tmp_path, monkeypatch):
     ))
     assert result.tool_call_count == 3
     assert result.result["model_report"]["status"] == "generated"
+
+
+def test_live_model_planner_selects_real_tools_and_returns_grounded_result(tmp_path):
+    actions = [
+        {"kind": "tool", "tool": {"tool_name": "read_equipment_snapshot", "arguments": {}}},
+        {"kind": "tool", "tool_name": "search_equipment_runbook", "arguments": {"fault": "interlock"}},
+        {
+            "kind": "finish",
+            "task_understanding": {"device_id": "A", "objective": "分析无法启动原因"},
+            "diagnosis": {
+                "summary": "设备处于安全联锁状态，控制层拒绝启动。",
+                "explanation": "设备观测与联锁运行手册描述的条件一致。",
+            },
+            "recommendation": {
+                "next_step": "确认联锁触发原因，并按手册执行恢复流程。",
+                "safety_boundary": "仅限授权人员在确认设备安全条件后处理。",
+            },
+        },
+    ]
+
+    class FixtureProvider:
+        def open(self, request, timeout):
+            payload = json.loads(request.data)
+            state = json.loads(payload["messages"][1]["content"])
+            index = len(state["tool_observations"])
+            if index == 1:
+                assert state["tool_observations"][0]["tool_name"] == "read_equipment_snapshot"
+            if index == 2:
+                assert state["tool_observations"][1]["output"]["runbook_id"] == "sim-interlock-001"
+            return BytesIO(json.dumps({
+                "choices": [{"message": {"content": json.dumps(actions[index], ensure_ascii=False)}}],
+                "usage": {"total_tokens": 123},
+            }).encode())
+
+    client = IndustrialModelClient(
+        "https://model.invalid/v1", "fixture-model", "fixture-key", opener=FixtureProvider(),
+    )
+    adapter = TelecomIncidentRuntimeAdapter(checkpoint_path=tmp_path / "llm-agent.sqlite3")
+    runtime = adapter._build_runtime(
+        IndustrialLLMPlanner(client),
+        diagnostic_tools(
+            lambda: {"reachable": True, "state": "E_STOP", "data": {"interlock_open": "true"}},
+            lambda: True,
+        ),
+    )
+    result = run_non_yielding(runtime.run(
+        task_id="agent-fixture",
+        request="帮我分析设备 A 为什么无法启动，并提供故障原因和下一步处理建议。",
+    ))
+    assert result.status == "completed"
+    assert result.tool_call_count == 2
+    assert [step.tool_calls[0].tool_name for step in result.steps[:2]] == [
+        "read_equipment_snapshot", "search_equipment_runbook",
+    ]
+    assert result.result["agent_mode"] == "model_driven"
+    assert result.result["diagnosis"]["fault"] == "interlock"
+    assert result.result["evidence"][0]["state"] == "E_STOP"
+    assert result.result["evidence"][1]["runbook_id"] == "sim-interlock-001"
+    assert result.result["model_calls"] == 3
