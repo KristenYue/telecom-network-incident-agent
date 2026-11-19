@@ -13,7 +13,7 @@
 | 车辆遥测与幂等控制 | [规则业务记录](evidence/vehicle-baseline.json) | [车辆服务](../src/telecom_incident_agent/vehicle.py) | `scripts/demo_vehicle.py` |
 | DBC解码 | [帧解码和拒绝结果](evidence/vehicle-dbc.json) | [子集解析器](../src/telecom_incident_agent/vehicle_signals.py) | `scripts/verify_vehicle_dbc.py` |
 
-跨仓库：[原生SDK与Windows实测](https://github.com/KristenYue/edge-device-verification-lab/tree/main/inference_sdk)、[共享Runtime](https://github.com/KristenYue/agent-runtime-quality-platform)。对应新增文件需发布后远程链接才生效。
+跨仓库：[原生SDK与Windows实测](https://github.com/KristenYue/edge-device-verification-lab/tree/main/inference_sdk)、[共享Runtime](https://github.com/KristenYue/agent-runtime-quality-platform)。
 
 ## 面试要能解释的设计
 
@@ -23,6 +23,12 @@
 - Vehicle：确认是服务端状态迁移；同一事务提交仿真命令与状态；补传时间不改变采样数据年龄。
 - 范围：机器人是逻辑工作站；车辆是合成信号与服务；SDK是CPU EP；不宣称真机、量产或芯片硬件适配。
 
-## 待验收
+## 新增云端验收
 
-新增ROS2传输的Linux执行、Ubuntu SDK构建、vcan收发和HTTP服务器级联调。已有旧ROS2 CI记录不能替代新Adapter运行。模型调用密钥只在环境变量中读取，不随结果导出。
+| 能力 | 结果 | 原始入口 |
+|---|---|---|
+| Linux ROS 2 新 Adapter | 规则 Planner 三点完成、第一点后取消、事件落库 | [完成](evidence/cloud-ros2/robot-completed.json) · [取消](evidence/cloud-ros2/robot-canceled.json) · [CI](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44509829892) |
+| Ubuntu 原生 SDK | Wheel 构建、参考图对齐与干净安装成功 | [CI](https://github.com/KristenYue/edge-device-verification-lab/actions/runs/44506857643) |
+| Linux vcan | AF_CAN 实际收发与项目 DBC 解码 | [原始 JSON](evidence/cloud-vcan/linux-vcan.json) · [CI](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44505903871) |
+
+真实模型 + ROS 2 联合运行、HTTP 服务器级联调未作为完成成果；机器人真实模型与规则 ROS 路径分别有记录。模型密钥只从环境变量读取，不随结果导出。

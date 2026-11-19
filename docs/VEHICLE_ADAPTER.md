@@ -1,6 +1,6 @@
 # 智能车辆服务适配与Agent执行
 
-车辆领域扩展复用共享Agent Runtime。当前执行器为SQLite中的车辆仿真服务，没有真实CAN、vcan、ECU或量产车辆。
+车辆领域扩展复用共享Agent Runtime。当前执行器为SQLite中的车辆仿真服务，已另外完成 Linux vcan 虚拟总线收发；未接入物理 CAN、ECU 或量产车辆。
 
 ```mermaid
 flowchart LR
@@ -43,6 +43,6 @@ python -m pytest tests/test_vehicle.py -q
 
 新增五类项目自建车辆知识与版本化引用：胎压、电量、车门、空调和数据新鲜度。规则演示已执行胎压观测→知识查询→报告证据；这属于受控知识查找，不宣称大型语义RAG。
 
-`vehicle_llm.py`已提供真实模型规划入口，通过 `demo_vehicle.py --live-model`运行。车型工具白名单、温度范围和服务端写许可独立校验，批准由共享Runtime处理。当前尚未取得该新链路的实际LLM运行结果。
+`vehicle_llm.py`已提供真实模型规划入口，通过 `demo_vehicle.py --live-model`运行。车型工具白名单、温度范围和服务端写许可独立校验，批准由共享Runtime处理。实际 LLM 结果见 [vehicle-live.json](evidence/vehicle-live.json)，与规则结果分别保存。
 
-SocketCAN/vcan实跑及真实LLM验收仍待完成。当前仿真补传不是实际MQTT链路；真实MQTT/TLS证据仍属于独立IoT项目。
+Linux SocketCAN/vcan 实跑已通过：[原始结果](evidence/cloud-vcan/linux-vcan.json) · [CI](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44505903871)。真实 LLM 车辆服务验收也已完成。当前仿真补传不是实际MQTT链路；真实MQTT/TLS证据仍属于独立IoT项目。
