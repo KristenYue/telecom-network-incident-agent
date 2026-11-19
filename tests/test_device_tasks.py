@@ -55,7 +55,8 @@ def test_shelf_telemetry_uses_timestamp_and_runtime_runbook(tmp_path, monkeypatc
     from urllib.request import OpenerDirector
 
     monkeypatch.setattr(OpenerDirector, "open", open_fixture)
-    monkeypatch.setattr(device_tasks.asyncio, "run", run_non_yielding)
+    if __import__("sys").platform == "win32":
+        monkeypatch.setattr(device_tasks.asyncio, "run", run_non_yielding)
     queue = create_app(tmp_path).state.service.device_tasks
     task = queue.submit("diagnose_shelf", False)
     queue.work_once()
