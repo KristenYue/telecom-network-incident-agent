@@ -33,13 +33,13 @@ def inspect_ros(cancel_after):
     client = ActionClient(node, Inspect, "/workcell/inspect")
     progress = []
     try:
-        if not client.wait_for_server(timeout_sec=2):
+        if not client.wait_for_server(timeout_sec=15):
             return {"outcome": "server_unavailable"}
         goal = client.send_goal_async(
             Inspect.Goal(checkpoints=8),
             feedback_callback=lambda msg: progress.append(msg.feedback.inspected),
         )
-        rclpy.spin_until_future_complete(node, goal, timeout_sec=2)
+        rclpy.spin_until_future_complete(node, goal, timeout_sec=5)
         if not goal.done():
             return {"outcome": "submission_unknown"}
         handle = goal.result()
