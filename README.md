@@ -23,6 +23,23 @@
 
 ---
 
+## 核心结果一览
+
+| 能力 | 已验证结果 | 工程价值 | 原始证据 |
+|---|---|---|---|
+| **真实模型驱动任务** | 机器人逻辑巡检完成 **3 次模型决策、2 次工具调用、3 个检查点** | 从自然语言目标到工具执行、观测反馈和结果持久化形成闭环 | [模型轨迹](docs/evidence/robot-live.json) |
+| **ROS 2 技能执行与取消** | Linux 环境完成 **3/3 点巡检**；另一次在 **1/3 点**请求取消，终态为 `canceled` | 状态查询、Action 执行、进度反馈与取消结果贯通 | [云端运行](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44509829892) |
+| **原生模型与设备联合诊断** | 真实模型经 **2 次工具调用**完成 C++ 设备观测与原生 ONNX 知识检索，最终 `completed` | 将设备接口、本地模型执行和知识引用接入同一诊断应用 | [联合轨迹](docs/evidence/native-llm-live.json) |
+| **共享 Runtime 功能契约** | **180/180** 功能任务满足预期契约 | 验证结构化动作、工具调用、审批与结果状态 | [Runtime 原始报告](https://github.com/KristenYue/agent-runtime-quality-platform/blob/main/data/evaluation/acceptance_v1/report.json) |
+| **共享 Runtime 故障处置** | **70/70** 按预期处理：**68 次恢复、2 次失败关闭** | 对可恢复故障继续执行，对不确定副作用保守终止 | [逐项结果](https://github.com/KristenYue/agent-runtime-quality-platform/blob/main/data/evaluation/acceptance_v1/report.json) |
+| **重复提交一致性** | **60 组**重复提交，额外最终写入 **0** | 验证已登记调用及结果提交的幂等约束 | [重复提交记录](https://github.com/KristenYue/agent-runtime-quality-platform/blob/main/data/evaluation/acceptance_v1/report.json) |
+| **真实基础服务集成** | PostgreSQL 接管、Redis Pending 回收、Compose 启动均通过 | 将本地契约验证延伸到真实数据库、消息队列和容器部署 | [服务验收](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44509829892) |
+| **车辆信号接入** | Linux `vcan0` 实际收发，经项目 DBC 子集解码出左前轮 **190 kPa** | 完成虚拟总线、报文解析与车辆状态解释的接口验证 | [虚拟 CAN 验收](https://github.com/KristenYue/telecom-network-incident-agent/actions/runs/44505903871) |
+
+
+---
+
+
 ## 项目解决什么问题
 
 设备状态查询、知识查询和控制接口往往彼此独立。研发人员需要自行判断调用顺序、关联结果，并在断连、超时或任务中断后确认动作到底执行到了哪里。
@@ -205,7 +222,13 @@ flowchart LR
 ---
 
 ## 机器人方向：模型规划与 ROS 2 技能接入
+用户提交巡检目标后，系统读取工作站状态，将任务转换为已注册技能，持续保存执行进度，并根据执行器返回生成完成或取消结果。
 
+![机器人巡检：状态查询、技能执行、进度反馈与取消](docs/assets/robot-task-flow.gif)
+
+> **业务流程示意**：展示任务与技能接口的工作方式。真实模型＋逻辑工作站、规则 Planner＋ROS 2 为两组独立验收，实际结果见下表。
+
+**重点观察：** 状态查询是执行前提；进度来自执行器反馈；取消请求发出后，由执行器返回决定最终状态。
 ### 已运行结果
 
 | 验收链路 | 实际结果 | 原始入口 |
@@ -230,7 +253,13 @@ ROS 2 接口：
 ---
 
 ## 芯片与工业软件方向：设备观测与原生知识检索
+面对“设备为什么无法启动”的问题，系统先读取设备状态，再检索与故障相关的知识，生成包含设备观测、文档来源和处理建议的诊断结果。
 
+![工业设备诊断：设备观测、原生知识检索与证据报告](docs/assets/equipment-diagnosis-flow.gif)
+
+> **业务流程示意**：设备为 C++ 软件仿真，知识向量由预训练 BGE 模型经 C++ ONNX Runtime CPU 接口生成。真实模型联合调用记录见下方证据。
+
+**重点观察：** 设备状态提供事实依据，知识检索提供文档依据，模型综合生成解释；设备联锁始终由控制层独立执行。
 ### 业务闭环
 
 > 分析设备无法启动的原因，依据设备观测和运行手册给出处置建议。
@@ -258,7 +287,13 @@ ROS 2 接口：
 ---
 
 ## 智能汽车方向：信号解释、审批与状态一致性
+系统将车辆信号转为可查询状态，支持告警解释和受控服务调用：读操作获取观测，写操作先进入审批，批准后提交命令并更新状态。
 
+![车辆智能服务：信号解释、人工审批与一致性提交](docs/assets/vehicle-service-flow.gif)
+
+> **业务流程示意**：车辆状态与空调执行来自仿真服务；Linux vcan 收发另有独立运行证据，不将两个实验拼接为已完成的实车链路。
+
+**重点观察：** 遥测按采样时间判断新鲜度；模型提出控制请求，软件检查权限；仿真命令账本与状态在同一事务内提交。
 | 模块 | 已完成工作 | 证据 |
 |---|---|---|
 | **车辆 Agent** | 真实模型解释胎压观测，调用项目知识，生成带来源的结果 | [vehicle-live.json](docs/evidence/vehicle-live.json) |
