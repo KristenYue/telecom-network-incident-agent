@@ -41,6 +41,9 @@ jobs:
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --checkpoint artifacts/ros.sqlite3 > artifacts/completed.json
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --cancel-after 3 --checkpoint artifacts/ros.sqlite3 > artifacts/canceled.json
           .venv/bin/python -c 'import json; from pathlib import Path; a,b=(json.loads(Path("artifacts", f+".json").read_text())["result"]["inspection"] for f in ("completed","canceled")); assert a["outcome"]=="completed" and a["inspected"]==8 and a["feedback"]; assert b["outcome"]=="canceled" and 0<b["inspected"]<8 and b["feedback"]'
+          .venv/bin/python scripts/demo_robot_agent.py --ros2 --baseline --data-dir artifacts/robot --output artifacts/robot-completed.json
+          .venv/bin/python scripts/demo_robot_agent.py --ros2 --baseline --cancel-after 1 --data-dir artifacts/robot --output artifacts/robot-canceled.json
+          .venv/bin/python -c 'import json; from pathlib import Path; a=json.loads(Path("artifacts/robot-completed.json").read_text()); b=json.loads(Path("artifacts/robot-canceled.json").read_text()); assert a["task"]["state"]=="completed"; assert b["task"]["state"]=="canceled"; assert a["task"]["result"]["data_boundary"]=="ros2_logic_simulation"'
       - uses: actions/upload-artifact@v7
         if: always()
         with:
