@@ -42,7 +42,7 @@ SYSTEM_PROMPT = """你是工业设备诊断 Agent 的规划器。你的职责不
 class IndustrialModelClient:
     """Small OpenAI-compatible JSON planner client with secret-free telemetry."""
 
-    def __init__(self, base_url: str, model: str, api_key: str, *, opener=None, timeout: float = 30) -> None:
+    def __init__(self, base_url: str, model: str, api_key: str, *, opener=None, timeout: float = 30, system_prompt: str = SYSTEM_PROMPT) -> None:
         parsed = urlsplit(base_url)
         if parsed.scheme != "https" or not parsed.hostname or parsed.username is not None:
             raise ValueError("industrial model API requires a trusted HTTPS base URL")
@@ -55,6 +55,7 @@ class IndustrialModelClient:
         self.api_key = api_key
         self.http = opener or build_opener(NoRedirect())
         self.timeout = timeout
+        self.system_prompt = system_prompt
         self.telemetry: list[dict[str, Any]] = []
 
     @classmethod
@@ -76,7 +77,7 @@ class IndustrialModelClient:
             "temperature": 0,
             "enable_thinking": False,
             "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": json.dumps(state, ensure_ascii=False, separators=(",", ":"))},
             ],
             "response_format": {"type": "json_object"},

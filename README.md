@@ -1,5 +1,11 @@
 # Industrial AI Agent — 工业智能诊断与设备任务执行平台
 
+**按研发方向阅读：** [机器人技能与任务执行](docs/ROBOT_DELIVERY.md) · [车辆服务与Agent适配](docs/VEHICLE_ADAPTER.md) · [本地模型SDK](https://github.com/KristenYue/edge-device-verification-lab/tree/main/inference_sdk)
+
+[源码、运行结果与复现命令总索引](docs/EVIDENCE_INDEX.md)
+
+机器人与车辆扩展的已运行范围、复现入口及待验收项分别在上述页面列明；新功能不沿用旧版本的模型或CI结果。
+
 [![CI](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/KristenYue/telecom-network-incident-agent/actions/workflows/ci.yml)
 
 ## Project Overview

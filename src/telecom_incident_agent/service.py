@@ -186,5 +186,6 @@ class IncidentService:
             "pending_action": result.get("pending_action"),
             "tool_call_count": result.get("tool_call_count", 0),
             "domain_result": result.get("result"),
-            "data_boundary": "synthetic",
+            "data_boundary": ("synthetic" if record["request"].get("synthetic", True)
+                              else "captured_software_network"),
         }

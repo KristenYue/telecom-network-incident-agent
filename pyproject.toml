@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<9", "httpx>=0.27,<1"]
+retrieval = ["sentence-transformers>=3,<6", "accelerate>=1,<2"]
 deploy = [
   "psycopg[binary]>=3.2,<4",
   "psycopg-pool>=3.2,<4",
@@ -29,6 +30,7 @@ deploy = [
 telecom-agent-api = "telecom_incident_agent.api:main"
 telecom-agent-demo = "telecom_incident_agent.demo:main"
 telecom-agent-worker = "telecom_incident_agent.worker:main"
+robot-agent-api = "telecom_incident_agent.robot_api:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

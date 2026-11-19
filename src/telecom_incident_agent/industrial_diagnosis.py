@@ -2,6 +2,8 @@
 
 from agent_runtime_platform.contracts import PlannerAction
 from agent_runtime_platform.tools import ToolRegistry, ToolSpec
+import os
+from functools import lru_cache
 
 from .runbooks import retrieve_runbooks
 
@@ -21,6 +23,18 @@ EQUIPMENT_CORPUS = tuple(
      "instruction": instruction, "title": instruction, "keywords": [fault]}
     for fault, (runbook_id, instruction) in RUNBOOKS.items()
 )
+
+
+@lru_cache(maxsize=2)
+def native_equipment_index(model_path, tokenizer_path):
+    from edge_ai_sdk.embedding import NativeEmbedder
+    from .knowledge import KnowledgeIndex
+    documents = [{"document_id": r["runbook_id"], "version": r["revision"],
+                  "device_family": "simulated-equipment", "fault_type": r["fault_type"],
+                  "title": r["title"], "text": r["instruction"],
+                  "source": "project://equipment/" + r["runbook_id"], "data_boundary": "simulation"}
+                 for r in EQUIPMENT_CORPUS]
+    return KnowledgeIndex(documents, embedder=NativeEmbedder(model_path, tokenizer_path))
 
 
 def fault_from(snapshot):
@@ -48,6 +62,20 @@ def diagnostic_tools(read, may_send, report=None):
     async def search_equipment_runbook(fault: str):
         if fault not in RUNBOOKS:
             raise ValueError("unknown simulated equipment fault")
+        model_path = os.getenv("EDGE_AI_MODEL_PATH")
+        tokenizer_path = os.getenv("EDGE_AI_TOKENIZER_PATH")
+        if model_path or tokenizer_path:
+            if not model_path or not tokenizer_path:
+                raise ValueError("native retrieval requires model and tokenizer paths")
+            index = native_equipment_index(model_path, tokenizer_path)
+            result = index.search(RUNBOOKS[fault][1], fault_type=fault, mode="dense", top_k=1)
+            rows = result["results"]
+            if result.get("dense_status") != "available" or not rows:
+                raise RuntimeError("native equipment retrieval unavailable")
+            row = rows[0]
+            return {"runbook_id": row["document_id"], "revision": row["version"],
+                    "instruction": row["text"], "retrieval_backend": "native_onnx",
+                    "citation": row["chunk_id"], "sha256": row["sha256"]}
         return retrieve_runbooks(EQUIPMENT_CORPUS, fault, fault)[0]
 
     tools = [
