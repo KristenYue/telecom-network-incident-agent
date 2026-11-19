@@ -43,6 +43,7 @@ jobs:
           done
           timeout 25s ros2 topic echo /workcell/status std_msgs/msg/String --once | tee artifacts/topic.txt
           timeout 25s ros2 service call /workcell/get_status std_srvs/srv/Trigger '{}' | tee artifacts/service.txt
+          ros2 action list -t | tee artifacts/actions.txt
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --checkpoint artifacts/ros.sqlite3 > artifacts/completed.json
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --cancel-after 3 --checkpoint artifacts/ros.sqlite3 > artifacts/canceled.json
           .venv/bin/python -c 'import json; from pathlib import Path; a,b=(json.loads(Path("artifacts", f+".json").read_text())["result"]["inspection"] for f in ("completed","canceled")); assert a["outcome"]=="completed" and a["inspected"]==8 and a["feedback"]; assert b["outcome"]=="canceled" and 0<b["inspected"]<8 and b["feedback"]'
