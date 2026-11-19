@@ -13,7 +13,7 @@ class RosWorkcellTransport:
         node = rclpy.create_node("agent_status_client", context=context)
         client = node.create_client(Trigger, "/workcell/get_status")
         try:
-            if not client.wait_for_service(timeout_sec=2):
+            if not client.wait_for_service(timeout_sec=15):
                 return {"state": "OFFLINE", "data_boundary": self.boundary}
             future = client.call_async(Trigger.Request())
             rclpy.spin_until_future_complete(node, future, timeout_sec=2)
@@ -36,11 +36,11 @@ class RosWorkcellTransport:
         try:
             if canceled():
                 return {"outcome": "canceled", "inspected": 0}
-            if not client.wait_for_server(timeout_sec=2):
+            if not client.wait_for_server(timeout_sec=15):
                 return {"outcome": "unavailable", "retry_safe": True, "inspected": 0}
             goal = client.send_goal_async(Inspect.Goal(checkpoints=checkpoints),
                 feedback_callback=lambda msg: feedback({"inspected": msg.feedback.inspected, "total": checkpoints}))
-            rclpy.spin_until_future_complete(node, goal, timeout_sec=2)
+            rclpy.spin_until_future_complete(node, goal, timeout_sec=5)
             if not goal.done():
                 return {"outcome": "result_unknown", "retry_safe": False}
             handle = goal.result()
