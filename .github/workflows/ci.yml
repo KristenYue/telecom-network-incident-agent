@@ -33,14 +33,23 @@ jobs:
           source install/setup.bash
           export ROS_LOCALHOST_ONLY=1
           mkdir -p artifacts
-          ros2 run industrial_robot_sim workcell_sim > artifacts/workcell.log 2>&1 &
+          python3 -u ros2/industrial_robot_sim/scripts/workcell_sim > artifacts/workcell.log 2>&1 &
           simulator=$!
-          trap 'kill "$simulator" 2>/dev/null || true' EXIT
-          timeout 25s ros2 topic echo /workcell/status --once | tee artifacts/topic.txt
+          trap 'cat artifacts/workcell.log; kill "$simulator" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 20); do
+            kill -0 "$simulator"
+            if ros2 service list | grep -q '^/workcell/get_status$'; then break; fi
+            sleep 1
+          done
+          timeout 25s ros2 topic echo /workcell/status std_msgs/msg/String --once | tee artifacts/topic.txt
           timeout 25s ros2 service call /workcell/get_status std_srvs/srv/Trigger '{}' | tee artifacts/service.txt
+          ros2 action list -t | tee artifacts/actions.txt
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --checkpoint artifacts/ros.sqlite3 > artifacts/completed.json
           .venv/bin/python scripts/demo_ros_runtime.py --allow-simulation --cancel-after 3 --checkpoint artifacts/ros.sqlite3 > artifacts/canceled.json
           .venv/bin/python -c 'import json; from pathlib import Path; a,b=(json.loads(Path("artifacts", f+".json").read_text())["result"]["inspection"] for f in ("completed","canceled")); assert a["outcome"]=="completed" and a["inspected"]==8 and a["feedback"]; assert b["outcome"]=="canceled" and 0<b["inspected"]<8 and b["feedback"]'
+          .venv/bin/python scripts/demo_robot_agent.py --ros2 --baseline --data-dir artifacts/robot --output artifacts/robot-completed.json
+          .venv/bin/python scripts/demo_robot_agent.py --ros2 --baseline --cancel-after 1 --data-dir artifacts/robot --output artifacts/robot-canceled.json
+          .venv/bin/python -c 'import json; from pathlib import Path; a=json.loads(Path("artifacts/robot-completed.json").read_text()); b=json.loads(Path("artifacts/robot-canceled.json").read_text()); assert a["task"]["state"]=="completed"; assert b["task"]["state"]=="canceled"; assert a["task"]["result"]["data_boundary"]=="ros2_logic_simulation"'
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -66,6 +75,35 @@ jobs:
       - run: python scripts/evaluate_v2_security_cohorts.py
       - run: python scripts/evaluate_robustness.py
       - run: python scripts/check_release_readiness.py
+
+  sdv-agent-integration:
+    needs: test-and-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: KristenYue/sdv-communication-integration-lab
+          path: sdv-project
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Build project-one SOME/IP vehicle service
+        run: |
+          cmake -S sdv-project -B sdv-build -DCMAKE_BUILD_TYPE=Release
+          cmake --build sdv-build --config Release --target sdv_someip_vehicle_server --parallel 2
+      - name: Run Agent against real VehicleServiceRuntime services
+        run: |
+          python -m pip install -e ".[dev]"
+          python scripts/run_sdv_agent_integration.py \
+            --sdv-server sdv-build/sdv_someip_vehicle_server \
+            --output artifacts/sdv-agent-integration.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: sdv-agent-integration-evidence
+          path: artifacts/
 
   compose-smoke:
     needs: test-and-gate

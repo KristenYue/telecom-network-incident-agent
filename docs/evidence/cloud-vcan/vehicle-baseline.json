@@ -1,0 +1,256 @@
+{
+  "data_boundary": "vehicle_simulation",
+  "planner": "rule_baseline",
+  "live_llm": false,
+  "diagnosis": {
+    "run_id": "cf9350f7-4ffb-472c-8eab-256bada00e59",
+    "task_id": "3b04a0c7-b5f3-4241-ac9c-e5cfe01419ed",
+    "status": "completed",
+    "request": "解释胎压告警",
+    "steps": [
+      {
+        "step_no": 0,
+        "action_kind": "tool",
+        "tool_calls": [
+          {
+            "call_id": "778cc302-df81-453a-8d37-ad3ee0ad0a71",
+            "idempotency_key": "cf9350f7-4ffb-472c-8eab-256bada00e59:0:0",
+            "tool_name": "get_tire_pressure",
+            "arguments": {},
+            "status": "succeeded",
+            "output": {
+              "outcome": "observed",
+              "low_tires": [
+                "front_left"
+              ],
+              "threshold_kpa": 220,
+              "threshold_source": "project_demo_not_vehicle_spec",
+              "snapshot": {
+                "available": true,
+                "sequence": 1,
+                "event_time": 1795084094.8831737,
+                "received_at": 1795084094.8831737,
+                "age_seconds": 0.014206409454345703,
+                "stale": false,
+                "signals": {
+                  "battery_percent": 62,
+                  "door_open": false,
+                  "speed_kph": 0,
+                  "tire_kpa": {
+                    "front_left": 190,
+                    "front_right": 240,
+                    "rear_left": 240,
+                    "rear_right": 240
+                  }
+                },
+                "data_boundary": "vehicle_simulation"
+              }
+            },
+            "error_type": null,
+            "duration_ms": 0.2739930000075219,
+            "replayed_from_cache": false
+          }
+        ]
+      },
+      {
+        "step_no": 1,
+        "action_kind": "tool",
+        "tool_calls": [
+          {
+            "call_id": "61b5022b-d59e-4032-a31a-eb534952ec68",
+            "idempotency_key": "cf9350f7-4ffb-472c-8eab-256bada00e59:1:0",
+            "tool_name": "search_vehicle_knowledge",
+            "arguments": {
+              "topic": "tire_pressure"
+            },
+            "status": "succeeded",
+            "output": {
+              "document_id": "vehicle-tire_pressure",
+              "revision": "1",
+              "text": "项目阈值只用于演示；核对车型规定的冷态胎压。存在告警时由授权人员检查，不自动执行车辆控制。",
+              "source": "project_authored_simulation_notes"
+            },
+            "error_type": null,
+            "duration_ms": 0.014456000002383007,
+            "replayed_from_cache": false
+          }
+        ]
+      },
+      {
+        "step_no": 2,
+        "action_kind": "finish",
+        "tool_calls": []
+      }
+    ],
+    "errors": [],
+    "result": {
+      "planner_mode": "rule_baseline",
+      "evidence": [
+        {
+          "kind": "tool_result",
+          "tool_name": "get_tire_pressure",
+          "status": "succeeded",
+          "output": {
+            "outcome": "observed",
+            "low_tires": [
+              "front_left"
+            ],
+            "threshold_kpa": 220,
+            "threshold_source": "project_demo_not_vehicle_spec",
+            "snapshot": {
+              "available": true,
+              "sequence": 1,
+              "event_time": 1795084094.8831737,
+              "received_at": 1795084094.8831737,
+              "age_seconds": 0.014206409454345703,
+              "stale": false,
+              "signals": {
+                "battery_percent": 62,
+                "door_open": false,
+                "speed_kph": 0,
+                "tire_kpa": {
+                  "front_left": 190,
+                  "front_right": 240,
+                  "rear_left": 240,
+                  "rear_right": 240
+                }
+              },
+              "data_boundary": "vehicle_simulation"
+            }
+          }
+        },
+        {
+          "kind": "tool_result",
+          "tool_name": "search_vehicle_knowledge",
+          "status": "succeeded",
+          "output": {
+            "document_id": "vehicle-tire_pressure",
+            "revision": "1",
+            "text": "项目阈值只用于演示；核对车型规定的冷态胎压。存在告警时由授权人员检查，不自动执行车辆控制。",
+            "source": "project_authored_simulation_notes"
+          }
+        }
+      ],
+      "explanation": "Use recorded signal and project threshold; verify vehicle-specific specification before action.",
+      "data_boundary": "vehicle_simulation"
+    },
+    "pending_action": null,
+    "tool_call_count": 2,
+    "created_at": "2026-11-19T10:28:14.888942Z",
+    "updated_at": "2026-11-19T10:28:14.904700Z"
+  },
+  "approval": {
+    "run_id": "f208c367-b946-4790-9aa5-803d8f92f638",
+    "task_id": "93bde9ea-98dc-4709-8cd4-fbecc2f807f2",
+    "status": "waiting_review",
+    "request": "将模拟空调调至22度",
+    "steps": [
+      {
+        "step_no": 0,
+        "action_kind": "tool",
+        "tool_calls": []
+      }
+    ],
+    "errors": [],
+    "result": null,
+    "pending_action": {
+      "kind": "tool",
+      "tool": {
+        "tool_name": "set_cabin_temperature",
+        "arguments": {
+          "celsius": 22.0
+        }
+      },
+      "tools": [],
+      "message": null,
+      "result": null
+    },
+    "tool_call_count": 1,
+    "created_at": "2026-11-19T10:28:14.909745Z",
+    "updated_at": "2026-11-19T10:28:14.913029Z"
+  },
+  "control": {
+    "run_id": "f208c367-b946-4790-9aa5-803d8f92f638",
+    "task_id": "93bde9ea-98dc-4709-8cd4-fbecc2f807f2",
+    "status": "completed",
+    "request": "将模拟空调调至22度",
+    "steps": [
+      {
+        "step_no": 0,
+        "action_kind": "tool",
+        "tool_calls": [
+          {
+            "call_id": "8a418fae-a27a-467c-a33f-a76c092e9192",
+            "idempotency_key": "f208c367-b946-4790-9aa5-803d8f92f638:0:0",
+            "tool_name": "set_cabin_temperature",
+            "arguments": {
+              "celsius": 22.0
+            },
+            "status": "succeeded",
+            "output": {
+              "outcome": "applied",
+              "celsius": 22.0,
+              "replayed": false,
+              "data_boundary": "vehicle_simulation"
+            },
+            "error_type": null,
+            "duration_ms": 1.0595149999943487,
+            "replayed_from_cache": false
+          }
+        ]
+      },
+      {
+        "step_no": 1,
+        "action_kind": "finish",
+        "tool_calls": []
+      }
+    ],
+    "errors": [],
+    "result": {
+      "planner_mode": "rule_baseline",
+      "evidence": [
+        {
+          "kind": "tool_result",
+          "tool_name": "set_cabin_temperature",
+          "status": "succeeded",
+          "output": {
+            "outcome": "applied",
+            "celsius": 22.0,
+            "replayed": false,
+            "data_boundary": "vehicle_simulation"
+          }
+        }
+      ],
+      "explanation": "Use recorded signal and project threshold; verify vehicle-specific specification before action.",
+      "data_boundary": "vehicle_simulation"
+    },
+    "pending_action": null,
+    "tool_call_count": 1,
+    "created_at": "2026-11-19T10:28:14.909745Z",
+    "updated_at": "2026-11-19T10:28:14.923100Z"
+  },
+  "reconnect": {
+    "flushed": 1,
+    "transport": "local_cloud_delivery_simulation"
+  },
+  "latest": {
+    "available": true,
+    "sequence": 1,
+    "event_time": 1795084094.8831737,
+    "received_at": 1795084094.8831737,
+    "age_seconds": 0.04513812065124512,
+    "stale": false,
+    "signals": {
+      "battery_percent": 62,
+      "door_open": false,
+      "speed_kph": 0,
+      "tire_kpa": {
+        "front_left": 190,
+        "front_right": 240,
+        "rear_left": 240,
+        "rear_right": 240
+      }
+    },
+    "data_boundary": "vehicle_simulation"
+  }
+}

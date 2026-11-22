@@ -1,0 +1,25 @@
+name: telecom-network-lab
+services:
+  r1:
+    build: .
+    cap_add: [NET_ADMIN, NET_RAW, SYS_ADMIN]
+    environment:
+      TELECOM_NETWORK_TOKEN: ${TELECOM_NETWORK_TOKEN:?Set a local lab token}
+    volumes:
+      - ./daemons:/etc/frr/daemons:ro
+      - ./r1.conf:/etc/frr/frr.conf:ro
+    ports: ["127.0.0.1:8092:8092"]
+    networks:
+      lab: {ipv4_address: 10.70.0.11}
+  r2:
+    image: quay.io/frrouting/frr:10.2.1
+    cap_add: [NET_ADMIN, NET_RAW, SYS_ADMIN]
+    volumes:
+      - ./daemons:/etc/frr/daemons:ro
+      - ./r2.conf:/etc/frr/frr.conf:ro
+    networks:
+      lab: {ipv4_address: 10.70.0.12}
+networks:
+  lab:
+    ipam:
+      config: [{subnet: 10.70.0.0/24}]

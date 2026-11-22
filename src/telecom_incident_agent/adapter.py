@@ -153,7 +153,14 @@ class TelecomIncidentRuntimeAdapter:
         self.database_url = database_url
 
     def _runtime(self, incident: IncidentRequest) -> AgentRuntime:
-        tools = SyntheticTelecomTools(incident, timeout_seconds=self.tool_timeout_seconds)
+        if incident.dataset_version in {"network-capture-v1", "network-capture-model-v1"} and not incident.synthetic:
+            from .network_evidence import CapturedNetworkTools, CapturedNetworkPlanner, NetworkLLMPlanner
+            tools = CapturedNetworkTools(incident, timeout_seconds=self.tool_timeout_seconds)
+            planner = (NetworkLLMPlanner.from_environment() if incident.dataset_version == "network-capture-model-v1"
+                       else CapturedNetworkPlanner())
+            return self._build_runtime(planner, tools.registry())
+        else:
+            tools = SyntheticTelecomTools(incident, timeout_seconds=self.tool_timeout_seconds)
         return self._build_runtime(TelecomPlanner(), tools.registry())
 
     def _build_runtime(self, planner, tools) -> AgentRuntime:

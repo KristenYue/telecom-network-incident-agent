@@ -1,0 +1,1 @@
+/workcell/inspect [industrial_robot_sim/action/Inspect]

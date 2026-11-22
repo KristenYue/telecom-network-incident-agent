@@ -1,0 +1,18 @@
+{
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "socketcan_used": true,
+  "interface": "vcan0",
+  "transport_boundary": "linux_virtual_can_not_physical_bus",
+  "decoded": {
+    "frame_id": 257,
+    "message": "TirePressure",
+    "signals": {
+      "FrontLeft": 190.0,
+      "FrontRight": 240.0,
+      "RearLeft": 240.0,
+      "RearRight": 240.0
+    },
+    "data_boundary": "synthetic_can_frame",
+    "decoder": "project_dbc_subset"
+  }
+}

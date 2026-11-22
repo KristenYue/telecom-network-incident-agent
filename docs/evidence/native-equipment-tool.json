@@ -1,0 +1,13 @@
+{
+  "tool": "search_equipment_runbook",
+  "result": {
+    "runbook_id": "sim-interlock-001",
+    "revision": "1",
+    "instruction": "核对联锁输入和急停状态，保留现场证据后交由人工处置",
+    "retrieval_backend": "native_onnx",
+    "citation": "sim-interlock-001@1:1",
+    "sha256": "62f0e2b2e8e899c4ed96b4454719e11084d27aa8c984ed57307a4eeece8bfb1d"
+  },
+  "llm_called": false,
+  "device_boundary": "simulation"
+}

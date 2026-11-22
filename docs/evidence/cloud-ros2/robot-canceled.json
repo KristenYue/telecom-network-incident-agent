@@ -1,0 +1,148 @@
+{
+  "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.39",
+  "elapsed_ms": 5596.180875999991,
+  "planner": "rule_baseline",
+  "task": {
+    "id": "b60c36e4-fd40-4c49-8188-a91c4c0369ba",
+    "key": "ee0a2a68-89ab-4b0f-a765-924e93300ca1",
+    "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+    "mode": "baseline",
+    "state": "canceled",
+    "cancel": 1,
+    "result": {
+      "runtime": {
+        "run_id": "c04f47b5-caeb-4f55-90dc-9b21a84b538b",
+        "task_id": "b60c36e4-fd40-4c49-8188-a91c4c0369ba",
+        "status": "completed",
+        "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+        "steps": [
+          {
+            "step_no": 0,
+            "action_kind": "tool",
+            "tool_calls": [
+              {
+                "call_id": "6dccf5ea-19b7-4d4b-8a0c-01d63508a28e",
+                "idempotency_key": "c04f47b5-caeb-4f55-90dc-9b21a84b538b:0:0",
+                "tool_name": "get_robot_status",
+                "arguments": {},
+                "status": "succeeded",
+                "output": {
+                  "state": "IDLE",
+                  "data_boundary": "ros2_logic_simulation"
+                },
+                "error_type": null,
+                "duration_ms": 2125.3740269999926,
+                "replayed_from_cache": false
+              }
+            ]
+          },
+          {
+            "step_no": 1,
+            "action_kind": "tool",
+            "tool_calls": [
+              {
+                "call_id": "55b61cbb-0c21-4768-9164-0b3a67811f18",
+                "idempotency_key": "c04f47b5-caeb-4f55-90dc-9b21a84b538b:1:0",
+                "tool_name": "inspect_workcell",
+                "arguments": {
+                  "checkpoints": 3
+                },
+                "status": "succeeded",
+                "output": {
+                  "outcome": "canceled",
+                  "inspected": 1,
+                  "ros_status": 5,
+                  "cancel_requested": true
+                },
+                "error_type": null,
+                "duration_ms": 3420.073614000003,
+                "replayed_from_cache": false
+              }
+            ]
+          },
+          {
+            "step_no": 2,
+            "action_kind": "finish",
+            "tool_calls": []
+          }
+        ],
+        "errors": [],
+        "result": {
+          "agent_mode": "rule_baseline",
+          "summary": "Inspection ended; see recorded tool evidence.",
+          "outcome": "canceled",
+          "evidence": [
+            {
+              "tool": "get_robot_status",
+              "output": {
+                "state": "IDLE",
+                "data_boundary": "ros2_logic_simulation"
+              }
+            },
+            {
+              "tool": "inspect_workcell",
+              "output": {
+                "outcome": "canceled",
+                "inspected": 1,
+                "ros_status": 5,
+                "cancel_requested": true
+              }
+            }
+          ]
+        },
+        "pending_action": null,
+        "tool_call_count": 2,
+        "created_at": "2026-11-19T10:54:37.954911Z",
+        "updated_at": "2026-11-19T10:54:43.511143Z"
+      },
+      "model_calls": 0,
+      "data_boundary": "ros2_logic_simulation"
+    },
+    "created": 1795085677.9250197
+  },
+  "events": [
+    {
+      "id": 7,
+      "event": "queued",
+      "data": {
+        "data_boundary": "ros2_logic_simulation"
+      },
+      "at": 1795085677.9260972
+    },
+    {
+      "id": 8,
+      "event": "status",
+      "data": {
+        "state": "IDLE",
+        "data_boundary": "ros2_logic_simulation"
+      },
+      "at": 1795085680.077808
+    },
+    {
+      "id": 9,
+      "event": "progress",
+      "data": {
+        "inspected": 1,
+        "total": 3
+      },
+      "at": 1795085683.3046129
+    },
+    {
+      "id": 10,
+      "event": "cancel_requested",
+      "data": {
+        "accepted": true
+      },
+      "at": 1795085683.3081486
+    },
+    {
+      "id": 11,
+      "event": "terminal",
+      "data": {
+        "state": "canceled"
+      },
+      "at": 1795085683.5138648
+    }
+  ],
+  "credentials_recorded": false
+}

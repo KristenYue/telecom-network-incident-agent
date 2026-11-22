@@ -1,0 +1,267 @@
+{
+  "mode": "native_onnx_retrieval",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "corpus": "project_authored_runbooks",
+  "results": [
+    {
+      "query": "BGP邻居会话断开",
+      "retrieval": {
+        "results": [
+          {
+            "document_id": "rb-bgp-001",
+            "title": "BGP 邻居中断排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "bgp_neighbor_down",
+            "source": "project://runbooks/rb-bgp-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "e450675fa4447f21cd27e12801bf550223d02a34b5b9d1d75b5a578cdafed022",
+            "text": "BGP 邻居中断排查\nbgp neighbor 邻居\n检查邻居状态和最后变化原因\n检查对端可达性\n清会话或改路由策略必须审批",
+            "chunk_id": "rb-bgp-001@2026.1:1",
+            "score": 0.03606557
+          },
+          {
+            "document_id": "rb-flap-001",
+            "title": "路由震荡定位",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "route_flap",
+            "source": "project://runbooks/rb-flap-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "b2efa21e2a642cc0cbc3e47cdf45a9bb4d3b97909f99afeeadb22bb96fd011b7",
+            "text": "路由震荡定位\nroute_flap prefix_updates 震荡\n统计前缀更新率\n关联邻居与接口时间线\n路由抑制策略变更必须审批",
+            "chunk_id": "rb-flap-001@2026.1:1",
+            "score": 0.03346774
+          },
+          {
+            "document_id": "rb-ospf-001",
+            "title": "OSPF 邻接排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "ospf_adjacency",
+            "source": "project://runbooks/rb-ospf-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "c0941ba17a09d9ebe7427c7406fea4da80494013da9fbc482f91b1279e5f7da6",
+            "text": "OSPF 邻接排查\nospf adjacency 邻接\n核对区域、MTU 与 Hello 参数\n检查状态卡在哪一阶段\n重置进程必须审批",
+            "chunk_id": "rb-ospf-001@2026.1:1",
+            "score": 0.03214286
+          },
+          {
+            "document_id": "rb-interface-001",
+            "title": "接口 Down 只读排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "interface_down",
+            "source": "project://runbooks/rb-interface-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "4fb26f7a9bc43a4a4dbd7cfec755a4d7502e3644becfe165f0cc8c62b0db7b6d",
+            "text": "接口 Down 只读排查\nlink_down 接口 down\n核对管理状态与运行状态\n检查最近状态变化与对端告警\n核对物理连接；任何端口重启必须审批",
+            "chunk_id": "rb-interface-001@2026.1:1",
+            "score": 0.015625
+          },
+          {
+            "document_id": "rb-ber-001",
+            "title": "高误码率排查",
+            "version": "2026.1",
+            "device_family": "generic-optical",
+            "fault_type": "high_ber",
+            "source": "project://runbooks/rb-ber-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "b1101a12e890a19d880b96af208b20c8764c48e246c58c81f404e91e7f415cf9",
+            "text": "高误码率排查\nber crc 误码\n对齐 BER 与 CRC 时间窗口\n核对光功率和线路告警\n保留替换链路前后的指标证据",
+            "chunk_id": "rb-ber-001@2026.1:1",
+            "score": 0.01538462
+          }
+        ],
+        "dense_status": "available",
+        "mode": "hybrid",
+        "no_answer": false,
+        "reranker": "lexical_coverage"
+      }
+    },
+    {
+      "query": "光模块接收功率过低",
+      "retrieval": {
+        "results": [
+          {
+            "document_id": "rb-optical-001",
+            "title": "光功率异常排查",
+            "version": "2026.1",
+            "device_family": "generic-optical",
+            "fault_type": "optical_power_abnormal",
+            "source": "project://runbooks/rb-optical-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "e9a3dec7c8644360c9e050e95f7dfb2b0881eafa6986f8e4e5a794f0fca9ab34",
+            "text": "光功率异常排查\nrx_power 光功率 optic\n读取收发光功率\n核对模块阈值和链路预算\n清洁连接器；更换模块必须审批",
+            "chunk_id": "rb-optical-001@2026.1:1",
+            "score": 0.03539055
+          },
+          {
+            "document_id": "rb-ber-001",
+            "title": "高误码率排查",
+            "version": "2026.1",
+            "device_family": "generic-optical",
+            "fault_type": "high_ber",
+            "source": "project://runbooks/rb-ber-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "b1101a12e890a19d880b96af208b20c8764c48e246c58c81f404e91e7f415cf9",
+            "text": "高误码率排查\nber crc 误码\n对齐 BER 与 CRC 时间窗口\n核对光功率和线路告警\n保留替换链路前后的指标证据",
+            "chunk_id": "rb-ber-001@2026.1:1",
+            "score": 0.03339658
+          },
+          {
+            "document_id": "rb-flap-001",
+            "title": "路由震荡定位",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "route_flap",
+            "source": "project://runbooks/rb-flap-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "b2efa21e2a642cc0cbc3e47cdf45a9bb4d3b97909f99afeeadb22bb96fd011b7",
+            "text": "路由震荡定位\nroute_flap prefix_updates 震荡\n统计前缀更新率\n关联邻居与接口时间线\n路由抑制策略变更必须审批",
+            "chunk_id": "rb-flap-001@2026.1:1",
+            "score": 0.03157202
+          },
+          {
+            "document_id": "rb-interface-001",
+            "title": "接口 Down 只读排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "interface_down",
+            "source": "project://runbooks/rb-interface-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "4fb26f7a9bc43a4a4dbd7cfec755a4d7502e3644becfe165f0cc8c62b0db7b6d",
+            "text": "接口 Down 只读排查\nlink_down 接口 down\n核对管理状态与运行状态\n检查最近状态变化与对端告警\n核对物理连接；任何端口重启必须审批",
+            "chunk_id": "rb-interface-001@2026.1:1",
+            "score": 0.03129828
+          },
+          {
+            "document_id": "rb-ospf-001",
+            "title": "OSPF 邻接排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "ospf_adjacency",
+            "source": "project://runbooks/rb-ospf-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "c0941ba17a09d9ebe7427c7406fea4da80494013da9fbc482f91b1279e5f7da6",
+            "text": "OSPF 邻接排查\nospf adjacency 邻接\n核对区域、MTU 与 Hello 参数\n检查状态卡在哪一阶段\n重置进程必须审批",
+            "chunk_id": "rb-ospf-001@2026.1:1",
+            "score": 0.03128323
+          }
+        ],
+        "dense_status": "available",
+        "mode": "hybrid",
+        "no_answer": false,
+        "reranker": "lexical_coverage"
+      }
+    },
+    {
+      "query": "设备CPU负载持续过高",
+      "retrieval": {
+        "results": [
+          {
+            "document_id": "rb-resource-001",
+            "title": "设备资源异常排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "device_resource",
+            "source": "project://runbooks/rb-resource-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "e58b34f2f215321d1839f3a7557b600c7e95aef16ce65276e203c852017c298c",
+            "text": "设备资源异常排查\ncpu memory 资源\n读取 CPU 和内存趋势\n核对最近重启与进程异常\n重启设备或终止进程必须审批",
+            "chunk_id": "rb-resource-001@2026.1:1",
+            "score": 0.03409836
+          },
+          {
+            "document_id": "rb-util-001",
+            "title": "带宽高利用率排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "high_utilization",
+            "source": "project://runbooks/rb-util-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "74c9623f6f7355e7120794d6c7fc7274fec669ee4f16faabe3484b2ad76b42e0",
+            "text": "带宽高利用率排查\nutilization bandwidth 利用率\n确认峰值与持续时间\n区分业务增长和异常流量\nQoS 或限速变更必须审批",
+            "chunk_id": "rb-util-001@2026.1:1",
+            "score": 0.03328213
+          },
+          {
+            "document_id": "rb-ber-001",
+            "title": "高误码率排查",
+            "version": "2026.1",
+            "device_family": "generic-optical",
+            "fault_type": "high_ber",
+            "source": "project://runbooks/rb-ber-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "b1101a12e890a19d880b96af208b20c8764c48e246c58c81f404e91e7f415cf9",
+            "text": "高误码率排查\nber crc 误码\n对齐 BER 与 CRC 时间窗口\n核对光功率和线路告警\n保留替换链路前后的指标证据",
+            "chunk_id": "rb-ber-001@2026.1:1",
+            "score": 0.03232207
+          },
+          {
+            "document_id": "rb-upstream-001",
+            "title": "DNS 与上游依赖排查",
+            "version": "2026.1",
+            "device_family": "generic-service",
+            "fault_type": "upstream_dependency",
+            "source": "project://runbooks/rb-upstream-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "edbe7d27aa5dadc1242dc46f8e58f2ccacef6c9cab9bb7a55e6f4851001d07f7",
+            "text": "DNS 与上游依赖排查\ndns upstream 依赖\n分别验证解析和上游连接\n比较多个探测点\n切换上游必须审批",
+            "chunk_id": "rb-upstream-001@2026.1:1",
+            "score": 0.015625
+          },
+          {
+            "document_id": "rb-interface-001",
+            "title": "接口 Down 只读排查",
+            "version": "2026.1",
+            "device_family": "generic-router",
+            "fault_type": "interface_down",
+            "source": "project://runbooks/rb-interface-001",
+            "data_boundary": "synthetic_runbook",
+            "line_start": 1,
+            "line_end": 5,
+            "sha256": "4fb26f7a9bc43a4a4dbd7cfec755a4d7502e3644becfe165f0cc8c62b0db7b6d",
+            "text": "接口 Down 只读排查\nlink_down 接口 down\n核对管理状态与运行状态\n检查最近状态变化与对端告警\n核对物理连接；任何端口重启必须审批",
+            "chunk_id": "rb-interface-001@2026.1:1",
+            "score": 0.01538462
+          }
+        ],
+        "dense_status": "available",
+        "mode": "hybrid",
+        "no_answer": false,
+        "reranker": "lexical_coverage"
+      }
+    }
+  ],
+  "live_llm": false,
+  "independent_accuracy_benchmark": false
+}

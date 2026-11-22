@@ -1,0 +1,98 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "elapsed_ms": 713.4623999008909,
+  "planner": "rule_baseline",
+  "task": {
+    "id": "7109e500-72ff-473e-b0d7-ced4eb85db16",
+    "key": "699efe38-e372-4953-9726-cb29ccd5a5a4",
+    "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+    "mode": "baseline",
+    "state": "failed_closed",
+    "cancel": 0,
+    "result": {
+      "runtime": {
+        "run_id": "abeaf3ec-4f83-436f-a64b-832bab9e239b",
+        "task_id": "7109e500-72ff-473e-b0d7-ced4eb85db16",
+        "status": "completed",
+        "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+        "steps": [
+          {
+            "step_no": 0,
+            "action_kind": "tool",
+            "tool_calls": [
+              {
+                "call_id": "5ab7281e-b4f2-4a15-9680-73b2a6389fe8",
+                "idempotency_key": "abeaf3ec-4f83-436f-a64b-832bab9e239b:0:0",
+                "tool_name": "get_robot_status",
+                "arguments": {},
+                "status": "succeeded",
+                "output": {
+                  "state": "OFFLINE",
+                  "data_boundary": "logic_simulation"
+                },
+                "error_type": null,
+                "duration_ms": 4.133300040848553,
+                "replayed_from_cache": false
+              }
+            ]
+          },
+          {
+            "step_no": 1,
+            "action_kind": "finish",
+            "tool_calls": []
+          }
+        ],
+        "errors": [],
+        "result": {
+          "agent_mode": "rule_baseline",
+          "summary": "Inspection ended; see recorded tool evidence.",
+          "outcome": "unavailable",
+          "evidence": [
+            {
+              "tool": "get_robot_status",
+              "output": {
+                "state": "OFFLINE",
+                "data_boundary": "logic_simulation"
+              }
+            }
+          ]
+        },
+        "pending_action": null,
+        "tool_call_count": 1,
+        "created_at": "2026-11-19T08:53:20.897719Z",
+        "updated_at": "2026-11-19T08:53:20.930244Z"
+      },
+      "model_calls": 0,
+      "data_boundary": "logic_simulation"
+    },
+    "created": 1795078400.878059
+  },
+  "events": [
+    {
+      "id": 12,
+      "event": "queued",
+      "data": {
+        "data_boundary": "logic_simulation"
+      },
+      "at": 1795078400.884059
+    },
+    {
+      "id": 13,
+      "event": "status",
+      "data": {
+        "state": "OFFLINE",
+        "data_boundary": "logic_simulation"
+      },
+      "at": 1795078400.9161637
+    },
+    {
+      "id": 14,
+      "event": "terminal",
+      "data": {
+        "state": "failed_closed"
+      },
+      "at": 1795078400.9463198
+    }
+  ],
+  "credentials_recorded": false
+}

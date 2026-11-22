@@ -1,0 +1,154 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "elapsed_ms": 4891.570099978708,
+  "planner": "live_model",
+  "task": {
+    "id": "f85c7ac5-d2a1-4b4a-8056-ef639904d8d4",
+    "key": "d933f6dd-6723-4294-9b95-7aaa6d62fbd7",
+    "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+    "mode": "model",
+    "state": "completed",
+    "cancel": 0,
+    "result": {
+      "runtime": {
+        "run_id": "723ab822-3e86-4313-b543-fde03559be67",
+        "task_id": "f85c7ac5-d2a1-4b4a-8056-ef639904d8d4",
+        "status": "completed",
+        "request": "查询工作站状态，执行三点巡检，并根据真实结果生成报告。",
+        "steps": [
+          {
+            "step_no": 0,
+            "action_kind": "tool",
+            "tool_calls": [
+              {
+                "call_id": "843016f6-ead0-4ce7-9bcc-1ea90491ded8",
+                "idempotency_key": "723ab822-3e86-4313-b543-fde03559be67:0:0",
+                "tool_name": "get_robot_status",
+                "arguments": {},
+                "status": "succeeded",
+                "output": {
+                  "state": "IDLE",
+                  "data_boundary": "logic_simulation"
+                },
+                "error_type": null,
+                "duration_ms": 3.1114000594243407,
+                "replayed_from_cache": false
+              }
+            ]
+          },
+          {
+            "step_no": 1,
+            "action_kind": "tool",
+            "tool_calls": [
+              {
+                "call_id": "725951a4-5ff6-4eb7-9a22-c18bff4801f3",
+                "idempotency_key": "723ab822-3e86-4313-b543-fde03559be67:1:0",
+                "tool_name": "inspect_workcell",
+                "arguments": {
+                  "checkpoints": 3
+                },
+                "status": "succeeded",
+                "output": {
+                  "outcome": "completed",
+                  "inspected": 3
+                },
+                "error_type": null,
+                "duration_ms": 329.1149999713525,
+                "replayed_from_cache": false
+              }
+            ]
+          },
+          {
+            "step_no": 2,
+            "action_kind": "finish",
+            "tool_calls": []
+          }
+        ],
+        "errors": [],
+        "result": {
+          "agent_mode": "model_driven",
+          "summary": "工作站状态确认为IDLE。已执行三点巡检，结果为completed，共检查3个点位。",
+          "outcome": "completed",
+          "evidence": [
+            {
+              "tool": "get_robot_status",
+              "output": {
+                "state": "IDLE",
+                "data_boundary": "logic_simulation"
+              }
+            },
+            {
+              "tool": "inspect_workcell",
+              "output": {
+                "outcome": "completed",
+                "inspected": 3
+              }
+            }
+          ]
+        },
+        "pending_action": null,
+        "tool_call_count": 2,
+        "created_at": "2026-11-19T09:41:14.257896Z",
+        "updated_at": "2026-11-19T09:41:18.921784Z"
+      },
+      "model_calls": 3,
+      "data_boundary": "logic_simulation"
+    },
+    "created": 1795081274.207346
+  },
+  "events": [
+    {
+      "id": 17,
+      "event": "queued",
+      "data": {
+        "data_boundary": "logic_simulation"
+      },
+      "at": 1795081274.2133296
+    },
+    {
+      "id": 18,
+      "event": "status",
+      "data": {
+        "state": "IDLE",
+        "data_boundary": "logic_simulation"
+      },
+      "at": 1795081275.881183
+    },
+    {
+      "id": 19,
+      "event": "progress",
+      "data": {
+        "inspected": 1,
+        "total": 3
+      },
+      "at": 1795081277.1215482
+    },
+    {
+      "id": 20,
+      "event": "progress",
+      "data": {
+        "inspected": 2,
+        "total": 3
+      },
+      "at": 1795081277.2375011
+    },
+    {
+      "id": 21,
+      "event": "progress",
+      "data": {
+        "inspected": 3,
+        "total": 3
+      },
+      "at": 1795081277.3456635
+    },
+    {
+      "id": 22,
+      "event": "terminal",
+      "data": {
+        "state": "completed"
+      },
+      "at": 1795081278.9333138
+    }
+  ],
+  "credentials_recorded": false
+}

@@ -127,6 +127,32 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
     async def create_incident(request: IncidentRequest) -> dict:
         return await service.create(request)
 
+    @app.get("/v1/knowledge/search")
+    def search_knowledge(query: str = Query(min_length=1, max_length=2000),
+                         device_family: str | None = None, version: str | None = None,
+                         mode: Literal["bm25", "dense", "hybrid"] = "hybrid") -> dict:
+        from .knowledge import default_index
+        try:
+            return default_index().search(query, device_family=device_family, version=version, mode=mode)
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
+
+    @app.post("/v1/network-diagnoses", status_code=201)
+    async def diagnose_network(model_driven: bool = False) -> dict:
+        from .network_evidence import NetworkCollector, as_incident
+        # No user-controlled URL or CLI is accepted. Collection failures never
+        # fall back to synthetic observations.
+        try:
+            snapshot = NetworkCollector.from_environment().capture()
+            incident = as_incident(snapshot)
+            if model_driven:
+                if not all(os.getenv(k) for k in ("TELECOM_MODEL_BASE_URL", "TELECOM_MODEL_ID", "TELECOM_MODEL_API_KEY")):
+                    raise HTTPException(503, "model planner is not configured")
+                incident = incident.model_copy(update={"dataset_version": "network-capture-model-v1"})
+        except (KeyError, OSError, ValueError) as exc:
+            raise HTTPException(503, "network evidence unavailable: " + type(exc).__name__) from exc
+        return await service.create(incident)
+
     @app.post("/v1/device-tasks", status_code=202)
     def submit_device_task(request: DeviceTaskRequest) -> dict:
         if service.device_tasks is None:
