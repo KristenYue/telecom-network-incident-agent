@@ -37,6 +37,10 @@
 
 ## 机器人：目标到技能执行
 
+![业务场景流程示意](docs/assets/robot-task-flow.gif)
+
+<sub>场景示意动画，非实机录像；实际执行环境与结果见下方证据。[静态图](docs/assets/robot-task-flow.png)</sub>
+
 ```mermaid
 sequenceDiagram
     participant U as 任务请求
@@ -71,6 +75,10 @@ sequenceDiagram
 
 ## 芯片与工业软件：模型接口到设备诊断
 
+![业务场景流程示意](docs/assets/equipment-diagnosis-flow.gif)
+
+<sub>场景示意动画，非实机录像；实际执行环境与结果见下方证据。[静态图](docs/assets/equipment-diagnosis-flow.png)</sub>
+
 **业务问题：** “设备为什么不能启动？”系统先经 TCP 查询 C++ 仿真设备，观察安全联锁，再调用知识工具生成有出处的解释。
 
 **技术链：** LLM → 工具注册 → C++ TCP 快照 → Python Tokenizer → C++ / ONNX BGE Embedding → 知识条目与版本 → 结构化诊断。
@@ -81,6 +89,10 @@ sequenceDiagram
 - Runbook 保存文档身份和版本，让结论能追溯到当时采用的知识；它承担**知识来源和领域约束**，模型与工具调用承担实际推理和执行。
 
 ## 智能汽车：观测、审批与服务调用
+
+![业务场景流程示意](docs/assets/vehicle-service-flow.gif)
+
+<sub>场景示意动画，非实机录像；实际执行环境与结果见下方证据。[静态图](docs/assets/vehicle-service-flow.png)</sub>
 
 | 模块 | 实际完成 | 证据 |
 |---|---|---|
